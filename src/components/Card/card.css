@@ -16,7 +16,6 @@ ul{
   display: flex;
   gap: 2.5rem;
   padding: 25px;
-  max-width: 562px;
   min-height: 393px;
   height: auto;
   overflow: none;

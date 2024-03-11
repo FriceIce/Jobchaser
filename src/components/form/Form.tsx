@@ -6,14 +6,12 @@ import useFetch from '../../hook/useFetch';
 
 function Form(){
   const [input, setInput] = useState('')
+  const {data, error} = useFetch('data/jobs.json'); 
   // const [submit, setSubmit] = useState('')
-  
-  const {data} = useFetch('data/jobs.json'); 
 
   const inputValue = (input: React.ChangeEvent<HTMLInputElement>) => {
     return setInput(input.target.value)
   }
-
 
   // function onsubmit(input: string){
   //   setSubmit(input);
@@ -31,7 +29,8 @@ function Form(){
           <input value={input} onChange={(e) => inputValue(e)} type="text" placeholder='Jobbtitel, nyckelord eller företag' aria-label='Search bar for job ads'/>
         </div>
       </form>
-      { data && <Card jobs={data} input={input}/>}
+      { data && <Card jobs={data} input={input} />}
+      {error && <h1>{error}</h1>}
     </>
   )
 }

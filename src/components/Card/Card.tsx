@@ -4,7 +4,6 @@ import './card.css';
 export type Jobs = {
   jobs: Job[]; 
   input: string;
-  // error: string; 
 }
 
 export type Job = {
