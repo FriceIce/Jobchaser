@@ -8,7 +8,7 @@ function Form(){
   const [input, setInput] = useState('')
   // const [submit, setSubmit] = useState('')
   
-  const {data} = useFetch('src/data/jobs.json'); 
+  const {data} = useFetch('data/jobs.json'); 
 
   const inputValue = (input: React.ChangeEvent<HTMLInputElement>) => {
     return setInput(input.target.value)
