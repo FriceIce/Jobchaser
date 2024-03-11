@@ -1,0 +1,30 @@
+@media(width < 1001px){
+  /* .job-form-container{
+    margin: 53px 10px;
+  } */
+}
+
+@media(width < 862px){
+  .card{
+    max-width: none;
+  }
+}
+
+@media(width < 601px){
+
+  .job-form-container{
+    margin: 53px 7px;
+  }
+  
+  .title-container{
+    padding: 53px 30px ;
+  }
+  
+  .title-container img{
+    width: 250px;
+  }
+
+  .card{
+    gap: 1.5rem;
+  }
+}

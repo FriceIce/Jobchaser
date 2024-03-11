@@ -1,0 +1,15 @@
+header{
+  height: 110px;
+  width: 100%;
+  min-width: 375px;
+  /* border-bottom: 1px solid; */
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.226);
+}
+
+.title-container{
+  padding: 33px 50px ;
+}
+
+.title-container img{
+  width: 350px;
+}

@@ -1,0 +1,22 @@
+*, ::before, ::after{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body{
+  background: white;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+.job-form-container{
+  display: flex; 
+  flex-direction: column;
+  gap: 3rem;
+  margin: 53px;
+  max-width: 1900px;
+  padding-bottom: 20px;
+}
+
