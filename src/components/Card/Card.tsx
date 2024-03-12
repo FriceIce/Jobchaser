@@ -3,7 +3,6 @@ import './card.css';
 
 export type Jobs = {
   jobs: Job[]; 
-  input: string;
 }
 
 export type Job = {
@@ -20,7 +19,7 @@ export type Job = {
   tools: string[]; 
 }
 
-function Card({jobs, input}: Jobs){
+function Card({jobs}: Jobs){
   console.log(jobs, '23')
 
   // Renderar innehåll från tools samt sköter stylingen. 
@@ -45,21 +44,11 @@ function Card({jobs, input}: Jobs){
       )
     }; 
   }
-
-  function jobAdFilter(jobObj: Job, setInput: string){
-    const input = setInput.toLocaleLowerCase();
-    if(setInput === '') return jobObj;
-    if(jobObj.company.toLocaleLowerCase().includes(input)) return jobObj; 
-    if(jobObj.position.toLocaleLowerCase().includes(input)) return jobObj;
-    if(jobObj.contract.toLocaleLowerCase().includes(input)) return jobObj; 
-    if(jobObj.tools.join('').toLowerCase().includes(input)) return jobObj; // #tags
-    if(jobObj.languages.join('').toLowerCase().includes(input)) return jobObj; // #tags
-  }
   
   return(
 
     <ul>
-    {jobs.filter((jobObj) => jobAdFilter(jobObj, input)).map((jobObj) => { 
+    {jobs.map((jobObj) => { 
       const imagePath = './assets' + jobObj.logo.substring(8); 
       
       return (
@@ -83,7 +72,7 @@ function Card({jobs, input}: Jobs){
             {checkingForValue(jobObj.location)}
           </ul>
         </article>
-        <p className='date'>Posted: {jobObj.postedAt}</p>
+        <p className='date'>Posted: {jobObj.postedAt || 'Unkown'}</p>
       </li>
       )})
     }

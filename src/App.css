@@ -15,6 +15,18 @@ body{
   width: 100vw;
 }
 
+body::-webkit-scrollbar{
+  width: 13px;
+}
+
+body::-webkit-scrollbar-track{
+  background: white;
+}
+
+body::-webkit-scrollbar-thumb{
+  background: #fcb242;
+}
+
 .job-form-container{
   display: flex; 
   flex-direction: column;
