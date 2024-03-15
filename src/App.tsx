@@ -1,5 +1,6 @@
 import Header from './components/header/header';
-import Form from './components/form/Form';
+import Search from './components/search/Search';
+// import AddJob from './components/AddJob/AddJob';
  
 import './App.css';
 import './media-query.css'
@@ -8,13 +9,12 @@ import './media-query.css'
 
 function App() {
 
-  
-
   return (
     <>
       <Header/>
       <div className='job-form-container'>
-        <Form />
+        <Search />
+        {/* <AddJob /> */}
       </div>
     </>
   )

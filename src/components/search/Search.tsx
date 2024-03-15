@@ -5,7 +5,7 @@ import { useState } from 'react';
 import useFetch from '../../hook/useFetch';
 import { Job } from '../Card/Card';
 
-function Form(){
+function Search(){
   const [input, setInput] = useState('')
   const {data, error} = useFetch('data/jobs.json'); 
 
@@ -15,6 +15,7 @@ function Form(){
   
   function jobAdFilter(jobObj: Job, setInput: string){
     const input = setInput.toLocaleLowerCase();
+    
     if(setInput === '') return jobObj;
     if(jobObj.company.toLocaleLowerCase().includes(input)) return jobObj; 
     if(jobObj.position.toLocaleLowerCase().includes(input)) return jobObj;
@@ -36,16 +37,16 @@ function Form(){
           </button>
           <input 
             value={input}
-            onChange={(e) => inputValue(e)} type="text" 
+            onChange={inputValue} type="text" 
             placeholder='Jobbtitel, nyckelord eller företag' 
             aria-label='Search bar for job ads'
-            />
+          />
         </div>
       </form>
-      {data && <Card jobs={data.filter((jobObj: Job) => jobAdFilter(jobObj, input))} /* input={input} */ />}
+      {data && <Card jobs={data.filter((jobObj: Job) => jobAdFilter(jobObj, input))} />}
       {error && <h1>{error}</h1>}
     </>
   )
 }
 
-export default Form;
+export default Search;
