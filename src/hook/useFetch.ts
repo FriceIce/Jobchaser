@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { Job } from "../components/Card/Card";
 
 function useFetch(url: string){
-  const [data, setData] = useState<Job[]>([]);
+  const [data, setData] = useState<any[]>();
   const [error, setError] = useState<string>('');
 
   useEffect(() => {
@@ -14,8 +13,8 @@ function useFetch(url: string){
           setError(errorMessage)
           throw Error(errorMessage)
         } 
-
-        const data: React.SetStateAction<Job[]> = await response.json(); 
+        
+        const data: React.SetStateAction<any> = await response.json(); 
         setData(data); 
       } catch (error) {
         console.error(error);
@@ -23,7 +22,7 @@ function useFetch(url: string){
     }
 
     fetchData();
-  }, [url])
+  }, [])
 
   return {data, error}
 }
