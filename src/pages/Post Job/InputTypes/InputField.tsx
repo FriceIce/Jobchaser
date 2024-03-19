@@ -11,7 +11,7 @@ type formInfo = {
   }>>
   register: (name: string, options: Partial<{
     required: ValidationRule<boolean>;
-    // pattern?: ValidationRule<boolean>;
+    pattern: RegExp | false;
   }>) => UseFormRegisterReturn
 }
 
@@ -28,7 +28,8 @@ function InputField({input, label, type, required, placeholder, errors, register
         placeholder={placeholder}
         type={type}
         {...register(noWhiteSpace, {
-          required: required,        
+          required: required,
+          pattern: type === 'text' && /^[A-Za-z0-9\s]+$/
         })}
       />) : 
 
@@ -38,11 +39,16 @@ function InputField({input, label, type, required, placeholder, errors, register
       rows={30} 
       cols={10}
       {...register(noWhiteSpace, {
-        required: required,        
+        required: required,    
+        pattern: !input && /^[A-Za-z0-9.,\s]+$/
       })}>
 
       </textarea>)} 
-      {errors[noWhiteSpace] && errors[noWhiteSpace]!.type === "required" && (<p className="errorMsg">{firstLetterUpper} is required.</p>)}
+      {errors[noWhiteSpace] && errors[noWhiteSpace]!.type === "required" && 
+      (<p className="errorMsg">{firstLetterUpper} is required.</p>)}
+
+      {errors[noWhiteSpace] && errors[noWhiteSpace]!.type === 'pattern' && 
+      (<p className="errorMsg">Only text is allowed</p>)}
   </div>
   )
 }

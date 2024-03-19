@@ -1,6 +1,5 @@
 {
   "jobs": [
-    
     {
       "jobdescription": "Eyecam Co. is seeking a Full Stack Engineer to join our team. In this role, you will work on both frontend and backend development projects using JavaScript and Python. You will have the opportunity to work with Django to build scalable web applications.",
       "id": "9",
@@ -13,26 +12,26 @@
       "employmentType": "Full Time",
       "workLocation": "Worldwide",
       "programmingLanguages": [
-          {
-              "id": "22",
-              "value": "JavaScript",
-              "label": "JavaScript"
-          },
-          {
-              "id": "23",
-              "value": "Python",
-              "label": "Python"
-          }
+        {
+          "id": "22",
+          "value": "JavaScript",
+          "label": "JavaScript"
+        },
+        {
+          "id": "23",
+          "value": "Python",
+          "label": "Python"
+        }
       ],
       "frameworks": [
-          {
-              "id": "24",
-              "value": "Django",
-              "label": "Django"
-          }
+        {
+          "id": "24",
+          "value": "Django",
+          "label": "Django"
+        }
       ]
-  },
-  {
+    },
+    {
       "jobdescription": "Insure is hiring a Junior Frontend Developer to join our team in the USA. In this role, you will work on frontend projects using JavaScript. You will have the opportunity to work with Vue.js and Sass to create responsive and dynamic user interfaces.",
       "id": "8",
       "company": "Insure",
@@ -44,26 +43,26 @@
       "employmentType": "Full Time",
       "workLocation": "USA Only",
       "programmingLanguages": [
-          {
-              "id": "19",
-              "value": "JavaScript",
-              "label": "JavaScript"
-          }
+        {
+          "id": "19",
+          "value": "JavaScript",
+          "label": "JavaScript"
+        }
       ],
       "frameworks": [
-          {
-              "id": "20",
-              "value": "Vue",
-              "label": "Vue"
-          },
-          {
-              "id": "21",
-              "value": "Sass",
-              "label": "Sass"
-          }
+        {
+          "id": "20",
+          "value": "Vue",
+          "label": "Vue"
+        },
+        {
+          "id": "21",
+          "value": "Sass",
+          "label": "Sass"
+        }
       ]
-  },
-  {
+    },
+    {
       "jobdescription": "Shortly is looking for a Junior Developer to join our team. In this role, you will primarily work on frontend projects, utilizing HTML, JavaScript, and Sass. This is an excellent opportunity for someone who is passionate about web development and eager to grow their skills.",
       "id": "7",
       "company": "Shortly",
@@ -75,26 +74,26 @@
       "employmentType": "Full Time",
       "workLocation": "Worldwide",
       "programmingLanguages": [
-          {
-              "id": "16",
-              "value": "HTML",
-              "label": "HTML"
-          },
-          {
-              "id": "17",
-              "value": "JavaScript",
-              "label": "JavaScript"
-          }
+        {
+          "id": "16",
+          "value": "HTML",
+          "label": "HTML"
+        },
+        {
+          "id": "17",
+          "value": "JavaScript",
+          "label": "JavaScript"
+        }
       ],
       "frameworks": [
-          {
-              "id": "18",
-              "value": "Sass",
-              "label": "Sass"
-          }
+        {
+          "id": "18",
+          "value": "Sass",
+          "label": "Sass"
+        }
       ]
-  },
-  {
+    },
+    {
       "jobdescription": "FaceIt is seeking a Junior Backend Developer to join our team in the UK. In this role, you will work primarily with Ruby on Rails to build scalable backend solutions. This is an excellent opportunity for someone who is passionate about backend development and eager to work on exciting projects.",
       "id": "6",
       "company": "FaceIt",
@@ -106,21 +105,21 @@
       "employmentType": "Full Time",
       "workLocation": "UK Only",
       "programmingLanguages": [
-          {
-              "id": "14",
-              "value": "Ruby",
-              "label": "Ruby"
-          }
+        {
+          "id": "14",
+          "value": "Ruby",
+          "label": "Ruby"
+        }
       ],
       "frameworks": [
-          {
-              "id": "15",
-              "value": "RoR",
-              "label": "RoR"
-          }
+        {
+          "id": "15",
+          "value": "RoR",
+          "label": "RoR"
+        }
       ]
-  },
-  {
+    },
+    {
       "jobdescription": "Join Loop Studios as a Software Engineer and work on exciting projects with a global impact. You will be responsible for both frontend and backend development, using JavaScript and Ruby. This is a full-time position with opportunities for growth and professional development.",
       "id": "5",
       "company": "Loop Studios",
@@ -132,26 +131,26 @@
       "employmentType": "Full Time",
       "workLocation": "Worldwide",
       "programmingLanguages": [
-          {
-              "id": "11",
-              "value": "JavaScript",
-              "label": "JavaScript"
-          },
-          {
-              "id": "12",
-              "value": "Ruby",
-              "label": "Ruby"
-          }
+        {
+          "id": "11",
+          "value": "JavaScript",
+          "label": "JavaScript"
+        },
+        {
+          "id": "12",
+          "value": "Ruby",
+          "label": "Ruby"
+        }
       ],
       "frameworks": [
-          {
-              "id": "13",
-              "value": "Sass",
-              "label": "Sass"
-          }
+        {
+          "id": "13",
+          "value": "Sass",
+          "label": "Sass"
+        }
       ]
-  },
-  {
+    },
+    {
       "jobdescription": "MyHome is hiring a Junior Frontend Developer to join our team on a contract basis. In this role, you will work on frontend projects using CSS and JavaScript. This is a great opportunity for someone who is looking to gain hands-on experience in web development.",
       "id": "4",
       "company": "MyHome",
@@ -163,20 +162,20 @@
       "employmentType": "Contract",
       "workLocation": "USA Only",
       "programmingLanguages": [
-          {
-              "id": "9",
-              "value": "CSS",
-              "label": "CSS"
-          },
-          {
-              "id": "10",
-              "value": "JavaScript",
-              "label": "JavaScript"
-          }
+        {
+          "id": "9",
+          "value": "CSS",
+          "label": "CSS"
+        },
+        {
+          "id": "10",
+          "value": "JavaScript",
+          "label": "JavaScript"
+        }
       ],
       "frameworks": []
-  },
-  {
+    },
+    {
       "jobdescription": "Account is seeking a Junior Frontend Developer to join our team. In this role, you will work on various frontend projects, focusing on JavaScript development with React and Sass. This is a great opportunity for someone who is passionate about web development and eager to learn from experienced developers.",
       "id": "3",
       "company": "Account",
@@ -188,26 +187,26 @@
       "employmentType": "Part Time",
       "workLocation": "USA Only",
       "programmingLanguages": [
-          {
-              "id": "6",
-              "value": "JavaScript",
-              "label": "JavaScript"
-          }
+        {
+          "id": "6",
+          "value": "JavaScript",
+          "label": "JavaScript"
+        }
       ],
       "frameworks": [
-          {
-              "id": "7",
-              "value": "React",
-              "label": "React"
-          },
-          {
-              "id": "8",
-              "value": "Sass",
-              "label": "Sass"
-          }
+        {
+          "id": "7",
+          "value": "React",
+          "label": "React"
+        },
+        {
+          "id": "8",
+          "value": "Sass",
+          "label": "Sass"
+        }
       ]
-  },
-  {
+    },
+    {
       "jobdescription": "Join our team at Manage as a Fullstack Developer and work on exciting projects that span both frontend and backend development. You will be responsible for building and maintaining web applications using Python and React. As a midweight developer, you will have the opportunity to work with a talented team and contribute to the full software development lifecycle.",
       "id": "2",
       "company": "Manage",
@@ -219,21 +218,21 @@
       "employmentType": "Part Time",
       "workLocation": "Remote",
       "programmingLanguages": [
-          {
-              "id": "4",
-              "value": "Python",
-              "label": "Python"
-          }
+        {
+          "id": "4",
+          "value": "Python",
+          "label": "Python"
+        }
       ],
       "frameworks": [
-          {
-              "id": "5",
-              "value": "React",
-              "label": "React"
-          }
+        {
+          "id": "5",
+          "value": "React",
+          "label": "React"
+        }
       ]
-  },
-  {
+    },
+    {
       "jobdescription": "As a Senior Frontend Developer at Photosnap, you will be responsible for leading the development of our front-end applications. You will collaborate with our design team to implement user interfaces that are both visually appealing and functional. You will leverage your expertise in HTML, CSS, and JavaScript to create responsive and interactive web pages. Additionally, you will mentor junior developers and contribute to the continuous improvement of our development processes.",
       "id": "1",
       "company": "Photosnap",
@@ -245,68 +244,162 @@
       "employmentType": "Full Time",
       "workLocation": "USA Only",
       "programmingLanguages": [
-          {
-              "id": "1",
-              "value": "HTML",
-              "label": "HTML"
-          },
-          {
-              "id": "2",
-              "value": "CSS",
-              "label": "CSS"
-          },
-          {
-              "id": "3",
-              "value": "JavaScript",
-              "label": "JavaScript"
-          }
+        {
+          "id": "1",
+          "value": "HTML",
+          "label": "HTML"
+        },
+        {
+          "id": "2",
+          "value": "CSS",
+          "label": "CSS"
+        },
+        {
+          "id": "3",
+          "value": "JavaScript",
+          "label": "JavaScript"
+        }
       ],
       "frameworks": []
-  },
-  {
-    "id": "0209d353-9b98-4b05-9679-f6fca517c400",
-    "postedDate": "March 17, 2024",
-    "company": "Company",
-    "logo": "https://www.svgrepo.com/show/475656/google-color.svg",
-    "jobTitle": "manager",
-    "jobdescription": "We are seeking a talented and experienced Senior Frontend Developer to join our team at Google. In this role, you will play a key role in shaping the user experience of our flagship products and platforms. You will collaborate with cross-functional teams to design and implement responsive and intuitive user interfaces that delight our users.",
-    "responsibility": "Frontend",
-    "experienceLevel": "Senior",
-    "programmingLanguages": [
-      {
-        "value": "Python",
-        "label": "Python",
-        "id": "c847"
-      },
-      {
-        "value": "Java",
-        "label": "Java",
-        "id": "65cc"
-      },
-      {
-        "value": "PHP",
-        "label": "PHP",
-        "id": "2a13"
-      }
-    ],
-    "frameworks": [
-      {
-        "value": "Angular",
-        "label": "Angular",
-        "id": "5910"
-      },
-      {
-        "value": "Vue.js",
-        "label": "Vue.js",
-        "id": "b27a"
-      },
-      {
-        "value": "ASP.NET",
-        "label": "ASP.NET",
-        "id": "7e6c"
-      }
-    ]
-  }
+    },
+    {
+      "id": "0209d353-9b98-4b05-9679-f6fca517c400",
+      "postedDate": "March 17, 2024",
+      "company": "Google",
+      "logo": "https://www.svgrepo.com/show/475656/google-color.svg",
+      "jobTitle": "Senior Frontend Developer",
+      "jobdescription": "We are seeking a talented and experienced Senior Frontend Developer to join our team at Google. In this role, you will play a key role in shaping the user experience of our flagship products and platforms. You will collaborate with cross-functional teams to design and implement responsive and intuitive user interfaces that delight our users.",
+      "responsibility": "Frontend",
+      "experienceLevel": "Senior",
+      "programmingLanguages": [
+        {
+          "value": "Python",
+          "label": "Python",
+          "id": "c847"
+        },
+        {
+          "value": "Java",
+          "label": "Java",
+          "id": "65cc"
+        },
+        {
+          "value": "PHP",
+          "label": "PHP",
+          "id": "2a13"
+        }
+      ],
+      "frameworks": [
+        {
+          "value": "Angular",
+          "label": "Angular",
+          "id": "5910"
+        },
+        {
+          "value": "Vue.js",
+          "label": "Vue.js",
+          "id": "b27a"
+        },
+        {
+          "value": "ASP.NET",
+          "label": "ASP.NET",
+          "id": "7e6c"
+        }
+      ]
+    },
+    {
+      "id": "8ca6d6f3-08fd-4859-9ba7-840175d3bf56",
+      "postedDate": "March 18, 2024",
+      "company": "Paypal",
+      "logo": "https://www.svgrepo.com/show/475665/paypal-color.svg",
+      "jobTitle": "manager",
+      "jobdescription": "Lorem",
+      "responsibility": "Frontend",
+      "experienceLevel": "Senior",
+      "programmingLanguages": [
+        {
+          "value": "JavaScript",
+          "label": "JavaScript",
+          "id": "cbf8"
+        },
+        {
+          "value": "Python",
+          "label": "Python",
+          "id": "c847"
+        },
+        {
+          "value": "Java",
+          "label": "Java",
+          "id": "65cc"
+        },
+        {
+          "value": "C++",
+          "label": "C++",
+          "id": "3d80"
+        },
+        {
+          "value": "C#",
+          "label": "C#",
+          "id": "071c"
+        },
+        {
+          "value": "PHP",
+          "label": "PHP",
+          "id": "2a13"
+        },
+        {
+          "value": "Swift",
+          "label": "Swift",
+          "id": "f4fc"
+        },
+        {
+          "value": "TypeScript",
+          "label": "TypeScript",
+          "id": "3204"
+        },
+        {
+          "value": "Ruby",
+          "label": "Ruby",
+          "id": "b06c"
+        }
+      ],
+      "frameworks": [
+        {
+          "value": "Angular",
+          "label": "Angular",
+          "id": "5910"
+        },
+        {
+          "value": "Vue.js",
+          "label": "Vue.js",
+          "id": "b27a"
+        },
+        {
+          "value": "Node.js",
+          "label": "Node.js",
+          "id": "22e4"
+        },
+        {
+          "value": "Django",
+          "label": "Django",
+          "id": "683e"
+        },
+        {
+          "value": "Flask",
+          "label": "Flask",
+          "id": "a3ae"
+        },
+        {
+          "value": "Spring Boot",
+          "label": "Spring Boot",
+          "id": "6247"
+        },
+        {
+          "value": "Hibernate",
+          "label": "Hibernate",
+          "id": "ea45"
+        }
+      ]
+    }
   ],
   "programmingLanguages": [
     {

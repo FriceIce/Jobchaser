@@ -3,10 +3,11 @@ import { useForm } from 'react-hook-form';
 import "../../postJob.css";
 import InputField from '../../InputTypes/InputField';
 import { useNavigate } from 'react-router-dom';
+import { Job } from '../../../Find Job/Card/Card';
 
 export type prop ={
   job: object;
-  update: (data: any) => void; 
+  update: (data: object) => void; 
 } 
 
 function FirstStep({job, update}: prop){
