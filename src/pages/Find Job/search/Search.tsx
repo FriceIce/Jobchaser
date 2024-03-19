@@ -1,4 +1,4 @@
-import './form.css';
+import './search.css';
 import searchIcon from './assets/Search SVG Vector.svg';
 import Card from '../Card/Card';
 import { useState } from 'react';

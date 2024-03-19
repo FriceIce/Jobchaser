@@ -31,16 +31,11 @@ function Card({jobs}: Jobs){
 
   // Renderar innehåll från tools samt sköter stylingen. 
   const displaySubArray = (arr: frameworkAndLang[]): ReactNode =>  {
-    const arrayLength = arr.length;
-    if(arrayLength > 0){
-      return (
-        <li>{arr.map((obj, index) => {
-          if(index !== arrayLength - 1) 
-            return <span key={obj.id} style={{paddingRight: '1rem'}}>#{obj.value}</span>
-          return <span key={obj.id}>#{obj.value}</span>
-        })}</li>
-      )
-    }
+    return (
+      <>
+        {arr.map(obj => <li key={obj.id}>#{obj.value}</li>)}
+      </>
+    )
   }
 
   const checkingForValue = (value: string | undefined): ReactNode => {
@@ -54,7 +49,7 @@ function Card({jobs}: Jobs){
   
   return(
 
-    <ul>
+    <ul className='card-layout'>
     {jobs.map((jobObj) => { 
       const imagePath = jobObj.logo.includes('./images/') ? './assets' + jobObj.logo.substring(8) : jobObj.logo; 
       
@@ -70,7 +65,7 @@ function Card({jobs}: Jobs){
             <p className='job-description'>{jobObj.jobdescription}</p>
           </div>
           <ul className='info'>
-            {jobObj. programmingLanguages && displaySubArray(jobObj. programmingLanguages)}
+            {jobObj. programmingLanguages && displaySubArray(jobObj.programmingLanguages)}
             {jobObj.frameworks && displaySubArray(jobObj.frameworks)}
             {checkingForValue(jobObj.responsibility)}
             {checkingForValue(jobObj.experienceLevel)}

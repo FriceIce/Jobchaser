@@ -1,11 +1,18 @@
 header{
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   height: 110px;
   width: 100%;
   min-width: 375px;
   /* border-bottom: 1px solid; */
-  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.226);
+  /* box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.226); */
+}
+
+.header-container{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1700px;
 }
 
 nav{
@@ -29,3 +36,14 @@ nav li {
 .title-container img{
   width: 350px;
 }
+
+.review-card{
+  border: 1px solid ;
+}
+
+/* .active{
+  background: #f09711;
+  color: black;
+  border-radius: 7px;
+  padding: 10px;
+} */

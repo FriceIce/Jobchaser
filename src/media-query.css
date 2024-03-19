@@ -1,3 +1,9 @@
+@media(width < 1700px){
+  .home-layout{
+    box-shadow: none;
+  }
+}
+
 @media(width < 1001px){
   /* .job-form-container{
     margin: 53px 10px;
@@ -8,12 +14,9 @@
   .card{
     max-width: none;
   }
-}
 
-@media(width < 601px){
-
-  .job-form-container{
-    margin: 53px 0px;
+  nav{
+    display: none;
   }
   
   .title-container{
@@ -23,8 +26,36 @@
   .title-container img{
     width: 250px;
   }
+}
+
+@media(width < 761px){
+  .reviews-card-layout{
+    place-items: center;
+  }
+}
+
+@media(width < 601px){
+
+  .job-form-container{
+    margin: 53px 0px;
+  }
+
+  .home-layout{
+    width: 100vw;
+  }
+
+  .home-upper-container{
+    padding-inline: 0px;
+  }
+  
 
   .card{
     gap: 1.5rem;
+  }
+}
+
+@media(width < 520px){
+  .hero-container{
+    padding-inline: 0px;
   }
 }

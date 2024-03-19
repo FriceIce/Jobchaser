@@ -1,10 +1,10 @@
 *{
-  font-family: 'Sen', 'Roboto', 'Arial', sans-serif;
+  font-family: 'Roboto', 'Arial', sans-serif;
   font-weight: 400;
   list-style: none;
 }
 
-ul{
+.card-layout{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(370px, 1fr));
   gap: 1.5rem;
@@ -30,6 +30,10 @@ ul{
   scale: 0.97;
   /* color: white;
   background: rgb(0, 0, 0); */
+}
+
+.job-info-container{
+  width: 100%;
 }
 
 .job-log-container{
@@ -60,12 +64,6 @@ ul{
   font-size: 2rem;
   padding-bottom: 5px;
 }
-
-/* .searched{
-  background-color: white;
-  width: max-content;
-  border-radius: 5px;
-} */
 
 .job-position{
   font-size: 1.3rem;

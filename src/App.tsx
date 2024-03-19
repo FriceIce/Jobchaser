@@ -1,5 +1,6 @@
 import Header from './components/header/header';
 import Search from './pages/Find Job/search/Search';
+import Home from './pages/Home/Home';
 import './App.css';
 import './media-query.css'
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
@@ -31,13 +32,14 @@ function App() {
   return (
     <>
       <BrowserRouter> 
-        <Header/>
         <div className='job-form-container'>
+        <Header/>
           <Routes>
-            <Route path='/Jobchaser/' element={<h1>HOME</h1>}/>
+            <Route path='/Jobchaser' element={<Home />}/>
             <Route path='/Jobchaser/Find-job' element={<Search />} />
-            <Route path='/Jobchaser/Post-job' element={<FirstStep job={job} update={update}/>} />
-            <Route path='/Jobchaser/Post-job/Second-step' element={<SecondStep job={job} update={update}/>} />
+            <Route path='/Post-job' element={<FirstStep job={job} update={update}/>} />
+            <Route path='/Post-job/Second-step' element={<SecondStep job={job} update={update}/>} />
+            <Route path='/Jobchaser/Sign-in' element={<h1>Sign in</h1>} />
           </Routes>
         </div>
       </BrowserRouter>
