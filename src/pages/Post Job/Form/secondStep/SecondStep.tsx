@@ -1,8 +1,9 @@
+// @ts-nocheck
 import { useForm } from "react-hook-form";
 import InputField from "../../InputTypes/InputField";
 import { prop } from "../FirstStep/FirstStep";
 import { v4 as uuidv4 } from 'uuid';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ControllerField from "../../InputTypes/ControllerField";
 // import useFetch from "../../../../hook/useFetch";
 import { Job } from "../../../Find Job/Card/Card";

@@ -8,6 +8,10 @@
   /* .job-form-container{
     margin: 53px 10px;
   } */
+  nav{
+    display: none;
+  }
+  
 }
 
 @media(width < 862px){
@@ -15,10 +19,6 @@
     max-width: none;
   }
 
-  nav{
-    display: none;
-  }
-  
   .title-container{
     padding: 53px 30px ;
   }
@@ -35,10 +35,6 @@
 }
 
 @media(width < 601px){
-
-  .job-form-container{
-    margin: 53px 0px;
-  }
 
   .home-layout{
     width: 100vw;

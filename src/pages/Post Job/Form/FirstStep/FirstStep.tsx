@@ -1,9 +1,8 @@
+// @ts-nocheck
 import { useForm } from 'react-hook-form'; 
-// import { ReactNode, useState } from 'react';
-import "../../postJob.css";
+import "../../form.css";
 import InputField from '../../InputTypes/InputField';
 import { useNavigate } from 'react-router-dom';
-import { Job } from '../../../Find Job/Card/Card';
 
 export type prop ={
   job: object;
@@ -41,18 +40,20 @@ function FirstStep({job, update}: prop){
 
   return (
  
-    <form className='post-job-form' onSubmit={handleSubmit(onSubmit)}>
-      <InputField input={true} label='company' type='text' required={true} errors={errors} register={register} />
-      <InputField input={true} label='logo' type='url' placeholder='Image URL' required={true} errors={errors} register={register} />
-      <InputField input={true} label='job Title' type='text' required={true} errors={errors} register={register} />
-      <InputField input={false} label='job description' type='text' required={true} errors={errors} register={register} />
+    <div className="form-first-step">
+      <form className='post-job-form' onSubmit={handleSubmit(onSubmit)}>
+        <InputField input={true} label='company' type='text' required={true} errors={errors} register={register} />
+        <InputField input={true} label='logo' type='url' placeholder='Image URL' required={true} errors={errors} register={register} />
+        <InputField input={true} label='job Title' type='text' required={true} errors={errors} register={register} />
+        <InputField input={false} label='job description' type='text' required={true} errors={errors} register={register} />
       
       
-      <div className="form-control">
-        <label></label>
-        <button type="submit">Next</button>
-      </div>
-    </form>
+        <div className="form-control">
+          <label></label>
+          <button type="submit">Next</button>
+        </div>
+      </form>
+    </div>
   
   );
 }

@@ -17,6 +17,10 @@ header{
 
 nav{
   display: flex;
+}
+
+.link-options{
+  display: flex;
   align-items: flex-end;
   gap: 1rem;
   margin-right: 6rem;

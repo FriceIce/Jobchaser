@@ -15,18 +15,18 @@
   height: 100vh;
   width: 100vw;
 }
-
-#root::-webkit-scrollbar{
+/* 
+body::-webkit-scrollbar{
   width: 13px;
 }
 
-#root::-webkit-scrollbar-track{
+body::-webkit-scrollbar-track{
   background: white;
 }
 
-#root::-webkit-scrollbar-thumb{
+body::-webkit-scrollbar-thumb{
   background: #fcb242;
-}
+} */
 
 .job-form-container{
   display: flex; 

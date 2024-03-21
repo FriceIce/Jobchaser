@@ -14,9 +14,19 @@
 }
 
 .post-job-form{
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  gap: 1.5rem;
   max-width: 500px;
   width: 100%;
-  margin-inline: auto;
+  /* margin-inline: auto; */
+}
+
+.form-first-step{
+  width: 100%;
+  display: flex;
+  justify-content: center;
 }
 
 .form-control {
@@ -29,6 +39,10 @@
   width: 30%;
   padding-right: 20px;
   margin-bottom: 5px;
+}
+
+.form-control button{
+  padding: 14px;
 }
 
 .post-job-data-input{
@@ -54,10 +68,11 @@ textarea{
   max-width: 500px;
 }
 
-button {
+.submit-btn {
   max-width: max-content;
   padding: 10px 55px;
   cursor: pointer;
+  align-self: center;
 }
 
 @media screen and (max-width: 600px) {

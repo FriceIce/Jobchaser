@@ -1,7 +1,7 @@
-import { Control, Controller, FieldErrorsImpl, FieldValues, UseFormRegisterReturn, ValidationRule} from "react-hook-form"
+//@ts-check
+import { Control, Controller, FieldErrorsImpl, FieldValues} from "react-hook-form"
 import Select from "react-select";
 import useFetch from "../../../hook/useFetch";
-// import data from '../../../../public/data/programming-languages.json'
 
 type info = {
   label: string;

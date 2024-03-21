@@ -1,0 +1,6 @@
+.sign-in-cont{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

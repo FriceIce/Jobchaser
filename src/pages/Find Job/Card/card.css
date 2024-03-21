@@ -7,7 +7,8 @@
 .card-layout{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(370px, 1fr));
-  gap: 1.5rem;
+  margin-inline: 12px;
+  gap: 0.5rem;
 }
 
 .card{
@@ -19,11 +20,11 @@
   min-height: 393px;
   height: auto;
   overflow: none;
-  border-radius: 5px;
+  border-radius: 7px;
   background: #fcb242;
   transition: all 200ms;
   cursor: pointer;
-  box-shadow: 2px 4px 5px rgba(0,0,0,0.25);
+  /* box-shadow: 2px 4px 5px rgba(0,0,0,0.25); */
 }
 
 .card:hover, .card:focus{

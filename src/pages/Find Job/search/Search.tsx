@@ -4,9 +4,10 @@ import Card from '../Card/Card';
 import { useState } from 'react';
 import useFetch from '../../../hook/useFetch';
 import { Job } from '../Card/Card';
+import OpeningContent from '../OpeningContent/OpeningContent';
 
 function Search(){
-  const [input, setInput] = useState('')
+  const [input, setInput] = useState('');
   const {data, error} = useFetch('http://localhost:8000/jobs'); // terminal: json-server --watch public/data/programming-languages.json --port 8000 
 
   const inputValue = (input: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,6 +27,7 @@ function Search(){
 
   return (
     <>
+    <OpeningContent />
       <form 
         tabIndex={0} 
         className='job-form' 

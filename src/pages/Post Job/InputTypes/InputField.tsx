@@ -18,6 +18,7 @@ type formInfo = {
 function InputField({input, label, type, required, placeholder, errors, register}: formInfo){
   const firstLetterUpper = label.charAt(0).toLocaleUpperCase() + label.slice(1);
   const noWhiteSpace = label.replace(' ', ''); 
+
   return(
     <div className="form-control">
       <label>{firstLetterUpper}</label>
@@ -29,7 +30,7 @@ function InputField({input, label, type, required, placeholder, errors, register
         type={type}
         {...register(noWhiteSpace, {
           required: required,
-          pattern: type === 'text' && /^[A-Za-z0-9\s]+$/
+          pattern: noWhiteSpace !== 'email' ? /^[A-Za-z0-9\s]+$/ : /^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/
         })}
       />) : 
 
@@ -48,7 +49,7 @@ function InputField({input, label, type, required, placeholder, errors, register
       (<p className="errorMsg">{firstLetterUpper} is required.</p>)}
 
       {errors[noWhiteSpace] && errors[noWhiteSpace]!.type === 'pattern' && 
-      (<p className="errorMsg">Only text is allowed</p>)}
+      (<p className="errorMsg">Only {label} is allowed</p>)}
   </div>
   )
 }
