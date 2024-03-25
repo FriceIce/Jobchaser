@@ -1,3 +1,7 @@
+*{
+  list-style: none;
+}
+
 .home-layout{
   /* background: white; */
   display: flex;
@@ -7,14 +11,15 @@
 }
 
 .hero-container{
-  background: url('https://images.unsplash.com/photo-1530036846422-afb4b7af2fd4?q=80&w=1227&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-  background-position: center;
-  background-repeat: none;
+  background: url('./assets/home-page-hero-pic.avif'); 
   background-size: cover;
-  
+  background-position: center;
+  background-repeat: no-repeat;
+
   display: flex;
-  justify-content: space-between;
+  align-items: center;
   gap: 2rem;
+
   width: 100%;
   padding-inline: 40px;
   padding-top: 70px;
@@ -22,19 +27,19 @@
   min-height: 800px;
   height: auto;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.212);
-  /* border-top-left-radius: 10px;
-  border-top-right-radius: 10px; */
 }
 
 .opening-text-container{
+  color: white;
   display: inline-block;
-  width: 500px;
+  width: 460px;
   height: max-content;
-  background: #ffffffe8;
+  background: transparent;
   padding: 20px 40px 60px;
   border-radius: 20px;
   /* border: 1px solid;  */
   /* text-wrap: balance; */
+  box-sizing: border-box;
 }
 
 .opening-text{
@@ -50,6 +55,8 @@
 
 .opening-text p{
   line-height: 1.4;
+  font-size: 1.2rem;
+  font-weight: 600;
 }
 
 .btn-layout{
@@ -66,11 +73,24 @@
   border-radius: 4px;
   border: none;
   transition: all 150ms;
+  border: 2px solid #f09711;
+  font-weight: 600;
   box-shadow: 0px 4px 5px rgba(0,0,0,0.25);
+  cursor: pointer;
+}
+
+.available-jobs-btn:nth-child(2){
+  background: transparent;
+  color: white;
+}
+
+.available-jobs-btn:nth-child(2):hover{
+  background: #f09711;
+  color: black;
 }
 
 .available-jobs-btn:hover{
-  background: black;
+  background: transparent;
   color: white;
 }
 
@@ -91,6 +111,8 @@
 }
 
 .middle-container h2{
+  text-wrap: balance;
+  padding-inline: 16px;
   font-size: 2rem;
   color: rgb(87, 87, 87);
 }
@@ -142,13 +164,14 @@
 /*----------------------------------------- Reviews ----------------------------------------------------*/
 
 .reviews-container{
-  background: white;
+  /* background: whitesmoke; */
   padding-top: 50px;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px ;
 }
 
 .reviews-container h3{
+  color: #575757;
   text-align: center;
   font-size: 2.5rem;
   padding-bottom: 20px;
@@ -170,6 +193,16 @@
   box-shadow: 0px 0px 5px rgba(0,0,0,0.25);
 }
 
+.pp-container{
+  height: 68px;
+  width: 64px;
+}
+
+.pp-container img{
+  width: 64px;
+  height: 64px;
+}
+
 .upper-container{
   display: flex;
   align-items: center;
@@ -179,6 +212,7 @@
 
 .ratings-container img{
   width: 100px;
+  height: 16px;
 }
 
 .user-highlight{

@@ -2,13 +2,24 @@
 import './Home.css'
 import { useNavigate } from 'react-router-dom'
 import ReviewCard from './Review Card/ReviewCard'
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import firebaseSignIn from '../Sign in/firebase';
+import { Context } from '../../App';
 
-function Home({userOnline}){
+// Icons
+import amazonDarkThemeIcon from './assets/icon/amazon-white-color.svg'
+import amazonLightThemeIcon from './assets/icon/amazon-dark-color.svg'
+import googleIcon from './assets/icon/google.svg'
+import netflixIcon from './assets/icon/netflix-icon.svg'
+import androidIcon from './assets/icon/android-color.svg'
+
+
+function Home(){
+  // useContext
+  const {isDarkTheme, bgTheme, color} = useContext(Context);
+
   const navigate = useNavigate(); 
   const {auth, user, provider} = firebaseSignIn();
-  userOnline(user)
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -24,36 +35,36 @@ function Home({userOnline}){
   }, [])
   return (
     <>
-      <div className="home-layout">
+      <div style={bgTheme} className="home-layout">
         <div className="hero-container">
           <div className='opening-text-container'>
             <article className="opening-text">
-              <h1>AIM HIGHER FLY HIGHER</h1>
-              <p>
-                Welcome to Jobchaser, where your career aspirations meet opportunity. Discover, apply, and thrive with our user-friendly platform designed to simplify your job search journey. 
+            <h1>Vi hjälper dig med ditt <span style={{color: '#f09711'}}>jobbsökande!</span></h1>
+            <p>
+            Välkommen till nästa steg i din karriär - vi tar dig närmare anställningen du strävar efter. 
               </p>
             </article>
             <div className='btn-layout'>
               <button 
                 className='available-jobs-btn'
                 onClick={() => navigate('/Jobchaser/Find-job')}>                
-                Available Jobs
+                Lediga jobb
               </button>
               <button 
                 className='available-jobs-btn'
                 onClick={() => navigate('/Jobchaser/Sign-in')}>                
-                Sign Up
+                Registrera dig
               </button>
             </div>
           </div>
         </div>
         <div className="middle-container">
-          <h2>Trusted by 5,000+ Companies Worldwide</h2>
+          <h2 style={{color: color}}>Partnerskap med företag världen över.</h2>
           <div className="companies-logo-layout">
-            <div className="company-logo-container"><img src="https://www.svgrepo.com/show/475634/amazon-color.svg" alt="Amazon logo" /></div>
-            <div className="company-logo-container"><img src="https://www.svgrepo.com/show/452216/google.svg" alt="Google logo" /></div>
-            <div className="company-logo-container"><img src="https://www.svgrepo.com/show/354109/netflix-icon.svg" alt="Netflix logo" /></div>
-            <div className="company-logo-container"><img src="https://www.svgrepo.com/show/475631/android-color.svg" alt="Android logo" /></div>
+            <div className="company-logo-container"><img loading='lazy' src={ !isDarkTheme ? amazonLightThemeIcon : amazonDarkThemeIcon} alt="Amazon logo" /></div>
+            <div className="company-logo-container"><img loading='lazy' src={googleIcon} alt="Google logo" /></div>
+            <div className="company-logo-container"><img loading='lazy' src={netflixIcon} alt="Netflix logo" /></div>
+            <div className="company-logo-container"><img loading='lazy' src={androidIcon} alt="Android logo" /></div>
           </div>
         </div>
         <ReviewCard />

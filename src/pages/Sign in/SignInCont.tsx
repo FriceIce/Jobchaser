@@ -1,30 +1,20 @@
 // @ts-nocheck
-import InputField from '../Post Job/InputTypes/InputField';
+import InputField from './InputTypes/InputField';
 import SignInForm from './SignInForm'
-import '../Post Job/form.css'
-import './signIn.css'
+import './CSS/form.css'
+import './CSS/signIn.css'
 import firebaseSignIn from './firebase';
 
 
-const SignInCont = ({userOnline}) => {
-  const {auth, user, provider} = firebaseSignIn(); 
-
-  // Sign in function
-  const signInWithGoogle = () => {
-    signInWithPopup(auth, provider)
-  }
-
-  userOnline(user)
+const SignInCont = () => {
+  const {auth, user, provider, signInWithRedirect} = firebaseSignIn(); 
 
   return (
     <>  
-      <div className="sign-in-cont">
-        <SignInForm />
-        <div 
-          style={{alignSelf: 'center', paddingTop: '1.5rem'}}>
-          <button onClick={signInWithGoogle} className='submit-btn'>
-            Sign in with Google
-          </button>
+      <div className="sign-in-layout">
+        <div className='side-img-container'></div>
+        <div className="sign-in-cont">
+          <SignInForm />
         </div>
       </div>
     </>

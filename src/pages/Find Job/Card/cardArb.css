@@ -1,0 +1,120 @@
+.card-container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.card-layout{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(355px, 1fr));
+  gap: 1rem;
+  width: 95%;
+}
+
+.card{
+  background-color: #d8d8d8;
+  /* background-image: linear-gradient(315deg, #d2d8d6 0%, #dce8e0 74%); */
+
+  color: black;
+  position: relative;
+  height: 470px;
+  border-radius: 18px;
+  padding: 21px;
+  box-shadow: 0px 4px 5px rgba(0,0,0,0.25);
+}
+
+.card-logo-container{
+  background: white;
+  padding: 10px;
+  width: 100px;
+  height: 100px;
+  border-radius: 7px;
+  box-shadow: 2px 4px 5px rgba(0,0,0,0.25);
+}
+
+.information-container{
+  width: fit-content;
+}
+
+.favorite-btn{
+  position: absolute;
+  right: 15px;
+
+  width: 30px;
+  height: 30px;
+}
+
+.card-logo-container img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.card-title-container{
+  padding-top: 30px;
+}
+
+.card-title-container h2{
+  font-size: 1.2rem;
+  text-wrap: balance;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.details-container div{
+  padding: 12px 0px;
+}
+
+.upper-job-details{
+  font-weight: 600;
+}
+
+.upper-job-details p, .lower-job-details p{
+  padding-bottom: 7px;
+}
+
+.footer{
+  position: absolute;
+  bottom: 21px;
+
+  display: flex;
+  justify-content: space-between;
+  width: calc(100% - (21px * 2));
+}
+
+.footer p:first-child{
+  font-weight: 600;
+  /* color: #3E619F; */
+  cursor: pointer;
+}
+
+/* ---------------- MEDIA-QUERIES---------------- */
+@media(width < 1300px){
+  .card-layout{
+    grid-template-columns: 1fr;
+  }
+
+}
+
+@media(width < 850px){
+
+  .card-title-container h2{
+    font-size: 16px;
+  }
+
+  .upper-job-details p,
+  .lower-job-details p,
+  .footer p{
+    font-size: 13px;
+  }
+
+}
+
+@media(width < 600px){
+  .card-layout{
+    display: flex;
+    flex-direction: column;
+  }
+}
+

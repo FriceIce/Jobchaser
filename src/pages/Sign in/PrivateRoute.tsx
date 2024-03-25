@@ -1,10 +1,12 @@
 // @ts-nocheck 
+import { useContext } from "react";
 import { Navigate, Outlet } from "react-router-dom"
-function PrivateRoute({user}) {
-
+import { Context } from "../../App";
+function PrivateRoute() {
+  const userIsOnline = useContext(Context)
   return (
     <>
-      {user ? <Outlet/> : <Navigate to='/Jobchaser/Sign-in'/> }
+      {userIsOnline ? <Outlet/> : <Navigate to='/Jobchaser/Sign-in'/> }
     </>
   )
 }

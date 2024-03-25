@@ -2,38 +2,25 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family:'Sen', 'Roboto', 'arial', sans-serif;
 }
 
-#root{
-  /* background: url('https://images.unsplash.com/photo-1530036846422-afb4b7af2fd4?q=80&w=1827&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: none;
-  background-size: cover; */
-  /* background: #ffffff; */
+body{
+  position: relative;
+  background: whitesmoke;
   overflow-x: hidden;
   height: 100vh;
   width: 100vw;
+  font-family: 'Roboto', 'Arial', '';
 }
-/* 
-body::-webkit-scrollbar{
-  width: 13px;
-}
-
-body::-webkit-scrollbar-track{
-  background: white;
-}
-
-body::-webkit-scrollbar-thumb{
-  background: #fcb242;
-} */
 
 .job-form-container{
+  position: relative; 
   display: flex; 
   flex-direction: column;
   gap: 3rem;
   
-  margin-inline: /* 53px */ auto;
+  margin-inline: auto;
   max-width: 1700px;
   padding-bottom: 20px;
 }

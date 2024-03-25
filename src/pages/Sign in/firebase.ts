@@ -4,7 +4,15 @@
 import 'firebase/firestore';
 import 'firebase/auth'
 
-import { GoogleAuthProvider, signInWithPopup, signInWithRedirect, getAuth} from "firebase/auth";
+import { 
+  GoogleAuthProvider, 
+  signInWithPopup, 
+  signInWithRedirect, 
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword, 
+  onAuthStateChanged,
+  signOut,
+  getAuth} from "firebase/auth";
 import { initializeApp } from 'firebase/app';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
@@ -32,12 +40,19 @@ const firebaseSignIn = () => {
   // User - is null when signed out and an object when singed in
   const auth = getAuth(); 
   const provider = new GoogleAuthProvider();
-  auth.onAuthStateChanged((user) => {
-   if(user) console.log(user.displayName, user.uid)
-  })
 
   const [user] = useAuthState(auth)
-  return {auth, user, provider}
+  return {
+    auth, 
+    user, 
+    provider, 
+    signInWithRedirect,
+    signInWithPopup,  
+    signInWithEmailAndPassword, 
+    createUserWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut
+  }
 
 }
 

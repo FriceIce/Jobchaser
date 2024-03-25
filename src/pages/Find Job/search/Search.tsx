@@ -1,38 +1,45 @@
+// @ts-nocheck
 import './search.css';
 import searchIcon from './assets/Search SVG Vector.svg';
-import Card from '../Card/Card';
-import { useState } from 'react';
-import useFetch from '../../../hook/useFetch';
+import { useEffect, useState } from 'react';
 import { Job } from '../Card/Card';
 import OpeningContent from '../OpeningContent/OpeningContent';
+import CardArb from '../Card/CardArb';
 
 function Search(){
   const [input, setInput] = useState('');
-  const {data, error} = useFetch('http://localhost:8000/jobs'); // terminal: json-server --watch public/data/programming-languages.json --port 8000 
+  const [submitValue, setSubmitValue] = useState('') ;
+  const [jobs, setJobs] = useState(null);
+  const [error, setError] = useState(null)
 
   const inputValue = (input: React.ChangeEvent<HTMLInputElement>) => {
     return setInput(input.target.value)
   }
-  
-  function jobAdFilter(jobObj: Job, setInput: string){
-    const input = setInput.toLocaleLowerCase();
-    
-    if(setInput === '') return jobObj;
-    if(jobObj.company.toLocaleLowerCase().includes(input)) return jobObj; 
-    if(jobObj.jobTitle.toLocaleLowerCase().includes(input)) return jobObj;
-    if(jobObj.employmentType.toLocaleLowerCase().includes(input)) return jobObj; 
-    if(jobObj.frameworks.join('').toLowerCase().includes(input)) return jobObj; // #tags
-    if(jobObj.programmingLanguages.join('').toLowerCase().includes(input)) return jobObj; // #tags
-  }
+
+  useEffect(() => {  
+    fetch('https://jobsearch.api.jobtechdev.se/search?q=' + submitValue)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data.hits)
+      return setJobs(data.hits)
+    })
+    .catch((err) =>{
+      console.log(err)
+      setError(err)
+    })
+  }, [submitValue])
 
   return (
     <>
-    <OpeningContent />
+      <OpeningContent />
       <form 
         tabIndex={0} 
         className='job-form' 
-        onSubmit={(e) => e.preventDefault()}
-        >
+        onSubmit={(e) =>{
+          e.preventDefault();
+          setSubmitValue(input)
+          return 
+        }}>
         <div className="input-container">
           <button type='submit' className='search-btn'>
             <img src={searchIcon} alt="magnifying glass" />
@@ -41,13 +48,15 @@ function Search(){
             className='search-input' 
             value={input}
             onChange={inputValue} type="text" 
-            placeholder='Jobbtitel, nyckelord eller företag' 
+            placeholder='Jobbtitel, nyckelord eller stad' 
             aria-label='Search bar for job ads'
           />
         </div>
       </form>
-      {data && <Card jobs={data.filter((jobObj: Job) => jobAdFilter(jobObj, input)).reverse()} />}
-      {error && <h1>{error}</h1>}
+      {Array.isArray(jobs) && jobs.length !== 0 && <CardArb jobs={jobs}/>}
+      {error && <div className='error-container'>
+        <h1>{error}</h1>
+      </div>}
     </>
   )
 }
