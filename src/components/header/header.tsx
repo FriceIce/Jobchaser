@@ -9,11 +9,17 @@ import { Link } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { Context } from '../../App';
 import firebaseSignIn from '../../pages/Sign in/firebase';
+import { useLocation } from 'react-router-dom';
 
 function Header({toggleDarkTheme}){
   // useContext
-  const {isOnline, isDarkTheme, bgTheme, color} = useContext(Context);
-  const [menuBarColor, setMenuBarColor] = useState({}); 
+  const { 
+    isOnline, 
+    isDarkTheme, 
+    background, 
+    color, 
+    textColorHeader
+  } = useContext(Context);
 
   
   const {auth, signOut} = firebaseSignIn();
@@ -30,7 +36,7 @@ function Header({toggleDarkTheme}){
   const [checked, setChecked] = useState(false);
   const [styleTransition, setStyleTransition] = useState('none'); 
   const [timeoutId, setTimeoutId] = useState();
-  const [marginBottom, setMarginBottom] = useState('none') 
+  const [marginBottom, setMarginBottom] = useState('none');
   
   
   const mediaWith = window.matchMedia('(width < 1001px)'); 
@@ -68,12 +74,10 @@ function Header({toggleDarkTheme}){
 
   useEffect(() => {
     if(isDarkTheme) {
-      setMenuBarColor({background: 'white'});
       bodyElement.style.background = '#1e1e1e';
       return
     } 
     if(!isDarkTheme){
-      setMenuBarColor({})
       bodyElement.style.background = 'whitesmoke';
       return 
     } 
@@ -107,43 +111,50 @@ function Header({toggleDarkTheme}){
   }, [])
   // --------------------
   
+  function jobchaserLogo(menu){
+    console.log(menu)
+    if(menu == null) return textColorHeader === 'white' ? titleDark : titleLight
+    return isDarkTheme ? titleDark : titleLight; 
+  }
+
   return (
     <>
-      <header style={bgTheme}>
+      <header>
         <div className="header-container">
-          <div className='title-container'>
-            <img tabIndex={0} src={isDarkTheme ? titleDark : titleLight} alt="Jobchaser logo" />
+          <div className='title-container' style={{color: menuClass ? color : textColorHeader}}>
+            <img tabIndex={0}  src={jobchaserLogo(menuClass)} alt="Jobchaser logo" />
             <p>Jobchaser</p>
             <p>EST 2023</p>
           </div>
 
           <div onClick={toggleMenu} className='menu'>
-            <div style={menuBarColor} className="bar"></div>
-            <input style={menuBarColor} checked={checked} type='checkbox' className="bar"/>
-            <div style={menuBarColor} className="bar"></div>
+            <div style={{background: menuClass ? color : textColorHeader}} className="bar"></div>
+            <input style={{background: menuClass ? color : textColorHeader}} checked={checked} type='checkbox' className="bar"/>
+            <div style={{background: menuClass ? color : textColorHeader}} className="bar"></div>
           </div>
           
        
-          <nav onClick={toggleMenu} className={`link-options ${menuClass}`} style={{transition: styleTransition, background: isDarkTheme ? '#1e1e1e' : 'whitesmoke'}}>
+          <nav onClick={toggleMenu} className={`link-options ${menuClass}`} style={{transition: styleTransition, background: isMobileScreen && background }}>
 
-          <button style={{color: color, marginBottom: marginBottom, border: `1px solid ${color}`}} onClick={toggleBgTheme}>
+          <button style={{color: menuClass ? color : textColorHeader, marginBottom: menuClass && marginBottom, border: isMobileScreen ? `1px solid ${color}` : `1px solid ${textColorHeader}`}} onClick={toggleBgTheme}>
             {isDarkTheme ? 'Light Theme' : 'Dark Theme' }
           </button>
 
-            <Link style={{color: color}} to='/Jobchaser/'>
+            <Link style={{color: isMobileScreen ? color : textColorHeader}} to='/Jobchaser/'>
               Hem 
               {isMobileScreen && <img className='chevron' src={!isDarkTheme ? blackChevron : whiteChevron} alt="chevron icon" />}</Link>
-            <Link style={{color: color}} to='/Jobchaser/Find-job'>
+            <Link style={{color: isMobileScreen ? color : textColorHeader}} to='/Jobchaser/Find-job'>
               Lediga jobb
               {isMobileScreen && <img className='chevron' src={!isDarkTheme ? blackChevron : whiteChevron} alt="chevron icon" />}
               </Link>
 
             {isOnline ? 
-              <a style={{color: color}} onClick={() => signOut(auth)}>
+              <a style={{color: isMobileScreen ? color : textColorHeader}} 
+                onClick={() => signOut(auth)}>
                 Logga ut [ {isOnline.displayName} ]
                 {isMobileScreen && <img className='chevron' src={!isDarkTheme ? blackChevron : whiteChevron} alt="chevron icon" />}
                 </a> : 
-                <Link style={{color: color}} to='/Jobchaser/Sign-in'>
+                <Link style={{color: isMobileScreen ? color : textColorHeader}} to='/Jobchaser/Sign-in'>
                   Logga in
                   {isMobileScreen && <img className='chevron' src={!isDarkTheme ? blackChevron : whiteChevron} alt="chevron icon" />}
                   </Link>}

@@ -1,4 +1,5 @@
 .sign-in-layout{
+  position: relative;
   color: black;
   min-height: 100vh;
   height: auto;
@@ -11,6 +12,8 @@
 }
 
 .side-img-container{
+  position: relative;
+  z-index: 2;
   background: url('https://images.unsplash.com/reserve/LJIZlzHgQ7WPSh5KVTCB_Typewriter.jpg?q=80&w=1596&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
   background-position: center;
   background-size: cover;
@@ -21,7 +24,23 @@
   border-bottom-left-radius: 10px;
 }
 
+.signIn-hero-img{
+  position: absolute;
+  top: -185px;
+  left: 0;
+
+  z-index: 2;
+
+  object-fit: cover;
+  width: 100%;
+  min-height: 1200px;
+  height: 100vh;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.212);
+}
+
 .sign-in-cont{
+  position: relative;
+  z-index: 4;
   display: flex;
   flex-direction: column;
   align-items: center;

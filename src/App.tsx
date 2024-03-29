@@ -27,14 +27,20 @@ function App() {
   //Använd useContext för att anropa på SetUserOnline(user) i varje route komponent nedan
   const [isOnline, setIsOnline] = useState(null); 
   const [isDarkTheme, setIsDarkTheme] = useState(false); 
+  const [textColorHeader, setTextColorHeader] = useState('');
 
   const contextValues = {
     isOnline,
     isDarkTheme,
+    textColorHeader,
+    setTextColorHeader,
     color: isDarkTheme ?  '#ffff' : '',
+    background: isDarkTheme ? 'linear-gradient(147deg, #4d4855 0%, #000000 74%)' : 'whitesmoke',
     bgTheme: isDarkTheme ? 
     {
-      backgroundColor: '#1e1e1e',
+      // backgroundColor: '#1e1e1e',
+      backgroundColor: '#4d4855',
+      background: 'linear-gradient(147deg, #4d4855 0%, #000000 74%)',
       color: '#ffff'
     } : {}
   }

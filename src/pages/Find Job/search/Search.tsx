@@ -1,7 +1,8 @@
 // @ts-nocheck
 import './search.css';
 import searchIcon from './assets/Search SVG Vector.svg';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { Context } from '../../../App';
 import { Job } from '../Card/Card';
 import OpeningContent from '../OpeningContent/OpeningContent';
 import CardArb from '../Card/CardArb';
@@ -11,6 +12,9 @@ function Search(){
   const [submitValue, setSubmitValue] = useState('') ;
   const [jobs, setJobs] = useState(null);
   const [error, setError] = useState(null)
+
+  const {setTextColorHeader} = useContext(Context);
+  setTextColorHeader('black'); 
 
   const inputValue = (input: React.ChangeEvent<HTMLInputElement>) => {
     return setInput(input.target.value)

@@ -13,10 +13,15 @@ import googleIcon from './assets/icon/google.svg'
 import netflixIcon from './assets/icon/netflix-icon.svg'
 import androidIcon from './assets/icon/android-color.svg'
 
+// img
+import heroImg from './assets/home-page-hero-pic.avif'
+
 
 function Home(){
   // useContext
-  const {isDarkTheme, bgTheme, color} = useContext(Context);
+  console.log('hi')
+  const {isDarkTheme, bgTheme, color, setTextColorHeader} = useContext(Context);
+  setTextColorHeader('white');
 
   const navigate = useNavigate(); 
   const {auth, user, provider} = firebaseSignIn();
@@ -37,6 +42,13 @@ function Home(){
     <>
       <div style={bgTheme} className="home-layout">
         <div className="hero-container">
+          <picture>
+            <source type='image/webp' />
+              <img 
+                className='home-hero-img'
+                loading='lazy'
+                src={heroImg} alt="hero image of a women laughing" />
+          </picture>
           <div className='opening-text-container'>
             <article className="opening-text">
             <h1>Vi hjälper dig med ditt <span style={{color: '#f09711'}}>jobbsökande!</span></h1>
