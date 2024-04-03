@@ -19,7 +19,7 @@ import heroImg from './assets/home-page-hero-pic.avif'
 
 function Home(){
   // useContext
-  const {isDarkTheme, bgTheme, color, setTextColorHeader, isOnline} = useContext(Context);
+  const {isDarkTheme, color, setTextColorHeader, isOnline} = useContext(Context);
   setTextColorHeader('white');
 
   const navigate = useNavigate(); 

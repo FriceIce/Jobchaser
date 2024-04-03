@@ -19,7 +19,7 @@ import { Context } from '../../../App'
 
 const ReviewCard = () => {
   // useContext
-  const {isDarkTheme, bgTheme, color} = useContext(Context);
+  const {isDarkTheme, color} = useContext(Context);
 
   // Tillfällig lösning
   const profile = [femalePPic, malePPic, femalePPic2, malePPIC2];

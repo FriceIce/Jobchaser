@@ -13,14 +13,11 @@ import './App.css';
 import './media-query.css'
 
 //React 
-import { BrowserRouter, Routes, Route, Navigate, Outlet, useNavigate} from 'react-router-dom';
-import FirstStep from './pages/Post Job/Form/FirstStep/FirstStep';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useState, useEffect, createContext } from 'react';
 
 // firebase
-import firebaseSignIn, { getDataFromDB, registerUser, updateData} from '../database/firebase';
-import SignOut from './pages/Sign in/SignOut';
-import { update } from 'firebase/database';
+import firebaseSignIn, { getDataFromDB, registerUser } from '../database/firebase';
 import { savedJobsObserver } from '../database/firebase';
 
 // useContext
@@ -45,13 +42,6 @@ function App() {
     setTextColorHeader,
     color: isDarkTheme ?  '#ffff' : '',
     background: isDarkTheme ? 'linear-gradient(147deg, #4d4855 0%, #000000 74%)' : 'whitesmoke',
-    bgTheme: isDarkTheme ? 
-    {
-      // backgroundColor: '#1e1e1e',
-      backgroundColor: '#4d4855',
-      background: 'linear-gradient(147deg, #4d4855 0%, #000000 74%)',
-      color: '#ffff'
-    } : {}
   } 
   
   // Checks for user activity

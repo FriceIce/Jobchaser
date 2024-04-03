@@ -11,13 +11,22 @@ import anonymousUser from './assets/anonymous-user.svg'
 import signOutWhite from './assets/sign-out-white.svg'
 import signOutBlack from './assets/sign-out-black.svg'
 
+// useReducer
+import { INTIAL_STATE, ACTION_TYPES, sideMenuReducer} from './sideMenuRedcuer';
+
+// other
 import { Link } from 'react-router-dom';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useReducer, useState } from 'react';
 import { Context } from '../../App';
 import firebaseSignIn from '../../../database/firebase';
 import { useLocation } from 'react-router-dom';
+import SideMenu from './sideMenu/Sidemenu';
+import HeaderOption from './headerOption/headerOption';
 
 function Header({toggleDarkTheme}){
+  // ---------side menu with useReducer hook--------
+  const [state, dispatch] = useReducer(sideMenuReducer, INTIAL_STATE); 
+  
   // useContext
   const { 
     isOnline, 
@@ -27,24 +36,10 @@ function Header({toggleDarkTheme}){
     textColorHeader
   } = useContext(Context);
 
-  
+  // firebase auth for sign out
   const {auth, signOut} = firebaseSignIn();
 
-  // toggle Dark theme
-  function toggleBgTheme(){
-    toggleDarkTheme((prevTheme => !prevTheme)); 
-    return
-  }
-  
-  // ---------menu--------
-  const [isMobileScreen, setIsMobileScreen] = useState(false)
-  const [menuClass, setMenuClass] = useState(null);
-  const [checked, setChecked] = useState(false);
-  const [styleTransition, setStyleTransition] = useState('none'); 
-  const [timeoutId, setTimeoutId] = useState();
-  const [marginBottom, setMarginBottom] = useState('none');
-  
-  
+  // varibles for addEventListener for screen size changes. 
   const mediaWith = window.matchMedia('(width < 1249px)'); 
   const mediaHeight = window.matchMedia('(height < 801px)'); 
   const bodyElement = document.body; 
@@ -52,28 +47,34 @@ function Header({toggleDarkTheme}){
   // Without this line the background color is acting weird. 
   bodyElement.style.background = isDarkTheme ? 'linear-gradient(147deg, #4d4855 0%, #000000 74%)' : 'whitesmoke'
   
+  // toggle Dark theme
+  function toggleBgTheme(){
+    toggleDarkTheme((prevTheme => !prevTheme)); 
+    return
+  }
+  // Open and close side menu
   function toggleMenu(element){   
     if(!mediaWith.matches || element.target.tagName === 'BUTTON') return
     
-    if(menuClass){
-      if(timeoutId){
-        clearTimeout(timeoutId); 
-        setTimeoutId(setTimeout(() => setStyleTransition('none'), 350));
+    if(state.menuClass){
+      if(state.timeoutId){
+        clearTimeout(state.timeoutId); 
+        dispatch({type: ACTION_TYPES.TIMEOUT_ID, payload: setTimeout(() => 'none', 350)});
       } else {
-        setTimeoutId(setTimeout(() => setStyleTransition('none'), 350));
+        dispatch({type: ACTION_TYPES.TIMEOUT_ID, payload: setTimeout(() => 'none', 350)});
       }
       
       bodyElement.removeAttribute('style');
-      setChecked(false);
-      setMenuClass(null);
+      dispatch({type: ACTION_TYPES.CHECKED, payload:false});
+      dispatch({type: ACTION_TYPES.MENU_CLASS, payload: null});
       return 
     } 
     
-    if(menuClass === null){
-      setStyleTransition('translate 350ms')
+    if(state.menuClass === null){
+      dispatch({type: ACTION_TYPES.STYLE_TRANSITION, payload: 'translate 350ms'})
       bodyElement.style.overflow = 'hidden'
-      setChecked(true);
-      setMenuClass('show-menu');
+      dispatch({type: ACTION_TYPES.CHECKED, payload: true});
+      dispatch({type: ACTION_TYPES.MENU_CLASS, payload: 'show-menu'});
       return 
     } 
   }
@@ -90,32 +91,33 @@ function Header({toggleDarkTheme}){
     } 
   }, [isDarkTheme])
   
-
+  // addEventlisteners for screen size changes. 
   useEffect(() => {
-    if(mediaWith.matches) setIsMobileScreen(true); 
+    if(mediaWith.matches) dispatch({type: ACTION_TYPES.IS_MOBILE, payload: true}); 
 
     mediaWith.addEventListener('change', (e) => {
       if(!e.matches) {
         console.log('desktop')
         bodyElement.removeAttribute('style');
-        setIsMobileScreen(false);
-        setChecked(false)
-        setMenuClass(null)
-        setStyleTransition('none')
+        dispatch({type: ACTION_TYPES.IS_MOBILE, payload: false});
+        dispatch({type:ACTION_TYPES.CHECKED , payload: false}); 
+        dispatch({type:ACTION_TYPES.MENU_CLASS , payload: null});
+        dispatch({type:ACTION_TYPES.STYLE_TRANSITION , payload: 'none'});
         return
       }
-      setIsMobileScreen(true);
+      dispatch({type: ACTION_TYPES.IS_MOBILE, payload: true});
     })
     
     mediaHeight.addEventListener('change', (e) => {
-      if(e.matches) setMarginBottom('-120px');
-      if(!e.matches) setMarginBottom('0px');
+      if(e.matches) dispatch({type: ACTION_TYPES.STYLE_BOTTOM,payload: '-120px'});
+      if(!e.matches) dispatch({type: ACTION_TYPES.STYLE_BOTTOM,payload: '0px'});
       return 
     })
     
     
-    return () => {}
+    return
   }, [])
+
   // --------------------
   
   function jobchaserLogo(menu){
@@ -132,58 +134,70 @@ function Header({toggleDarkTheme}){
     <>
       <header>
         <div className="header-container">
-          <div className='title-container' style={{color: menuClass ? color : textColorHeader}}>
-            <img tabIndex={0}  src={jobchaserLogo(menuClass)} alt="Jobchaser logo" />
+          <div className='title-container' style={{color: state.menuClass ? color : textColorHeader}}>
+            <img tabIndex={0}  src={jobchaserLogo(state.menuClass)} alt="Jobchaser logo" />
             <p>Jobchaser</p>
             <p>EST 2023</p>
           </div>
 
-          <div onClick={toggleMenu} className='menu'>
-            <div style={{background: menuClass ? color : textColorHeader}} className="bar"></div>
-            <input style={{background: menuClass ? color : textColorHeader}} checked={checked} type='checkbox' className="bar"/>
-            <div style={{background: menuClass ? color : textColorHeader}} className="bar"></div>
-            <p style={{color: menuClass ? color : textColorHeader}}>Menu</p>
-          </div>
+          <SideMenu 
+            toggleMenu={toggleMenu} 
+            menuClass={state.menuClass} 
+            textColorHeader={textColorHeader} 
+            checked={state.checked} color={color}
+          />
           
-       
-          <nav onClick={toggleMenu} className={`link-options ${menuClass}`} style={{transition: styleTransition, background: isMobileScreen && background }}>
+          <nav 
+            onClick={toggleMenu} 
+            className={`link-options ${state.menuClass}`} style={{transition: state.styleTransition, background: state.isMobileScreen && background }}>
 
-            <button style={{color: menuClass ? color : textColorHeader, marginBottom: menuClass && marginBottom, border: isMobileScreen ? `1px solid ${color}` : `1px solid ${textColorHeader}`}} onClick={toggleBgTheme}>
-              {isDarkTheme ? 'Light Theme' : 'Dark Theme' }
+            <button 
+              style={{color: state.menuClass ? color : textColorHeader, marginBottom: state.menuClass && state.marginBottom, border: state.isMobileScreen ? `1px solid ${color}` : `1px solid ${textColorHeader}`}} onClick={toggleBgTheme}>
+                {isDarkTheme ? 'Light Theme' : 'Dark Theme' }
             </button>
 
-            {/* Skapa komponeter till dessa Link taggar för att minska på koden */}
-            <Link style={{color: isMobileScreen ? color : textColorHeader}} to='/Jobchaser/'>
-              Hem 
-              {isMobileScreen && <img className='chevron' src={!isDarkTheme ? blackChevron : whiteChevron} alt="chevron icon" />}</Link>
-            <Link style={{color: isMobileScreen ? color : textColorHeader}} to='/Jobchaser/Find-job'>
-              Lediga jobb
-              {isMobileScreen && <img className='chevron' src={!isDarkTheme ? blackChevron : whiteChevron} alt="chevron icon" />}
-            </Link>
-
+            <HeaderOption 
+              label='Hem' 
+              className='chevron' 
+              isMobileScreen={state.isMobileScreen} 
+              color={color} textColorHeader={textColorHeader} 
+              isDarkTheme={isDarkTheme} />
+            
+            <HeaderOption 
+              label='Lediga jobb' 
+              className='chevron' 
+              isMobileScreen={state.isMobileScreen} 
+              color={color} 
+              textColorHeader={textColorHeader} 
+              isDarkTheme={isDarkTheme} />
+            
             {isOnline && 
-            <Link to={'/Jobchaser/User-profile'} style={{color: isMobileScreen ? color : textColorHeader}}>
+            <Link to={'/Jobchaser/User-profile'} style={{color: state.isMobileScreen ? color : textColorHeader}}>
               <div className='profile-container'>
                 <p>Profil</p>
-                <img src={isOnline.profileImg ? isOnline.profileImg : anonymousUser} alt="user profile picture" style={{border: '2px solid ' + (menuClass ? color : textColorHeader)}}/>
+                <img src={isOnline.profileImg ? isOnline.profileImg : anonymousUser} alt="user profile picture" style={{border: '2px solid ' + (state.menuClass ? color : textColorHeader)}}/>
               </div>
 
-              {isMobileScreen && <img style={{bottom: '30%'}} className='chevron' src={!isDarkTheme ? blackChevron : whiteChevron} alt="chevron icon" />}
+              {state.isMobileScreen && <img style={{bottom: '30%'}} className='chevron' src={!isDarkTheme ? blackChevron : whiteChevron} alt="chevron icon" />}
             </Link>}
 
             {isOnline ? 
             <div onClick={() => auth.signOut()} className="sign-out-cont">
-              <button className='sign-out-btn' style={{color: isMobileScreen ? color : textColorHeader}}>
+              <button className='sign-out-btn' style={{color: state.isMobileScreen ? color : textColorHeader}}>
                 Logga ut
               </button>
               <div className="sign-out-img-container">
-                <img src={toggleSignOutIcon(isMobileScreen)} alt="sign out icon" />
+                <img src={toggleSignOutIcon(state.isMobileScreen)} alt="sign out icon" />
               </div>
             </div> : 
-            <Link style={{color: isMobileScreen ? color : textColorHeader}} to='/Jobchaser/Sign-in'>
-              Logga in
-              {isMobileScreen && <img className='chevron' src={!isDarkTheme ? blackChevron : whiteChevron} alt="chevron icon" />}
-            </Link>}
+
+            <HeaderOption 
+              label='Logga in' 
+              className='chevron' 
+              isMobileScreen={state.isMobileScreen} 
+              color={color} 
+              textColorHeader={textColorHeader} 
+              isDarkTheme={isDarkTheme} />}
           </nav>
      
         </div>
