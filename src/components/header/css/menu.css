@@ -14,12 +14,13 @@
   display: none;
   flex-direction: column;
   gap: var(--hamburgar-gap);
+  align-items: center;
   width: max-content;
   z-index: 2;
   
   position: absolute;
   top:  75px;
-  right: 25px;
+  right: 35px;
 }
 
 .bar{

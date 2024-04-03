@@ -23,9 +23,16 @@
   }
 } */
 
-@media(width < 1001px){
+@media(width < 1249px){
 
   /*-----side menu------  */
+  .sign-out-img-container{
+    display: inline-block;
+  }
+
+  .sign-out-btn{
+    padding-left: 0px;
+  }
 
   .link-options a{
     font-size: 1.5rem;
@@ -54,7 +61,7 @@
 
   .chevron{
     position: absolute;
-    right: 12%;
+    right: 0;
     
     content: '';
     object-fit: contain;
@@ -132,4 +139,15 @@
     padding-inline: 0px;
   }
 
+  .opening-text h1{
+    font-size: 1.5rem;
+  }
+
+  .opening-text p{
+    font-size: 0.75rem;
+  }
+
+  .available-jobs-btn{
+    font-size: 0.75rem;
+  }
 }

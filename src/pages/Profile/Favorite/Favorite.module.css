@@ -1,0 +1,8 @@
+.titleForSavedJobs{
+  font-size: 2.5rem;
+  text-align: center;
+}
+
+@media(width < 550px){
+  .titleForSavedJobs{font-size: 1.8rem;}
+}

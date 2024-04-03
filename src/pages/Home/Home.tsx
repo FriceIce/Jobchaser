@@ -3,7 +3,7 @@ import './Home.css'
 import { useNavigate } from 'react-router-dom'
 import ReviewCard from './Review Card/ReviewCard'
 import { useEffect, useContext } from 'react';
-import firebaseSignIn from '../Sign in/firebase';
+import firebaseSignIn from '../../../database/firebase';
 import { Context } from '../../App';
 
 // Icons
@@ -19,8 +19,7 @@ import heroImg from './assets/home-page-hero-pic.avif'
 
 function Home(){
   // useContext
-  console.log('hi')
-  const {isDarkTheme, bgTheme, color, setTextColorHeader} = useContext(Context);
+  const {isDarkTheme, bgTheme, color, setTextColorHeader, isOnline} = useContext(Context);
   setTextColorHeader('white');
 
   const navigate = useNavigate(); 
@@ -40,7 +39,7 @@ function Home(){
   }, [])
   return (
     <>
-      <div style={bgTheme} className="home-layout">
+      <div className="home-layout">
         <div className="hero-container">
           <picture>
             <source type='image/webp' />
@@ -64,14 +63,14 @@ function Home(){
               </button>
               <button 
                 className='available-jobs-btn'
-                onClick={() => navigate('/Jobchaser/Sign-in')}>                
-                Registrera dig
+                onClick={() => !isOnline ? navigate('/Jobchaser/Sign-in') : navigate('/Jobchaser/User-profile')}>                
+                {!isOnline ? 'Registrera dig' : 'Profil'}
               </button>
             </div>
           </div>
         </div>
         <div className="middle-container">
-          <h2 style={{color: color}}>Partnerskap med företag världen över.</h2>
+          <h2 style={{color: color}}>Partnerskap med företag världen över</h2>
           <div className="companies-logo-layout">
             <div className="company-logo-container"><img loading='lazy' src={ !isDarkTheme ? amazonLightThemeIcon : amazonDarkThemeIcon} alt="Amazon logo" /></div>
             <div className="company-logo-container"><img loading='lazy' src={googleIcon} alt="Google logo" /></div>

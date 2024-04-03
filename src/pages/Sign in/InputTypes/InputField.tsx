@@ -28,8 +28,8 @@ function InputField({input, label, property, type, required, placeholder, errors
     } 
 
     if(property === 'password'){
-      pattern = /^(?=.*[A-Z])(?=.*\d)(?!.*<[^>]+>).*$/;
-      errorMessage = 'Vänligen ange ett lösenord med minst en stor bokstav och en siffra.'; 
+      pattern = /^(?=.*[A-Z])(?=.*\d)(?!.*<.*>).*.{6,}$/;
+      errorMessage = 'Vänligen ange en sträng som innehåller minst en stor bokstav, en siffra och är minst 6 tecken lång.'; 
     } 
 
     if(property === 'userName'){
@@ -44,7 +44,7 @@ function InputField({input, label, property, type, required, placeholder, errors
 
   return(
     <div className="form-control">
-      <label>{firstLetterUpper}</label>
+      <label style={{whiteSpace: 'nowrap'}}>{firstLetterUpper}</label>
       {input ? 
       (<input
         // name={label}

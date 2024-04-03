@@ -1,14 +1,20 @@
 // @ts-nocheck
 import './css/header.css';
 import './css/menu.css'
+
+// icon
 import whiteChevron from './assets/chevron-right-white.svg'
 import blackChevron from './assets/chevron-right-black.svg'
 import titleLight from './assets/jobchaser-logo-darkmode.svg'
 import titleDark from './assets/jobchaser-logo-lightmode.svg'
+import anonymousUser from './assets/anonymous-user.svg'
+import signOutWhite from './assets/sign-out-white.svg'
+import signOutBlack from './assets/sign-out-black.svg'
+
 import { Link } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { Context } from '../../App';
-import firebaseSignIn from '../../pages/Sign in/firebase';
+import firebaseSignIn from '../../../database/firebase';
 import { useLocation } from 'react-router-dom';
 
 function Header({toggleDarkTheme}){
@@ -39,11 +45,12 @@ function Header({toggleDarkTheme}){
   const [marginBottom, setMarginBottom] = useState('none');
   
   
-  const mediaWith = window.matchMedia('(width < 1001px)'); 
+  const mediaWith = window.matchMedia('(width < 1249px)'); 
   const mediaHeight = window.matchMedia('(height < 801px)'); 
   const bodyElement = document.body; 
   
-  
+  // Without this line the background color is acting weird. 
+  bodyElement.style.background = isDarkTheme ? 'linear-gradient(147deg, #4d4855 0%, #000000 74%)' : 'whitesmoke'
   
   function toggleMenu(element){   
     if(!mediaWith.matches || element.target.tagName === 'BUTTON') return
@@ -71,10 +78,10 @@ function Header({toggleDarkTheme}){
     } 
   }
 
-
   useEffect(() => {
+    const root = document.getElementById('root')
     if(isDarkTheme) {
-      bodyElement.style.background = '#1e1e1e';
+      bodyElement.style.background = 'linear-gradient(147deg, #4d4855 0%, #000000 74%)';
       return
     } 
     if(!isDarkTheme){
@@ -112,11 +119,15 @@ function Header({toggleDarkTheme}){
   // --------------------
   
   function jobchaserLogo(menu){
-    console.log(menu)
-    if(menu == null) return textColorHeader === 'white' ? titleDark : titleLight
+    if(menu === null) return textColorHeader === 'white' ? titleDark : titleLight
     return isDarkTheme ? titleDark : titleLight; 
   }
 
+  function toggleSignOutIcon(screen){
+    if(screen) return color ? signOutWhite : signOutBlack;
+    if(!screen) return textColorHeader === 'white' ? signOutWhite : signOutBlack;
+
+  }
   return (
     <>
       <header>
@@ -131,33 +142,48 @@ function Header({toggleDarkTheme}){
             <div style={{background: menuClass ? color : textColorHeader}} className="bar"></div>
             <input style={{background: menuClass ? color : textColorHeader}} checked={checked} type='checkbox' className="bar"/>
             <div style={{background: menuClass ? color : textColorHeader}} className="bar"></div>
+            <p style={{color: menuClass ? color : textColorHeader}}>Menu</p>
           </div>
           
        
           <nav onClick={toggleMenu} className={`link-options ${menuClass}`} style={{transition: styleTransition, background: isMobileScreen && background }}>
 
-          <button style={{color: menuClass ? color : textColorHeader, marginBottom: menuClass && marginBottom, border: isMobileScreen ? `1px solid ${color}` : `1px solid ${textColorHeader}`}} onClick={toggleBgTheme}>
-            {isDarkTheme ? 'Light Theme' : 'Dark Theme' }
-          </button>
+            <button style={{color: menuClass ? color : textColorHeader, marginBottom: menuClass && marginBottom, border: isMobileScreen ? `1px solid ${color}` : `1px solid ${textColorHeader}`}} onClick={toggleBgTheme}>
+              {isDarkTheme ? 'Light Theme' : 'Dark Theme' }
+            </button>
 
+            {/* Skapa komponeter till dessa Link taggar för att minska på koden */}
             <Link style={{color: isMobileScreen ? color : textColorHeader}} to='/Jobchaser/'>
               Hem 
               {isMobileScreen && <img className='chevron' src={!isDarkTheme ? blackChevron : whiteChevron} alt="chevron icon" />}</Link>
             <Link style={{color: isMobileScreen ? color : textColorHeader}} to='/Jobchaser/Find-job'>
               Lediga jobb
               {isMobileScreen && <img className='chevron' src={!isDarkTheme ? blackChevron : whiteChevron} alt="chevron icon" />}
-              </Link>
+            </Link>
+
+            {isOnline && 
+            <Link to={'/Jobchaser/User-profile'} style={{color: isMobileScreen ? color : textColorHeader}}>
+              <div className='profile-container'>
+                <p>Profil</p>
+                <img src={isOnline.profileImg ? isOnline.profileImg : anonymousUser} alt="user profile picture" style={{border: '2px solid ' + (menuClass ? color : textColorHeader)}}/>
+              </div>
+
+              {isMobileScreen && <img style={{bottom: '30%'}} className='chevron' src={!isDarkTheme ? blackChevron : whiteChevron} alt="chevron icon" />}
+            </Link>}
 
             {isOnline ? 
-              <a style={{color: isMobileScreen ? color : textColorHeader}} 
-                onClick={() => signOut(auth)}>
-                Logga ut [ {isOnline.displayName} ]
-                {isMobileScreen && <img className='chevron' src={!isDarkTheme ? blackChevron : whiteChevron} alt="chevron icon" />}
-                </a> : 
-                <Link style={{color: isMobileScreen ? color : textColorHeader}} to='/Jobchaser/Sign-in'>
-                  Logga in
-                  {isMobileScreen && <img className='chevron' src={!isDarkTheme ? blackChevron : whiteChevron} alt="chevron icon" />}
-                  </Link>}
+            <div onClick={() => auth.signOut()} className="sign-out-cont">
+              <button className='sign-out-btn' style={{color: isMobileScreen ? color : textColorHeader}}>
+                Logga ut
+              </button>
+              <div className="sign-out-img-container">
+                <img src={toggleSignOutIcon(isMobileScreen)} alt="sign out icon" />
+              </div>
+            </div> : 
+            <Link style={{color: isMobileScreen ? color : textColorHeader}} to='/Jobchaser/Sign-in'>
+              Logga in
+              {isMobileScreen && <img className='chevron' src={!isDarkTheme ? blackChevron : whiteChevron} alt="chevron icon" />}
+            </Link>}
           </nav>
      
         </div>

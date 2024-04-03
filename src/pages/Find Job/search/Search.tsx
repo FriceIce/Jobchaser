@@ -10,10 +10,9 @@ import CardArb from '../Card/CardArb';
 function Search(){
   const [input, setInput] = useState('');
   const [submitValue, setSubmitValue] = useState('') ;
-  const [jobs, setJobs] = useState(null);
   const [error, setError] = useState(null)
 
-  const {setTextColorHeader} = useContext(Context);
+  const {setTextColorHeader, setSavedJobAds, savedJobAds, setJobs, jobs} = useContext(Context);
   setTextColorHeader('black'); 
 
   const inputValue = (input: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,13 +23,26 @@ function Search(){
     fetch('https://jobsearch.api.jobtechdev.se/search?q=' + submitValue)
     .then((res) => res.json())
     .then((data) => {
-      console.log(data.hits)
-      return setJobs(data.hits)
+      
+      const editedData = data.hits.map((job) => {
+        const message = 'Information saknas';
+        if(job.duration.label === null) job.duration.label = message;
+        if(job.working_hours_type.label === null) job.working_hours_type.label = message;
+        if(job.employment_type.label === null) job.employment_type.label = message;
+        return job;
+      });
+
+      // console.log(editedData)
+      setJobs(editedData)
+      return
     })
     .catch((err) =>{
       console.log(err)
       setError(err)
+      
     })
+
+    return 
   }, [submitValue])
 
   return (

@@ -1,8 +1,11 @@
-// ts-nocheck
+// @ts-nocheck
 import { useNavigate } from "react-router-dom"
 import heroImg from '../Card/assets/start-page-background.jpg'
+import { useContext } from "react";
+import { Context } from "../../../App";
 
 const OpeningContent = () => {
+  const {isOnline} = useContext(Context)
   const navigate = useNavigate(); 
 
   return (
@@ -21,7 +24,7 @@ const OpeningContent = () => {
         <button 
         style={{background: '#f09711', color: 'black', position: 'relative'}}
           className='available-jobs-btn'
-          onClick={() => navigate('/Jobchaser/Sign-in')}>                
+          onClick={() => !isOnline ? navigate('/Jobchaser/Sign-in') : navigate('/Jobchaser/User-profile')}>                
           Bli medlem
         </button>
       </div>
