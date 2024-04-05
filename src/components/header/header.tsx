@@ -46,11 +46,6 @@ function Header({toggleDarkTheme}){
   // Without this line the background color is acting weird. 
   bodyElement.style.background = isDarkTheme ? 'linear-gradient(147deg, #4d4855 0%, #000000 74%)' : 'whitesmoke'
   
-  // // toggle Dark theme
-  // function toggleBgTheme(){
-  //   toggleDarkTheme((prevTheme => !prevTheme)); 
-  //   return
-  // }
   // Open and close side menu
   function toggleMenu(element){   
     if(!mediaWith.matches || element.target.tagName === 'BUTTON') return

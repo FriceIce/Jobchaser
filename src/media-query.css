@@ -1,10 +1,10 @@
 @media(width > 1700px){
   .jobb-hero-img{
-    height: 800px;
+    height: 900px;
   }
 
   .search-opening-text-container{
-    min-height: 650px;
+    min-height: 750px;
     align-items: center;
   }
 
@@ -16,12 +16,6 @@
     box-shadow: none;
   }
 }
-
-/* @media(height < 870px){
-  .show-menu{
-    
-  }
-} */
 
 @media(width < 1249px){
 
@@ -74,7 +68,7 @@
 
   .show-menu{
     translate: 0% 0;
-    overflow: auto;
+    /* overflow: auto; */
   }
 
   .menu{
