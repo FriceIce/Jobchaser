@@ -22,10 +22,22 @@ import SideMenu from './sideMenu/Sidemenu';
 import HeaderOption from './headerOption/headerOption';
 import ToggleDarkMode from './headerOption/toggleDarkmode'
 
+// redux
+import { useDispatch, useSelector } from 'react-redux';
+import { IS_MOBILE, MENU_CLASS, TIMEOUT_ID, CHECKED, STYLE_TRANSITION, MARGIN_BOTTOM  } from '../../features/sidemenu/sidemenuSlicer';
+
+
 function Header({toggleDarkTheme}){
-  // ---------side menu with useReducer hook--------
-  const [state, dispatch] = useReducer(sideMenuReducer, INTIAL_STATE); 
-  // console.log(state.menuClass)
+  const {
+    isMobileScreen, 
+    menuClass, 
+    checked, 
+    timeoutId, 
+    styleTransition, 
+    marginBottom
+  } = useSelector((state) => state.sidemenu);
+  const dispatch = useDispatch(); 
+
   // useContext
   const { 
     isOnline, 
@@ -50,25 +62,25 @@ function Header({toggleDarkTheme}){
   function toggleMenu(element){   
     if(!mediaWith.matches || element.target.tagName === 'BUTTON') return
     
-    if(state.menuClass){
-      if(state.timeoutId){
-        clearTimeout(state.timeoutId); 
-        dispatch({type: ACTION_TYPES.TIMEOUT_ID, payload: setTimeout(() => 'none', 350)});
+    if(menuClass){
+      if(timeoutId){
+        clearTimeout(timeoutId); 
+        dispatch({type: 'TIMEOUT_ID', payload: setTimeout(() => 'none', 350)});
       } else {
-        dispatch({type: ACTION_TYPES.TIMEOUT_ID, payload: setTimeout(() => 'none', 350)});
+        dispatch({type: 'TIMEOUT_ID', payload: setTimeout(() => 'none', 350)});
       }
       
       bodyElement.removeAttribute('style');
-      dispatch({type: ACTION_TYPES.CHECKED, payload:false});
-      dispatch({type: ACTION_TYPES.MENU_CLASS, payload: null});
+      dispatch(CHECKED(false));
+      dispatch(MENU_CLASS(null));
       return 
     } 
     
-    if(state.menuClass === null){
-      dispatch({type: ACTION_TYPES.STYLE_TRANSITION, payload: 'translate 350ms'})
+    if(menuClass === null){
+      dispatch(STYLE_TRANSITION('translate 350ms'))
       bodyElement.style.overflow = 'hidden'
-      dispatch({type: ACTION_TYPES.CHECKED, payload: true});
-      dispatch({type: ACTION_TYPES.MENU_CLASS, payload: 'show-menu'});
+      dispatch(CHECKED(true));
+      dispatch(MENU_CLASS('show-menu'));
       return 
     } 
   }
@@ -87,24 +99,24 @@ function Header({toggleDarkTheme}){
   
   // addEventlisteners for screen size changes. 
   useEffect(() => {
-    if(mediaWith.matches) dispatch({type: ACTION_TYPES.IS_MOBILE, payload: true}); 
+    if(mediaWith.matches) dispatch(IS_MOBILE(true)); 
 
     mediaWith.addEventListener('change', (e) => {
       if(!e.matches) {
         console.log('desktop')
         bodyElement.removeAttribute('style');
-        dispatch({type: ACTION_TYPES.IS_MOBILE, payload: false});
-        dispatch({type:ACTION_TYPES.CHECKED , payload: false}); 
-        dispatch({type:ACTION_TYPES.MENU_CLASS, payload: null});
-        dispatch({type:ACTION_TYPES.STYLE_TRANSITION , payload: 'none'});
+        dispatch(IS_MOBILE (false));
+        dispatch(CHECKED(false)); 
+        dispatch(MENU_CLASS(null));
+        dispatch(STYLE_TRANSITION('none'));
         return
       }
-      dispatch({type: ACTION_TYPES.IS_MOBILE, payload: true});
+      dispatch(IS_MOBILE(true));
     })
     
     mediaHeight.addEventListener('change', (e) => {
-      if(e.matches) dispatch({type: ACTION_TYPES.STYLE_BOTTOM, payload: '-120px'});
-      if(!e.matches) dispatch({type: ACTION_TYPES.STYLE_BOTTOM, payload: '0px'});
+      if(e.matches) dispatch(MARGIN_BOTTOM('-120px'));
+      if(!e.matches) dispatch(MARGIN_BOTTOM('0px'));
       return 
     })
     
@@ -123,69 +135,69 @@ function Header({toggleDarkTheme}){
     <>
       <header>
         <div className="header-container">
-          <div className='title-container' style={{color: state.menuClass ? color : textColorHeader}}>
+          <div className='title-container' style={{color: menuClass ? color : textColorHeader}}>
             <img tabIndex={0} src={jobchaserLogo} alt="Jobchaser logo" />
-            <span className='char-in-logo' style={{color: !state.menuClass ? textColorHeader : color}}>J</span>
+            <span className='char-in-logo' style={{color: !menuClass ? textColorHeader : color}}>J</span>
             <p>Jobchaser</p>
             <p>EST 2023</p>
           </div>
 
           <SideMenu 
             toggleMenu={toggleMenu} 
-            menuClass={state.menuClass} 
+            menuClass={menuClass} 
             textColorHeader={textColorHeader} 
-            checked={state.checked} color={color}
+            checked={checked} color={color}
           />
           
           <nav 
             onClick={toggleMenu} 
-            className={`link-options ${state.menuClass}`} style={{transition: state.styleTransition, background: state.isMobileScreen && background }}>
+            className={`link-options ${menuClass}`} style={{transition: styleTransition, background: isMobileScreen && background }}>
 
             <ToggleDarkMode 
               color={color} 
               textColorHeader={textColorHeader} 
-              sidemenu={state.menuClass}
+              sidemenu={menuClass}
              />  
 
             <HeaderOption 
               label='Hem' 
               className='chevron' 
-              isMobileScreen={state.isMobileScreen} 
+              isMobileScreen={isMobileScreen} 
               color={color} textColorHeader={textColorHeader} 
               isDarkTheme={isDarkTheme} />
             
             <HeaderOption 
               label='Lediga jobb' 
               className='chevron' 
-              isMobileScreen={state.isMobileScreen} 
+              isMobileScreen={isMobileScreen} 
               color={color} 
               textColorHeader={textColorHeader} 
               isDarkTheme={isDarkTheme} />
             
             {isOnline && 
-            <Link to={'/Jobchaser/User-profile'} style={{color: state.isMobileScreen ? color : textColorHeader}}>
+            <Link to={'/Jobchaser/User-profile'} style={{color: isMobileScreen ? color : textColorHeader}}>
               <div className='profile-container'>
                 <p>Profil</p>
-                <img src={isOnline.profileImg ? isOnline.profileImg : anonymousUser} alt="user profile picture" style={{border: '2px solid ' + (state.menuClass ? color : textColorHeader)}}/>
+                <img src={isOnline.profileImg ? isOnline.profileImg : anonymousUser} alt="user profile picture" style={{border: '2px solid ' + (menuClass ? color : textColorHeader)}}/>
               </div>
 
-              {state.isMobileScreen && <img style={{bottom: '30%'}} className='chevron' src={!isDarkTheme ? blackChevron : whiteChevron} alt="chevron icon" />}
+              {isMobileScreen && <img style={{bottom: '30%'}} className='chevron' src={!isDarkTheme ? blackChevron : whiteChevron} alt="chevron icon" />}
             </Link>}
 
             {isOnline ? 
             <div onClick={() => auth.signOut()} className="sign-out-cont">
-              <button className='sign-out-btn' style={{color: state.isMobileScreen ? color : textColorHeader}}>
+              <button className='sign-out-btn' style={{color: isMobileScreen ? color : textColorHeader}}>
                 Logga ut
               </button>
               <div className="sign-out-img-container">
-                <img src={toggleSignOutIcon(state.isMobileScreen)} alt="sign out icon" />
+                <img src={toggleSignOutIcon(isMobileScreen)} alt="sign out icon" />
               </div>
             </div> : 
 
             <HeaderOption 
               label='Logga in' 
               className='chevron' 
-              isMobileScreen={state.isMobileScreen} 
+              isMobileScreen={isMobileScreen} 
               color={color} 
               textColorHeader={textColorHeader} 
               isDarkTheme={isDarkTheme} 
