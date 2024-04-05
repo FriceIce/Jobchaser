@@ -34,6 +34,7 @@ function App() {
   const contextValues = {
     setJobs,
     jobs,
+    setIsDarkTheme,
     setSavedJobAds,
     savedJobAds,
     isOnline,
@@ -95,7 +96,6 @@ function App() {
             <Route path='/Jobchaser/Find-job' element={<Search />} />
             <Route path='/Jobchaser/Sign-in' element={ !isOnline ? <SignInCont /> : <Navigate to="/Jobchaser/User-profile" />}/>
             <Route path='/Jobchaser/User-profile' element={ !isOnline ? <SignInCont /> : <Profile />}/>
-           
             {/* <Route element={<PrivateRoute />}>
               <Route path='/Jobchaser/User-profile' element={<Profile />} />
             </Route> */}

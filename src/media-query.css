@@ -140,14 +140,14 @@
   }
 
   .opening-text h1{
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
 
   .opening-text p{
-    font-size: 0.75rem;
+    font-size: 1.1rem;
   }
 
   .available-jobs-btn{
-    font-size: 0.75rem;
+    font-size: 0.95rem;
   }
 }

@@ -50,12 +50,12 @@ export function sideMenuReducer(state, action){
         styleTransition: action.payload
       }
 
-    case ACTION_TYPES.STYLE_TRANSITION: 
+    case ACTION_TYPES.STYLE_BOTTOM: 
       return {
         ...state,
-        styleTranistion: action.payload
+        marginBottom: action.payload
       }
-
+      
     default:
       console.error('ERROR');
       break;

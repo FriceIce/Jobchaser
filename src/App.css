@@ -6,6 +6,7 @@
 }
 
 body{
+  background-image: none;
   position: relative;
   overflow-x: hidden;
   height: auto;

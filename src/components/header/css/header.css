@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Sanchez:ital@0;1&display=swap');
 
 
 header{
@@ -41,6 +42,7 @@ header{
   background: transparent;
 }
 
+
 .profile-container{
   display: flex;
   flex-direction: row;
@@ -59,10 +61,6 @@ header{
   border-radius: 10px;
 }
 
-.active-option{
-  border-bottom: 3px solid #f09711;
-}
-
 .title-container{
   position: relative;
   z-index: 300000;
@@ -71,9 +69,13 @@ header{
   align-items: center;
 }
 
-.title-container p:nth-child(2){
-  font-size: 1.5rem;
-  font-weight: 600;
+.char-in-logo{
+  position: absolute;
+  top: 17px;
+  right: 33px;
+  
+  font-family: "Sanchez", "Sen", "Roboto", "Arial", serif;
+  font-size: 1.2rem;
 }
 
 .title-container img{

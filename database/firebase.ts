@@ -13,17 +13,14 @@ import {
   onAuthStateChanged,
   signOut,
   getAuth} from "firebase/auth";
-import { initializeApp, getApp } from 'firebase/app';
+import { initializeApp } from 'firebase/app';
 import { useAuthState } from 'react-firebase-hooks/auth';
-import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 // Google analytics
 import { getAnalytics } from "firebase/analytics";
-import firebase from 'firebase/compat/app';
 
 // firebase database
-import { getDatabase, ref, set, get, child, update, onValue, push } from 'firebase/database'; 
-import { uuid } from 'uuidv4';
+import { getDatabase, ref, set, get, child, update, onValue } from 'firebase/database'; 
 
 const firebaseConfig = {
   apiKey: "AIzaSyDZTdRn4Auo-weSPUceWIFinY0rQsVNn3U",

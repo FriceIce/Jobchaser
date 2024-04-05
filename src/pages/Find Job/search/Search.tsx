@@ -57,6 +57,10 @@ function Search(){
           return 
         }}>
         <div className="input-container">
+          <div className="label-for-input">
+            <p>Sök på ett eller flera ord</p>
+            <p>Skriv t.ex. utvecklare Stockholm</p>
+          </div>
           <button type='submit' className='search-btn'>
             <img src={searchIcon} alt="magnifying glass" />
           </button>

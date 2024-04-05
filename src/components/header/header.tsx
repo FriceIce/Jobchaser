@@ -5,9 +5,8 @@ import './css/menu.css'
 // icon
 import whiteChevron from './assets/chevron-right-white.svg'
 import blackChevron from './assets/chevron-right-black.svg'
-import titleLight from './assets/jobchaser-logo-darkmode.svg'
-import titleDark from './assets/jobchaser-logo-lightmode.svg'
-import anonymousUser from './assets/anonymous-user.svg'
+import jobchaserLogo from './assets/Jobchaser-logo.svg'
+import anonymousUser from './assets/anonymous-user.png'
 import signOutWhite from './assets/sign-out-white.svg'
 import signOutBlack from './assets/sign-out-black.svg'
 
@@ -16,17 +15,17 @@ import { INTIAL_STATE, ACTION_TYPES, sideMenuReducer} from './sideMenuRedcuer';
 
 // other
 import { Link } from 'react-router-dom';
-import { useContext, useEffect, useReducer, useState } from 'react';
+import { useContext, useEffect, useReducer } from 'react';
 import { Context } from '../../App';
 import firebaseSignIn from '../../../database/firebase';
-import { useLocation } from 'react-router-dom';
 import SideMenu from './sideMenu/Sidemenu';
 import HeaderOption from './headerOption/headerOption';
+import ToggleDarkMode from './headerOption/toggleDarkmode'
 
 function Header({toggleDarkTheme}){
   // ---------side menu with useReducer hook--------
   const [state, dispatch] = useReducer(sideMenuReducer, INTIAL_STATE); 
-  
+  // console.log(state.menuClass)
   // useContext
   const { 
     isOnline, 
@@ -37,7 +36,7 @@ function Header({toggleDarkTheme}){
   } = useContext(Context);
 
   // firebase auth for sign out
-  const {auth, signOut} = firebaseSignIn();
+  const {auth} = firebaseSignIn();
 
   // varibles for addEventListener for screen size changes. 
   const mediaWith = window.matchMedia('(width < 1249px)'); 
@@ -47,11 +46,11 @@ function Header({toggleDarkTheme}){
   // Without this line the background color is acting weird. 
   bodyElement.style.background = isDarkTheme ? 'linear-gradient(147deg, #4d4855 0%, #000000 74%)' : 'whitesmoke'
   
-  // toggle Dark theme
-  function toggleBgTheme(){
-    toggleDarkTheme((prevTheme => !prevTheme)); 
-    return
-  }
+  // // toggle Dark theme
+  // function toggleBgTheme(){
+  //   toggleDarkTheme((prevTheme => !prevTheme)); 
+  //   return
+  // }
   // Open and close side menu
   function toggleMenu(element){   
     if(!mediaWith.matches || element.target.tagName === 'BUTTON') return
@@ -101,7 +100,7 @@ function Header({toggleDarkTheme}){
         bodyElement.removeAttribute('style');
         dispatch({type: ACTION_TYPES.IS_MOBILE, payload: false});
         dispatch({type:ACTION_TYPES.CHECKED , payload: false}); 
-        dispatch({type:ACTION_TYPES.MENU_CLASS , payload: null});
+        dispatch({type:ACTION_TYPES.MENU_CLASS, payload: null});
         dispatch({type:ACTION_TYPES.STYLE_TRANSITION , payload: 'none'});
         return
       }
@@ -109,8 +108,8 @@ function Header({toggleDarkTheme}){
     })
     
     mediaHeight.addEventListener('change', (e) => {
-      if(e.matches) dispatch({type: ACTION_TYPES.STYLE_BOTTOM,payload: '-120px'});
-      if(!e.matches) dispatch({type: ACTION_TYPES.STYLE_BOTTOM,payload: '0px'});
+      if(e.matches) dispatch({type: ACTION_TYPES.STYLE_BOTTOM, payload: '-120px'});
+      if(!e.matches) dispatch({type: ACTION_TYPES.STYLE_BOTTOM, payload: '0px'});
       return 
     })
     
@@ -119,11 +118,6 @@ function Header({toggleDarkTheme}){
   }, [])
 
   // --------------------
-  
-  function jobchaserLogo(menu){
-    if(menu === null) return textColorHeader === 'white' ? titleDark : titleLight
-    return isDarkTheme ? titleDark : titleLight; 
-  }
 
   function toggleSignOutIcon(screen){
     if(screen) return color ? signOutWhite : signOutBlack;
@@ -135,7 +129,8 @@ function Header({toggleDarkTheme}){
       <header>
         <div className="header-container">
           <div className='title-container' style={{color: state.menuClass ? color : textColorHeader}}>
-            <img tabIndex={0}  src={jobchaserLogo(state.menuClass)} alt="Jobchaser logo" />
+            <img tabIndex={0} src={jobchaserLogo} alt="Jobchaser logo" />
+            <span className='char-in-logo' style={{color: !state.menuClass ? textColorHeader : color}}>J</span>
             <p>Jobchaser</p>
             <p>EST 2023</p>
           </div>
@@ -151,10 +146,11 @@ function Header({toggleDarkTheme}){
             onClick={toggleMenu} 
             className={`link-options ${state.menuClass}`} style={{transition: state.styleTransition, background: state.isMobileScreen && background }}>
 
-            <button 
-              style={{color: state.menuClass ? color : textColorHeader, marginBottom: state.menuClass && state.marginBottom, border: state.isMobileScreen ? `1px solid ${color}` : `1px solid ${textColorHeader}`}} onClick={toggleBgTheme}>
-                {isDarkTheme ? 'Light Theme' : 'Dark Theme' }
-            </button>
+            <ToggleDarkMode 
+              color={color} 
+              textColorHeader={textColorHeader} 
+              sidemenu={state.menuClass}
+             />  
 
             <HeaderOption 
               label='Hem' 
@@ -197,7 +193,8 @@ function Header({toggleDarkTheme}){
               isMobileScreen={state.isMobileScreen} 
               color={color} 
               textColorHeader={textColorHeader} 
-              isDarkTheme={isDarkTheme} />}
+              isDarkTheme={isDarkTheme} 
+              />}
           </nav>
      
         </div>

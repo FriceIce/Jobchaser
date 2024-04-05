@@ -15,14 +15,15 @@ const SignInForm = () => {
     auth, 
     user, 
     provider, 
-    signInWithRedirect, 
+    signInWithRedirect,
+    signInWithPopup, 
     signInWithEmailAndPassword, 
     createUserWithEmailAndPassword
   } = firebaseSignIn(); 
 
   // Google
    const signInWithGoogle = () => {
-    signInWithRedirect(auth, provider)
+    signInWithPopup(auth, provider)
     .catch(error => {
       const errorMessage = error.message;
       alert('Inloggningen misslyckades.'); 
