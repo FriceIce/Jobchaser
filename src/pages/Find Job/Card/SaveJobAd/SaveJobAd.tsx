@@ -1,21 +1,27 @@
 // @ts-nocheck
-import { useContext, useEffect, useState } from 'react';
 import favoriteRegular from '../assets/favorite-regular.svg'
 import favoriteSolid from '../assets/favorite-solid.svg'
-import { Context } from '../../../../App';
 import { updateSavedJobs } from '../../../../../database/firebase';
-import SavedJobs from '../../../Profile/Favorite/Favorite';
+import { useState, useEffect } from 'react';
+
+// redux
+import { useDispatch, useSelector } from 'react-redux';
+import { jobListing, saveJobAd } from '../../../../features/user/userSlice';
 
 function SavedJobAd({style, jobObj}){
+  // Redux
+  const {savedJobAds, isOnline} = useSelector((state) => state.user);
+  const dispatch = useDispatch(); 
+
+  // useState
   const [saveAdBtn, setSaveAdBtn] = useState(null); 
   const [allReadySaved, setAllReadySaved] = useState(null); 
-  const {savedJobAds, setSavedJobAds, isOnline} = useContext(Context);
 
   
   useEffect(() => {
     const favoriteAdsIDs = savedJobAds.map(job => job.id); 
     if(favoriteAdsIDs.includes(jobObj.id) && saveAdBtn === null){
-      console.log('This ad is already saved: ',jobObj.id, favoriteAdsIDs);
+      // console.log('This ad is already saved: ',jobObj.id, favoriteAdsIDs);
       setAllReadySaved(true); 
       return
     } 
@@ -23,23 +29,19 @@ function SavedJobAd({style, jobObj}){
     return
   }, [saveAdBtn])
 
-  function saveBtn(element){
-    const {src} = element.target; 
-    
+  function saveBtn(){
     if(allReadySaved){
       setSaveAdBtn(false);
       setAllReadySaved(null);
       return
     }
 
-     if(isOnline) setSaveAdBtn((prev) => !prev); 
+    if(isOnline) setSaveAdBtn((prev) => !prev); 
   }
 
   function updateOrDeleteSavedAd(button){
     if(button === true){
-      jobObj.saved = true; 
-      savedJobAds.push(jobObj)
-      updateSavedJobs(savedJobAds, isOnline.userId)
+      dispatch(saveJobAd(jobObj));
 
     } else if(button === false && savedJobAds.length !== 0) {
       const filteredList = savedJobAds.map(job => {
@@ -47,10 +49,16 @@ function SavedJobAd({style, jobObj}){
         if(job.id !== jobObj.id) return job; 
       })
 
-      setSavedJobAds(filteredList.filter(job => job !== null)); 
+      dispatch(jobListing(filteredList.filter(job => job !== null)));
       updateSavedJobs(filteredList, isOnline.userId)
     }
   }
+
+
+  useEffect(() => {
+    if(isOnline) updateSavedJobs(savedJobAds, isOnline.userId);
+    return
+  }, [savedJobAds])
 
   return (
     <div className={style}>

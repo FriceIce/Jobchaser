@@ -1,12 +1,19 @@
 // @ts-nocheck
-import { useContext } from "react";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import Favorite from "./Favorite/Favorite";
 import style from './profile-layout.module.css'
-import { Context } from "../../App";
+
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+
 function Profile(){
-  const {isOnline, color, setTextColorHeader} = useContext(Context)
-  setTextColorHeader(color); 
+  const {color, isDarkTheme} = useSelector(state => state.background); 
+  const {isOnline} = useSelector(state => state.user); 
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch({type: 'background/setTextColorHeader', payload: color});
+  },[isDarkTheme]) 
   return (
     <>
       <ProfileInfo user={isOnline}/>

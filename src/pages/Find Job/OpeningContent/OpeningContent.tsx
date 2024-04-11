@@ -1,11 +1,10 @@
 // @ts-nocheck
 import { useNavigate } from "react-router-dom"
 import heroImg from '../Card/assets/start-page-background.jpg'
-import { useContext } from "react";
-import { Context } from "../../../App";
+import { useSelector } from "react-redux";
 
 const OpeningContent = () => {
-  const {isOnline} = useContext(Context)
+  const {isOnline} = useSelector(state => state.user);
   const navigate = useNavigate(); 
 
   return (

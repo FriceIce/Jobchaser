@@ -10,12 +10,9 @@ import anonymousUser from './assets/anonymous-user.png'
 import signOutWhite from './assets/sign-out-white.svg'
 import signOutBlack from './assets/sign-out-black.svg'
 
-// useReducer
-import { INTIAL_STATE, ACTION_TYPES, sideMenuReducer} from './sideMenuRedcuer';
-
 // other
 import { Link } from 'react-router-dom';
-import { useContext, useEffect, useReducer } from 'react';
+import { useContext, useEffect } from 'react';
 import { Context } from '../../App';
 import firebaseSignIn from '../../../database/firebase';
 import SideMenu from './sideMenu/Sidemenu';
@@ -24,11 +21,14 @@ import ToggleDarkMode from './headerOption/toggleDarkmode'
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
-import { IS_MOBILE, MENU_CLASS, TIMEOUT_ID, CHECKED, STYLE_TRANSITION, MARGIN_BOTTOM  } from '../../features/sidemenu/sidemenuSlicer';
+import { IS_MOBILE, STYLE_TRANSITION, MARGIN_BOTTOM, TOGGLE_MENU, IS_DESKTOP } from '../../features/sidemenu/sidemenuSlicer';
 
 
-function Header({toggleDarkTheme}){
+function Header(){
+  const isOnline = useSelector(state => state.user.isOnline); 
+  const {textColorHeader, color, isDarkTheme, background} = useSelector(state => state.background); 
   const {
+    bodyStyle,
     isMobileScreen, 
     menuClass, 
     checked, 
@@ -37,15 +37,6 @@ function Header({toggleDarkTheme}){
     marginBottom
   } = useSelector((state) => state.sidemenu);
   const dispatch = useDispatch(); 
-
-  // useContext
-  const { 
-    isOnline, 
-    isDarkTheme, 
-    background, 
-    color, 
-    textColorHeader
-  } = useContext(Context);
 
   // firebase auth for sign out
   const {auth} = firebaseSignIn();
@@ -57,35 +48,9 @@ function Header({toggleDarkTheme}){
   
   // Without this line the background color is acting weird. 
   bodyElement.style.background = isDarkTheme ? 'linear-gradient(147deg, #4d4855 0%, #000000 74%)' : 'whitesmoke'
-  
-  // Open and close side menu
-  function toggleMenu(element){   
-    if(!mediaWith.matches || element.target.tagName === 'BUTTON') return
-    
-    if(menuClass){
-      if(timeoutId){
-        clearTimeout(timeoutId); 
-        dispatch({type: 'TIMEOUT_ID', payload: setTimeout(() => 'none', 350)});
-      } else {
-        dispatch({type: 'TIMEOUT_ID', payload: setTimeout(() => 'none', 350)});
-      }
-      
-      bodyElement.removeAttribute('style');
-      dispatch(CHECKED(false));
-      dispatch(MENU_CLASS(null));
-      return 
-    } 
-    
-    if(menuClass === null){
-      dispatch(STYLE_TRANSITION('translate 350ms'))
-      bodyElement.style.overflow = 'hidden'
-      dispatch(CHECKED(true));
-      dispatch(MENU_CLASS('show-menu'));
-      return 
-    } 
-  }
 
   useEffect(() => {
+    dispatch({type: 'background/setBackground'});
     const root = document.getElementById('root')
     if(isDarkTheme) {
       bodyElement.style.background = 'linear-gradient(147deg, #4d4855 0%, #000000 74%)';
@@ -103,15 +68,13 @@ function Header({toggleDarkTheme}){
 
     mediaWith.addEventListener('change', (e) => {
       if(!e.matches) {
-        console.log('desktop')
-        bodyElement.removeAttribute('style');
-        dispatch(IS_MOBILE (false));
-        dispatch(CHECKED(false)); 
-        dispatch(MENU_CLASS(null));
-        dispatch(STYLE_TRANSITION('none'));
+        // console.log('desktop')
+        bodyElement.style.overflowY = bodyStyle.overflow;
+        dispatch(IS_DESKTOP());
         return
       }
       dispatch(IS_MOBILE(true));
+      dispatch(STYLE_TRANSITION('none'));
     })
     
     mediaHeight.addEventListener('change', (e) => {
@@ -119,7 +82,6 @@ function Header({toggleDarkTheme}){
       if(!e.matches) dispatch(MARGIN_BOTTOM('0px'));
       return 
     })
-    
     
     return
   }, [])
@@ -143,14 +105,18 @@ function Header({toggleDarkTheme}){
           </div>
 
           <SideMenu 
-            toggleMenu={toggleMenu} 
             menuClass={menuClass} 
             textColorHeader={textColorHeader} 
-            checked={checked} color={color}
+            checked={checked} 
+            color={color}
           />
           
           <nav 
-            onClick={toggleMenu} 
+            onClick={(e) => {
+              if(e.target.tagName === 'SPAN') return 
+              if(e.target.tagName === 'INPUT') return 
+              if(menuClass) return dispatch(TOGGLE_MENU());
+            }} 
             className={`link-options ${menuClass}`} style={{transition: styleTransition, background: isMobileScreen && background }}>
 
             <ToggleDarkMode 
@@ -163,7 +129,8 @@ function Header({toggleDarkTheme}){
               label='Hem' 
               className='chevron' 
               isMobileScreen={isMobileScreen} 
-              color={color} textColorHeader={textColorHeader} 
+              color={color} 
+              textColorHeader={textColorHeader} 
               isDarkTheme={isDarkTheme} />
             
             <HeaderOption 

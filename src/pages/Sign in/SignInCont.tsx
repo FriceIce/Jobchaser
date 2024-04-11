@@ -4,14 +4,19 @@ import SignInForm from './SignInForm'
 import './css/form.css'
 import './css/signIn.css'
 import firebaseSignIn from '../../../database/firebase';
-import { useContext } from 'react';
-import { Context } from '../../App';
+import { useContext, useEffect } from 'react';
+
+// redux
+import { useSelector, useDispatch } from 'react-redux';
 
 
 const SignInCont = () => {
-  const {auth, user, provider, signInWithRedirect} = firebaseSignIn(); 
-  const {setTextColorHeader, isOnline} = useContext(Context);
-  setTextColorHeader('white'); 
+  const {auth, user, provider, signInWithRedirect} = firebaseSignIn();
+  
+  const dispatch = useDispatch(); 
+  useEffect(() => {
+    dispatch({type: 'background/setTextColorHeader', payload: 'white'}); 
+  })
   return (
     <>  
       <div className="sign-in-layout">

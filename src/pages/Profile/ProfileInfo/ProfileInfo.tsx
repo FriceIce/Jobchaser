@@ -1,10 +1,11 @@
 // @ts-nocheck
 import style from './profile.module.css'
 import anonymousUser from '../../../components/header/assets/anonymous-user.png'
-import { useContext } from 'react';
-import { Context } from '../../../App';
+import { useSelector } from 'react-redux';
+
 function ProfileInfo({user}){
-  const {color, isOnline} = useContext(Context)
+  const color = useSelector(state => state.background.color); 
+  const isOnline = useSelector(state => state.user.isOnline); 
 
   return (
     <div style={{borderColor: color}} className={style.profileContainer}>

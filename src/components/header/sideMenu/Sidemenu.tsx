@@ -1,14 +1,17 @@
+import { TOGGLE_MENU } from "../../../features/sidemenu/sidemenuSlicer";
+import { useDispatch } from "react-redux";
+
 type Prop = { 
-  toggleMenu: (element: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   menuClass: null | string; 
   textColorHeader: string;
   checked: boolean,
   color: string;
 }
 
-function SideMenu({toggleMenu, menuClass, textColorHeader, checked, color}: Prop) {
+function SideMenu({ menuClass, textColorHeader, checked, color}: Prop): React.ReactElement {
+  const dispatch = useDispatch(); 
   return (
-    <div onClick={toggleMenu} className='menu'>
+    <div onClick={() => dispatch(TOGGLE_MENU())} className='menu'>
       <div style={{background: menuClass ? color : textColorHeader}} className="bar"></div>
       <input style={{background: menuClass ? color : textColorHeader}} checked={checked} type='checkbox' className="bar"/>
       <div style={{background: menuClass ? color : textColorHeader}} className="bar"></div>

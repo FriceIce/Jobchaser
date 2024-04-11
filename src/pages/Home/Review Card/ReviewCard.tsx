@@ -13,13 +13,12 @@ import fourStars from '../assets/stars/Rating=4, Mode=Light.png'
 // json
 import reviewData from '../review data/reviews.json'
 
-// hooks
-import { useContext } from 'react'
-import { Context } from '../../../App'
+// redux
+import { useSelector } from 'react-redux'
 
 const ReviewCard = () => {
   // useContext
-  const {isDarkTheme, color} = useContext(Context);
+  const {isDarkTheme, color} = useSelector( state => state.background);
 
   // Tillfällig lösning
   const profile = [femalePPic, malePPic, femalePPic2, malePPIC2];

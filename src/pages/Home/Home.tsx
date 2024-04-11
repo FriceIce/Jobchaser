@@ -2,9 +2,9 @@
 import './Home.css'
 import { useNavigate } from 'react-router-dom'
 import ReviewCard from './Review Card/ReviewCard'
-import { useEffect, useContext } from 'react';
+import { useEffect } from 'react';
 import firebaseSignIn from '../../../database/firebase';
-import { Context } from '../../App';
+
 
 // Icons
 import amazonDarkThemeIcon from './assets/icon/amazon-white-color.svg'
@@ -16,16 +16,22 @@ import androidIcon from './assets/icon/android-color.svg'
 // img
 import heroImg from './assets/home-page-hero-pic.avif'
 
+// redux
+import { useDispatch, useSelector } from 'react-redux';
+import { setTextColorHeader } from '../../features/background/backgroundSlice';
+
 
 function Home(){
-  // useContext
-  const {isDarkTheme, color, setTextColorHeader, isOnline} = useContext(Context);
-  setTextColorHeader('white');
-
+  const {textColorHeader, color, isDarkTheme} = useSelector(state => state.background); 
+  const {isOnline} = useSelector(state => state.user); 
+  const dispatch = useDispatch(); 
+  
   const navigate = useNavigate(); 
   const {auth, user, provider} = firebaseSignIn();
-
+  
   useEffect(() => {
+    dispatch(setTextColorHeader('white'));
+    
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if(entry.isIntersecting){

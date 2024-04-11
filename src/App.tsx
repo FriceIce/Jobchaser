@@ -20,31 +20,14 @@ import { useState, useEffect, createContext } from 'react';
 import firebaseSignIn, { getDataFromDB, registerUser } from '../database/firebase';
 import { savedJobsObserver } from '../database/firebase';
 
-// useContext
-export const Context = createContext(); 
+// Redux
+import { useDispatch, useSelector } from 'react-redux';
+import { userState, jobListing } from './features/user/userSlice';
 
 function App() {
-  //Använd useContext för att anropa på SetUserOnline(user) i varje route komponent nedan
-  const [isOnline, setIsOnline] = useState(null); 
-  const [isDarkTheme, setIsDarkTheme] = useState(false); 
-  const [textColorHeader, setTextColorHeader] = useState('');
-  const [savedJobAds, setSavedJobAds] = useState([]);
-  const [jobs, setJobs] = useState(null);
-  
-  const contextValues = {
-    setJobs,
-    jobs,
-    setIsDarkTheme,
-    setSavedJobAds,
-    savedJobAds,
-    isOnline,
-    isDarkTheme,
-    textColorHeader,
-    setTextColorHeader,
-    color: isDarkTheme ?  '#ffff' : '',
-    background: isDarkTheme ? 'linear-gradient(147deg, #4d4855 0%, #000000 74%)' : 'whitesmoke',
-  } 
-  
+  const {isOnline, savedJobAds} = useSelector(state => state.user); 
+  const dispatch = useDispatch(); 
+
   // Checks for user activity
   const {auth, onAuthStateChanged} = firebaseSignIn(); 
   useEffect(() => {
@@ -57,16 +40,16 @@ function App() {
           console.log('data is', data)
           registerUser(user.uid, user.email, user.displayName, null, user.photoURL);
           const newResponse = getDataFromDB('users', user.uid); 
-          newResponse.then(newData => setIsOnline(newData));
+          newResponse.then(newData => dispatch(userState(newData)));
           return 
         }
 
-        setIsOnline(data) // 
+        dispatch(userState(data)) // 
       })
       return
     } 
-      setSavedJobAds([])
-      setIsOnline(user); 
+      dispatch(jobListing([]));
+      dispatch(userState(user)); 
       console.log(user)
     })
 
@@ -79,39 +62,26 @@ function App() {
     const response = savedJobsObserver(isOnline.userId);
     response.then((data =>{
       const savedAds = data.jobs; 
-      setSavedJobAds(savedAds)
-      console.log('saved Jobs:', data.jobs)
+      dispatch(jobListing(savedAds));
+      // console.log('saved Jobs:', data.jobs)
     }))
     return
   },[isOnline])
   return (
     <>
       <BrowserRouter> 
-
-      <Context.Provider value={contextValues}>
-        <Header toggleDarkTheme={setIsDarkTheme}/>
+        <Header />
         <main className='job-form-container'>
           <Routes>
-            <Route path='/Jobchaser/' element={<Home  /* userOnline={setUserOnline} *//>}/>
+            <Route path='/Jobchaser/' element={<Home />}/>
             <Route path='/Jobchaser/Find-job' element={<Search />} />
             <Route path='/Jobchaser/Sign-in' element={ !isOnline ? <SignInCont /> : <Navigate to="/Jobchaser/User-profile" />}/>
             <Route path='/Jobchaser/User-profile' element={ !isOnline ? <SignInCont /> : <Profile />}/>
           </Routes>
         </main>
-      </Context.Provider>
-
       </BrowserRouter>
     </>
   )
 }
 
-export default App
-
-
-// React Router MAIN Components
-/* 
-  * BrowserRouter - It is the parent component that is used to store all of the other components. 
-  * Routes - Works like a switch.
-  * Route - Route is the conditionally shown component that renders some UI when its path matches the current URL.
-  * Link - works like an HTML anchor tag. 
-*/
+export default App;
