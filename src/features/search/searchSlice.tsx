@@ -1,17 +1,29 @@
-// @ts-nocheck
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { Card } from "./cardType";
 
-const initialState = {
+type State = {
+  inputValue: string; 
+  submitValue: string;
+  error: string | unknown;
+  jobs: Card[];
+  isLoading: boolean;
+  isActive: boolean; 
+}
+
+const initialState: State = {
   inputValue: '', 
   submitValue: '',
   error: '',
   jobs: [],
-}
+  isLoading: false,
+  isActive: false,
+} 
 
 export const fetchingJobData = createAsyncThunk(
-  'search/fetchingJobData', async (submitValue) => {
+  'search/fetchingJobData', async (submitValue: string) => {
   const response = await fetch('https://jobsearch.api.jobtechdev.se/search?q=' + submitValue); 
-  const data = await response.json(); 
+  const resJson = await response.json(); 
+  const data: Promise<Card[]> = resJson.hits; 
   return data;
 })
 
@@ -24,15 +36,15 @@ export const searchSlice = createSlice({
       state.submitValue = state.inputValue;
     },
 
-    input: (state, action) => {
+    input: (state, action: PayloadAction<string>) => {
       state.inputValue = action.payload;
     },
 
-    error: (state, action) => {
+    error: (state, action: PayloadAction<string| unknown>) => {
       state.error = action.payload;
     },
 
-    tag: (state, action)  => {
+    tag: (state, action: PayloadAction<string>)  => {
       const tagContent = action.payload;
       state.inputValue = tagContent; 
       state.submitValue = tagContent; 
@@ -40,29 +52,30 @@ export const searchSlice = createSlice({
   },
 
   extraReducers: (builder) => {
-    builder.addCase(fetchingJobData.fulfilled, (state, action) => {
+    builder.addCase(fetchingJobData.pending, (state) => {
+      state.isLoading = true; 
+      state.isActive = false;
+    }).addCase(fetchingJobData.fulfilled, (state, action) => {
       /* do something */
       const data = action.payload;
-    
-      if(data.hits.length < 1) {
-        state.jobs = null; 
-        return
-      } else {
+      console.log(data)
+      const editedData: Card[] = data.map((job: Card) => {
+        const message = 'Information saknas';
+        if(job.duration.label === null) job.duration.label = message;
+        if(job.working_hours_type.label === null) job.working_hours_type.label = message;
+        if(job.employment_type.label === null) job.employment_type.label = message;
+        return job;
+      })
 
-        const editedData = data.hits.map((job) => {
-          const message = 'Information saknas';
-          if(job.duration.label === null) job.duration.label = message;
-          if(job.working_hours_type.label === null) job.working_hours_type.label = message;
-          if(job.employment_type.label === null) job.employment_type.label = message;
-          return job;
-        })
-  
-        state.jobs = editedData; 
-      }
+      state.jobs = editedData; 
+      state.isActive = true; 
+      state.isLoading = false; 
     })
-    .addCase(fetchingJobData.rejected, (state, action) => { 
-      console.log('s') 
-      state.error = action.payload/* do something */})
+    .addCase(fetchingJobData.rejected, (state, action) => {  
+      /* do something */
+      state.error = action.payload;
+      state.isLoading = false; 
+    })
   }
 })
 

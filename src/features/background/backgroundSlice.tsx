@@ -1,8 +1,13 @@
-// @ts-nocheck
+import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 
-import { createSlice } from "@reduxjs/toolkit"
+type State = {
+  isDarkTheme: boolean;
+  textColorHeader: string;
+  color: string; 
+  background: string;
+}
 
-const initialState = {
+const initialState: State = {
   isDarkTheme: false,
   textColorHeader: '',
   color: '', //isDarkTheme ?  '#ffff' : ''
@@ -26,7 +31,7 @@ const backgroundSlice = createSlice({
       }  
     },
 
-    setTextColorHeader: (state, action) => {
+    setTextColorHeader: (state, action: PayloadAction<string>) => {
       state.textColorHeader = action.payload; 
     },
 

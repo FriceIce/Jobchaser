@@ -12,8 +12,6 @@ import signOutBlack from './assets/sign-out-black.svg'
 
 // other
 import { Link } from 'react-router-dom';
-import { useContext, useEffect } from 'react';
-import { Context } from '../../App';
 import firebaseSignIn from '../../../database/firebase';
 import SideMenu from './sideMenu/Sidemenu';
 import HeaderOption from './headerOption/headerOption';
@@ -22,20 +20,20 @@ import ToggleDarkMode from './headerOption/toggleDarkmode'
 // redux
 import { useDispatch, useSelector } from 'react-redux';
 import { IS_MOBILE, STYLE_TRANSITION, MARGIN_BOTTOM, TOGGLE_MENU, IS_DESKTOP } from '../../features/sidemenu/sidemenuSlicer';
+import { useEffect } from 'react';
+import { RootState } from '../../redux/store';
 
 
 function Header(){
-  const isOnline = useSelector(state => state.user.isOnline); 
-  const {textColorHeader, color, isDarkTheme, background} = useSelector(state => state.background); 
+  const isOnline = useSelector ((state: RootState) => state.user.isOnline); 
+  const {textColorHeader, color, isDarkTheme, background} = useSelector((state: RootState) => state.background); 
   const {
     bodyStyle,
     isMobileScreen, 
     menuClass, 
     checked, 
-    timeoutId, 
     styleTransition, 
-    marginBottom
-  } = useSelector((state) => state.sidemenu);
+  } = useSelector((state: RootState) => state.sidemenu);
   const dispatch = useDispatch(); 
 
   // firebase auth for sign out
@@ -51,7 +49,6 @@ function Header(){
 
   useEffect(() => {
     dispatch({type: 'background/setBackground'});
-    const root = document.getElementById('root')
     if(isDarkTheme) {
       bodyElement.style.background = 'linear-gradient(147deg, #4d4855 0%, #000000 74%)';
       return
@@ -61,23 +58,28 @@ function Header(){
       return 
     } 
   }, [isDarkTheme])
+
+  useEffect(() => {
+    bodyElement.style.overflow = bodyStyle.overflow; 
+  },[bodyStyle.overflow])
   
   // addEventlisteners for screen size changes. 
   useEffect(() => {
     if(mediaWith.matches) dispatch(IS_MOBILE(true)); 
 
-    mediaWith.addEventListener('change', (e) => {
+    mediaWith.addEventListener('change', (e: MediaQueryListEvent) => {
       if(!e.matches) {
         // console.log('desktop')
         bodyElement.style.overflowY = bodyStyle.overflow;
         dispatch(IS_DESKTOP());
         return
       }
+      
       dispatch(IS_MOBILE(true));
       dispatch(STYLE_TRANSITION('none'));
     })
     
-    mediaHeight.addEventListener('change', (e) => {
+    mediaHeight.addEventListener('change', (e: MediaQueryListEvent) => {
       if(e.matches) dispatch(MARGIN_BOTTOM('-120px'));
       if(!e.matches) dispatch(MARGIN_BOTTOM('0px'));
       return 
@@ -88,7 +90,7 @@ function Header(){
 
   // --------------------
 
-  function toggleSignOutIcon(screen){
+  function toggleSignOutIcon(screen: boolean){
     if(screen) return color ? signOutWhite : signOutBlack;
     if(!screen) return textColorHeader === 'white' ? signOutWhite : signOutBlack;
 
@@ -112,9 +114,10 @@ function Header(){
           />
           
           <nav 
-            onClick={(e) => {
-              if(e.target.tagName === 'SPAN') return 
-              if(e.target.tagName === 'INPUT') return 
+            onClick={(e: React.MouseEvent<HTMLElement>) => {
+              const target = e.target as HTMLElement
+              if(target.tagName === 'SPAN') return 
+              if(target.tagName === 'INPUT') return 
               if(menuClass) return dispatch(TOGGLE_MENU());
             }} 
             className={`link-options ${menuClass}`} style={{transition: styleTransition, background: isMobileScreen && background }}>
@@ -178,3 +181,4 @@ function Header(){
 }
 
 export default Header; 
+

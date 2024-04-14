@@ -11,6 +11,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword, 
   onAuthStateChanged,
+  updateProfile,
   signOut,
   getAuth} from "firebase/auth";
 import { initializeApp } from 'firebase/app';
@@ -48,6 +49,7 @@ export default function firebaseSignIn(){
     auth, 
     user, 
     provider, 
+    updateProfile,
     signInWithRedirect,
     signInWithPopup,  
     signInWithEmailAndPassword, 
@@ -57,9 +59,8 @@ export default function firebaseSignIn(){
   }
 
 }
-
 // create prop in Database
-export function registerUser(userId, email, fullname, password=null, profilPicURL=null){
+export function registerUser(userId: string, email: string, fullname:string | null, password: string | null, profilPicURL: string | null ){
 
   set(ref(database,'users/' + userId), {
     userId: userId,

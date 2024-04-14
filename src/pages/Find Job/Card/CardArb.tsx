@@ -1,10 +1,8 @@
-// @ts-nocheck
-import logo from '../../../../public/assets/ArbetsförmedlingenLogo 1.svg'
+import { Card } from '../../../features/search/cardType'
 import './cardArb.css'
-import SavedJobAd from './SaveJobAd/SaveJobAd'
 import card from './modules/card'
 
-const CardArb = ({jobs}) => {  
+const CardArb = ({jobs}: {jobs: Card[]}) => {  
   return (
 
     <div className="card-container">

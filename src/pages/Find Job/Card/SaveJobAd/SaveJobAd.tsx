@@ -54,7 +54,6 @@ function SavedJobAd({style, jobObj}){
     }
   }
 
-
   useEffect(() => {
     if(isOnline) updateSavedJobs(savedJobAds, isOnline.userId);
     return

@@ -1,4 +1,3 @@
-// @ts-nocheck
 // Profile pic
 import femalePPic from '../assets/Profile pic/Female pp.png'
 import malePPic from '../assets/Profile pic/Male pp.png'
@@ -15,10 +14,10 @@ import reviewData from '../review data/reviews.json'
 
 // redux
 import { useSelector } from 'react-redux'
+import { RootState } from '../../../redux/store'
 
 const ReviewCard = () => {
-  // useContext
-  const {isDarkTheme, color} = useSelector( state => state.background);
+  const {isDarkTheme, color} = useSelector((state: RootState) => state.background);
 
   // Tillfällig lösning
   const profile = [femalePPic, malePPic, femalePPic2, malePPIC2];

@@ -1,4 +1,3 @@
-//@ts-check
 import { Control, Controller, FieldErrorsImpl, FieldValues} from "react-hook-form"
 import Select from "react-select";
 import useFetch from "../../../hook/useFetch";

@@ -1,7 +1,7 @@
-import { FieldErrorsImpl, UseFormRegisterReturn, ValidationRule } from "react-hook-form";
+import { FieldErrorsImpl, RegisterOptions, UseFormRegisterReturn} from "react-hook-form";
+import { FormValues } from "../SignInForm";
 
 type formInfo = {
-  input: boolean;
   type: string;
   placeholder?: string;
   label: string;  
@@ -10,13 +10,11 @@ type formInfo = {
   errors: Partial<FieldErrorsImpl<{
     [x: string]: string;
   }>>
-  register: (name: string, options: Partial<{
-    required: ValidationRule<boolean>;
-    pattern: RegExp | false;
-  }>) => UseFormRegisterReturn
+  register: (name: string, options?: 
+    RegisterOptions<FormValues> | undefined) => UseFormRegisterReturn<string>
 }
 
-function InputField({input, label, property, type, required, placeholder, errors, register}: formInfo){
+function InputField({label, property, type, required, placeholder, errors, register}: formInfo){
   const firstLetterUpper = label.charAt(0).toLocaleUpperCase() + label.slice(1);
 
   const differentPatterns = (property: string) => {
@@ -45,8 +43,8 @@ function InputField({input, label, property, type, required, placeholder, errors
   return(
     <div className="form-control">
       <label style={{whiteSpace: 'nowrap'}}>{firstLetterUpper}</label>
-      {input ? 
-      (<input
+    
+      <input
         // name={label}
         className="post-job-data-input"
         placeholder={placeholder}
@@ -55,19 +53,8 @@ function InputField({input, label, property, type, required, placeholder, errors
           required: required,
           pattern: pattern
         })}
-      />) : 
+      />
 
-      (<textarea 
-      // required 
-      wrap="soft" 
-      rows={30} 
-      cols={10}
-      {...register(property, {
-        required: required,    
-        pattern: !input && /^[A-Za-z0-9.,\s]+$/
-      })}>
-
-      </textarea>)} 
       {errors[property] && errors[property]!.type === "required" && 
       (<p className="errorMsg">{firstLetterUpper} är obligatoriskt.</p>)}
 

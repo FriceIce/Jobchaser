@@ -1,13 +1,14 @@
-// @ts-nocheck
-import { useContext, useEffect } from 'react';
 import style from '../css/toggle-button.module.css'
-import { Context } from '../../../App';
-
 import { useDispatch } from 'react-redux';
 import { setIsDarkTheme } from '../../../features/background/backgroundSlice';
 
-function ToggleDarkMode({sidemenu, color, textColorHeader}){
-  const toggleButton = document.getElementById('checkbox'); 
+type Prop = {
+  sidemenu: null | string ,
+  color: string;
+  textColorHeader: string;
+}
+
+function ToggleDarkMode({sidemenu, color, textColorHeader}: Prop){
   const dispatch = useDispatch(); 
   
   // toggle Dark theme

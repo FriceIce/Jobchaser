@@ -1,14 +1,21 @@
-// @ts-nocheck
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-import { createSlice } from "@reduxjs/toolkit";
+type State = {
+  bodyStyle: {overflow: string};
+  isMobileScreen: boolean;
+  menuClass: null | string;
+  checked: boolean;
+  timeoutId: ReturnType<typeof setTimeout>;
+  styleTransition: string;
+  marginBottom: string;
+}
 
-
-const initialState = {
+const initialState: State = {
   bodyStyle: {overflow: 'auto'},
   isMobileScreen: false, 
   menuClass: null,
   checked: false,
-  timeoutId: null, 
+  timeoutId: setTimeout(() => {}, 0), 
   styleTransition: 'none',
   marginBottom: 'none'
 }
@@ -28,12 +35,14 @@ export const sidemenuSlice = createSlice({
         } else {
           state.timeoutId = setTimeout(() => 'none', 350)
         }
+        state.bodyStyle.overflow = 'auto'; 
         state.checked = false;
         state.menuClass = null;
         return 
       } 
       
       if(menuClass === null){
+        state.bodyStyle.overflow = 'hidden';
         state.styleTransition = 'translate 350ms'; 
         state.checked = true; 
         state.menuClass = 'show-menu';
@@ -49,15 +58,15 @@ export const sidemenuSlice = createSlice({
       console.log(state.styleTransition)
     },
     
-    IS_MOBILE: (state, action) => {
+    IS_MOBILE: (state, action: PayloadAction<boolean>) => {
       state.isMobileScreen = action.payload; 
     },
 
-    STYLE_TRANSITION: (state, action) => {
+    STYLE_TRANSITION: (state, action: PayloadAction<string>) => {
       state.styleTransition = action.payload; 
     },
 
-    MARGIN_BOTTOM: (state, action) => {
+    MARGIN_BOTTOM: (state, action: PayloadAction<string>) => {
       state.marginBottom = action.payload; 
     },
   }
@@ -66,10 +75,7 @@ export const sidemenuSlice = createSlice({
 export const { 
   IS_DESKTOP,
   TOGGLE_MENU,
-  IS_MOBILE, 
-  MENU_CLASS, 
-  TIMEOUT_ID, 
-  CHECKED, 
+  IS_MOBILE,  
   STYLE_TRANSITION, 
   MARGIN_BOTTOM 
 } = sidemenuSlice.actions; 

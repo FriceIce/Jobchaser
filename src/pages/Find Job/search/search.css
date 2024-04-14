@@ -156,3 +156,8 @@ input::placeholder{
   border-radius: 10px;
   box-shadow: 1px 4px 5px rgba(0,0,0,0.25);
 }
+
+.no-jobs{
+  text-align: center;
+  font-size: 1.4rem;
+}

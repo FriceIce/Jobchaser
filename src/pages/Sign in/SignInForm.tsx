@@ -1,21 +1,22 @@
 // @ts-nocheck
-// import '../../tailwind.css'
-import { useForm } from 'react-hook-form'; 
+import { SubmitHandler, useForm } from 'react-hook-form'; 
 import InputField from './InputTypes/InputField';
 import { useState } from 'react';
 import firebaseSignIn, { registerUser } from '../../../database/firebase'; 
-import { useNavigate } from 'react-router-dom';
+import { CreateUser } from '../../features/user/userSlice';
+import { useDispatch } from 'react-redux';
 
 const SignInForm = () => {
-  const { handleSubmit, register, formState: {errors}} = useForm();
+  const { handleSubmit, register, formState: {errors}} = useForm<CreateUser>();
   const [signIn, setSignIn] = useState(true); 
+
+ 
+  const dispatch = useDispatch();  
 
   // firebase
   const {
     auth, 
-    user, 
     provider, 
-    signInWithRedirect,
     signInWithPopup, 
     signInWithEmailAndPassword, 
     createUserWithEmailAndPassword
@@ -24,43 +25,44 @@ const SignInForm = () => {
   // Google
    const signInWithGoogle = () => {
     signInWithPopup(auth, provider)
+    .then((user) => {
+      console.log(user)
+    })
     .catch(error => {
-      const errorMessage = error.message;
-      alert('Inloggningen misslyckades.'); 
+      const errorMessage: string = error.message;
+      alert('Inloggningen misslyckades. ' + errorMessage); 
     })
   }
 
 
-  const onSubmit = (data) => {
+  const onSubmit: SubmitHandler<CreateUser> = (data): void => {
     // console.log(data)
-    const {email, password, userName} = data;  
+    const {email, password, userName}: CreateUser = data;  
 
     if(signIn){
-      signInWithEmailAndPassword(auth, email, password)
+      signInWithEmailAndPassword(auth, email!, password!)
       .then((userCredential) => {
         // Signed up 
         const user = userCredential.user;
         console.log(user)
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
+        const errorMessage: string = error.message;
         // ..
-        alert('Fel E-post eller lösenord.');
+        alert('Fel E-post eller lösenord. ' + errorMessage);
       });
       
     } else {
-      createUserWithEmailAndPassword(auth, email, password)
+      createUserWithEmailAndPassword(auth, email!, password!)
       .then((userCredential) => {
         // Signed up 
         const user = userCredential.user;
         console.log(userCredential)
-        console.log(user)
-        registerUser(user.uid, email, userName, password)
+        registerUser(user.uid, email!, userName, password, null);
+        dispatch({type: 'user/userState', payload: {userId: user.uid, fullname: userName, email, password}})
         return
       })
       .catch((error) => {
-        const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorMessage)
         alert('Kontot existerar redan. Vänligen logga in eller återställ ditt lösenord om du har glömt det.')
@@ -93,10 +95,11 @@ const SignInForm = () => {
         {signIn ? <h1>Logga in</h1> : <h1>Skapa konto</h1>}
         <div>
           <div>
-            {!signIn && <InputField property={'userName'} input={true} label='För- och efternamn' type="text" required={true} placeholder='Skriv ditt för- och efternamn' errors={errors} register={register}/>}
+            {!signIn && <InputField property={'userName'} label='För- och efternamn' type="text" required={true} placeholder='Skriv ditt för- och efternamn' errors={errors} register={register}/>}
 
-            <InputField property={'email'} input={true} label='e-post' type="text" required={true} placeholder='Skriv in e-post' errors={errors} register={register}/>
-            <InputField property={'password'} input={true} label='lösenord' type="password" required={true} placeholder='Skriv in lösenord' errors={errors} register={register}/>
+            <InputField property={'email'} label='e-post' type="text" required={true} placeholder='Skriv in e-post' errors={errors} register={register}/>
+
+            <InputField property={'password'} label='lösenord' type="password" required={true} placeholder='Skriv in lösenord' errors={errors} register={register}/>
           </div>
 
           <div onClick={() => setSignIn((pre) => !pre)} className='create-account-container'>

@@ -1,7 +1,7 @@
 // @ts-nocheck
 import './search.css';
 import searchIcon from './assets/Search SVG Vector.svg';
-import { useEffect, useState, useContext } from 'react';
+import { useEffect } from 'react';
 import OpeningContent from '../OpeningContent/OpeningContent';
 import CardArb from '../Card/CardArb';
 
@@ -9,11 +9,13 @@ import CardArb from '../Card/CardArb';
 import { useDispatch, useSelector } from 'react-redux';
 import {input, submit, tag, fetchingJobData } from '../../../features/search/searchSlice';
 import { setTextColorHeader } from '../../../features/background/backgroundSlice';
+import { RootState } from '../../../redux/store';
+import LoadingScreen from '../LoadingScreen/LoadingScreen';
 
 
 function Search(){
-  const {inputValue, submitValue, error, jobs} = useSelector((state) => state.search); 
-  const {textColorHeader} = useSelector((state) => state.background); 
+  const {inputValue, submitValue, error, jobs, isActive, isLoading} = useSelector((state: RootState) => state.search); 
+  const {color} = useSelector((state: RootState) => state.background); 
   const dispatch = useDispatch();
   
   useEffect(() => {  
@@ -61,7 +63,9 @@ function Search(){
             className="tag">Göteborg</div>
         </div>
       </form>
-      {Array.isArray(jobs) && jobs.length !== 0 && <CardArb jobs={jobs}/>}
+      {isLoading && <LoadingScreen type='loadingCircle' />}
+      {isActive && jobs.length !== 0 && <CardArb jobs={jobs}/>}
+      {(isActive && jobs.length === 0) && <h1 className='no-jobs' style={{color: color}}>Inga jobb hittades som matchar din sökning.</h1> }
       {error && <div className='error-container'>
         <h1>{error}</h1>
       </div>}
