@@ -1,5 +1,5 @@
 import { FieldErrorsImpl, RegisterOptions, UseFormRegisterReturn} from "react-hook-form";
-import { FormValues } from "../SignInForm";
+import { CreateUser } from "../../../features/user/userSlice";
 
 type formInfo = {
   type: string;
@@ -11,7 +11,7 @@ type formInfo = {
     [x: string]: string;
   }>>
   register: (name: string, options?: 
-    RegisterOptions<FormValues> | undefined) => UseFormRegisterReturn<string>
+    RegisterOptions<CreateUser> | undefined) => UseFormRegisterReturn<string>
 }
 
 function InputField({label, property, type, required, placeholder, errors, register}: formInfo){

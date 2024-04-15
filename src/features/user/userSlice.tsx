@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { Card } from "../search/cardType";
 
-type User = {
+export type User = {
   userId: string; 
   email: string;
   fullname?: string;
@@ -17,7 +17,7 @@ export type CreateUser = {
 
 type State = {
   isFetchingUserData: boolean,
-  isOnline: null | User;
+  isOnline: null | false | User;
   savedJobAds: Card[];
   createUser: CreateUser;
 }
@@ -35,6 +35,7 @@ const userSlice = createSlice({
   reducers: {
     userState: (state, action: PayloadAction<User>) => {
       state.isOnline = action.payload;
+      state.isFetchingUserData = false;
     }, 
     
     jobListing: (state, action: PayloadAction<Card[]>) => {

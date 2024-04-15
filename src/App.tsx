@@ -21,7 +21,7 @@ import { savedJobsObserver } from '../database/firebase';
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
-import { userState, jobListing } from './features/user/userSlice';
+import { userState, jobListing, User } from './features/user/userSlice';
 import { RootState } from './redux/store';
 
 function App() {
@@ -36,7 +36,7 @@ function App() {
       if(user) {
         const response = getDataFromDB('users', user.uid); 
         response.then((data) => {
-          if(!data && user.displayName){
+          if(!data && user.emailVerified){
             console.log('data is', data)
             registerUser(user.uid, user.email, user.displayName, null, user.photoURL);
             const newResponse = getDataFromDB('users', user.uid); 
@@ -52,7 +52,7 @@ function App() {
 
       
       dispatch(jobListing([]));
-      dispatch(userState(user)); 
+      dispatch(userState(false)); 
       console.log(user)
     })
     
@@ -63,7 +63,6 @@ function App() {
   // Checks for changes in database for SavedJobs sektion. 
   useEffect(() => {
     if(!isOnline) return
-    // dispatch({type: '', payload: ''})
     const response = savedJobsObserver(isOnline.userId);
     response.then((data =>{
       const savedAds = data.jobs; 
@@ -72,6 +71,13 @@ function App() {
     }))
     return
   },[isOnline])
+
+  const componentForUserState = (isOnline: null | false | User) => {
+    if(isOnline === null) return <LoadingScreen type='loaderProgress' />
+    if(isOnline === false) return <Navigate to="/Jobchaser/Sign-in" />
+    if(isOnline) return <Profile />
+  }
+
   return (
     <>
       <BrowserRouter> 
@@ -81,7 +87,7 @@ function App() {
             <Route path='/Jobchaser/' element={<Home />}/>
             <Route path='/Jobchaser/Find-job' element={<Search />} />
             <Route path='/Jobchaser/Sign-in' element={ !isOnline ? <SignInCont /> : <Navigate to="/Jobchaser/User-profile" />}/>
-            <Route path='/Jobchaser/User-profile' element={ !isOnline ? <SignInCont /> : <Profile />}/>
+            <Route path='/Jobchaser/User-profile' element={componentForUserState(isOnline)}/>
           </Routes>
         </main>
       </BrowserRouter>

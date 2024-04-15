@@ -24,6 +24,10 @@ function Search(){
     return 
   }, [submitValue])
 
+  useEffect(() => {
+    // Resets the inputfield every time the user re-enter this component. 
+    dispatch(input('')); 
+  }, [])
   return (
     <>
       <OpeningContent />

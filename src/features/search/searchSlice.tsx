@@ -58,7 +58,7 @@ export const searchSlice = createSlice({
     }).addCase(fetchingJobData.fulfilled, (state, action) => {
       /* do something */
       const data = action.payload;
-      console.log(data)
+      // console.log(data)
       const editedData: Card[] = data.map((job: Card) => {
         const message = 'Information saknas';
         if(job.duration.label === null) job.duration.label = message;
