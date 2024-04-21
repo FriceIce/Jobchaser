@@ -1,20 +1,19 @@
-import { FieldErrorsImpl, RegisterOptions, UseFormRegisterReturn} from "react-hook-form";
-import { CreateUser } from "../../../features/user/userSlice";
+import { FieldErrorsImpl, useFormContext} from "react-hook-form";
+// import { CreateUser } from "../../../features/user/userSlice";
 
 type formInfo = {
   type: string;
   placeholder?: string;
   label: string;  
   required: boolean;
-  property: string;
+  property: 'email' | 'password' | 'userName';
   errors: Partial<FieldErrorsImpl<{
     [x: string]: string;
-  }>>
-  register: (name: string, options?: 
-    RegisterOptions<CreateUser> | undefined) => UseFormRegisterReturn<string>
+  }>> 
 }
 
-function InputField({label, property, type, required, placeholder, errors, register}: formInfo){
+function InputField({label, property, type, required, placeholder, errors}: formInfo){
+  const { register } = useFormContext();
   const firstLetterUpper = label.charAt(0).toLocaleUpperCase() + label.slice(1);
 
   const differentPatterns = (property: string) => {
@@ -45,7 +44,6 @@ function InputField({label, property, type, required, placeholder, errors, regis
       <label style={{whiteSpace: 'nowrap'}}>{firstLetterUpper}</label>
     
       <input
-        // name={label}
         className="post-job-data-input"
         placeholder={placeholder}
         type={type}

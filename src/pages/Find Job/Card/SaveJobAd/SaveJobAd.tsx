@@ -1,4 +1,3 @@
-// @ts-nocheck
 import favoriteRegular from '../assets/favorite-regular.svg'
 import favoriteSolid from '../assets/favorite-solid.svg'
 import { updateSavedJobs } from '../../../../../database/firebase';
@@ -7,15 +6,17 @@ import { useState, useEffect } from 'react';
 // redux
 import { useDispatch, useSelector } from 'react-redux';
 import { jobListing, saveJobAd } from '../../../../features/user/userSlice';
+import { Card } from '../../../../features/search/cardType';
+import { RootState } from '../../../../redux/store';
 
-function SavedJobAd({style, jobObj}){
+function SavedJobAd({style, jobObj}: {style: string; jobObj: Card}){
   // Redux
-  const {savedJobAds, isOnline} = useSelector((state) => state.user);
+  const {savedJobAds, isOnline} = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch(); 
 
   // useState
-  const [saveAdBtn, setSaveAdBtn] = useState(null); 
-  const [allReadySaved, setAllReadySaved] = useState(null); 
+  const [saveAdBtn, setSaveAdBtn] = useState<null | boolean>(null); 
+  const [allReadySaved, setAllReadySaved] = useState<null | boolean>(null); 
 
   
   useEffect(() => {
@@ -39,7 +40,7 @@ function SavedJobAd({style, jobObj}){
     if(isOnline) setSaveAdBtn((prev) => !prev); 
   }
 
-  function updateOrDeleteSavedAd(button){
+  function updateOrDeleteSavedAd(button: boolean | null){
     if(button === true){
       dispatch(saveJobAd(jobObj));
 
@@ -47,10 +48,10 @@ function SavedJobAd({style, jobObj}){
       const filteredList = savedJobAds.map(job => {
         if(job.id === jobObj.id) return null;
         if(job.id !== jobObj.id) return job; 
-      })
+      }) as Card[];
 
       dispatch(jobListing(filteredList.filter(job => job !== null)));
-      updateSavedJobs(filteredList, isOnline.userId)
+      if( isOnline) updateSavedJobs(filteredList, isOnline.userId)
     }
   }
 

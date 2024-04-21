@@ -1,7 +1,7 @@
-// @ts-nocheck
+import { Card } from "../../../../features/search/cardType";
 import SavedJobAd from "../SaveJobAd/SaveJobAd";
 import reserveImg from '../assets/Jobchaser-log.svg'
-export default function card(cardObj){
+export default function card(cardObj: Card){
   const {
     id,
     headline,
@@ -24,7 +24,7 @@ export default function card(cardObj){
       </div>
       <article className="information-container">
         <div className="card-title-container">
-          <a style={{color: 'black'}} href={webpage_url}>
+          <a style={{color: 'black'}} href={webpage_url} target="_blank">
             <h2>{headline}</h2>
           </a>
         </div>
@@ -43,7 +43,7 @@ export default function card(cardObj){
         </div>
       </article>
       <div className="footer">
-        <a href={webpage_url}>
+        <a href={webpage_url} target="_blank">
           <p style={{color:'#3E619F'}}>Besök webbplatsen</p>
         </a>
 

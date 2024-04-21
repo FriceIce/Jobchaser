@@ -1,7 +1,8 @@
 export type Card = {
   id: string; 
   headline: string;
-  duration: {label: string | null}; 
+  duration: {label: string | null};
+  employer: {name: string} 
   working_hours_type: {label: string| null};
   employment_type: {label: string | null};
   occupation: {label: string};

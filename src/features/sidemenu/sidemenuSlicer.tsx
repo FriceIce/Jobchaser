@@ -55,7 +55,6 @@ export const sidemenuSlice = createSlice({
       state.checked = false; 
       state.menuClass = null;
       state.styleTransition = 'none'; 
-      console.log(state.styleTransition)
     },
     
     IS_MOBILE: (state, action: PayloadAction<boolean>) => {

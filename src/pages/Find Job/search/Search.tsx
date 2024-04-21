@@ -1,4 +1,3 @@
-// @ts-nocheck
 import './search.css';
 import searchIcon from './assets/Search SVG Vector.svg';
 import { useEffect } from 'react';
@@ -9,14 +8,14 @@ import CardArb from '../Card/CardArb';
 import { useDispatch, useSelector } from 'react-redux';
 import {input, submit, tag, fetchingJobData } from '../../../features/search/searchSlice';
 import { setTextColorHeader } from '../../../features/background/backgroundSlice';
-import { RootState } from '../../../redux/store';
+import { AppDispatch, RootState } from '../../../redux/store';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
 
 
 function Search(){
   const {inputValue, submitValue, error, jobs, isActive, isLoading} = useSelector((state: RootState) => state.search); 
   const {color} = useSelector((state: RootState) => state.background); 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   
   useEffect(() => {  
     dispatch(setTextColorHeader('black')); 
@@ -28,6 +27,12 @@ function Search(){
     // Resets the inputfield every time the user re-enter this component. 
     dispatch(input('')); 
   }, [])
+
+  function tagContent(element: React.MouseEvent<HTMLDivElement, MouseEvent>){
+    const target = element.target as HTMLDivElement
+    if(target.textContent) dispatch(tag(target.textContent))
+  }
+
   return (
     <>
       <OpeningContent />
@@ -57,13 +62,13 @@ function Search(){
         </div>
         <div className="tag-container">
           <div 
-            onClick={(element) => dispatch(tag(element.target.textContent))} 
+            onClick={tagContent} 
             className="tag">Stockholm</div>
           <div 
-            onClick={(element) => dispatch(tag(element.target.textContent))} 
+            onClick={tagContent} 
             className="tag">Jönköping</div>
           <div 
-            onClick={(element) => dispatch(tag(element.target.textContent))} 
+            onClick={tagContent} 
             className="tag">Göteborg</div>
         </div>
       </form>

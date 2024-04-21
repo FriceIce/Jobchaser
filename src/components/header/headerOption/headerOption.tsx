@@ -15,7 +15,7 @@ type Prop = {
 }
 
 function HeaderOption({label, className, isMobileScreen, color, textColorHeader, isDarkTheme}: Prop) {
-  const [path, setPath] = useState('')
+  const [path, setPath] = useState<string>('')
   
   useEffect(() => {
     if(label.toLocaleLowerCase() === 'hem') setPath('/Jobchaser/'); 

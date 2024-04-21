@@ -1,5 +1,4 @@
-// @ts-nocheck
-import { SubmitHandler, useForm } from 'react-hook-form'; 
+import { SubmitHandler, useForm, FormProvider } from 'react-hook-form'; 
 import InputField from './InputTypes/InputField';
 import { useState } from 'react';
 import firebaseSignIn, { registerUser } from '../../../database/firebase'; 
@@ -7,10 +6,8 @@ import { CreateUser } from '../../features/user/userSlice';
 import { useDispatch } from 'react-redux';
 
 const SignInForm = () => {
-  const { handleSubmit, register, formState: {errors}} = useForm<CreateUser>();
+  const methods = useForm<CreateUser>();
   const [signIn, setSignIn] = useState(true); 
-
- 
   const dispatch = useDispatch();  
 
   // firebase
@@ -44,7 +41,7 @@ const SignInForm = () => {
       .then((userCredential) => {
         // Signed up 
         const user = userCredential.user;
-        console.log(user)
+        // console.log('Email is verified: ', user.emailVerified);
       })
       .catch((error) => {
         const errorMessage: string = error.message;
@@ -68,7 +65,6 @@ const SignInForm = () => {
         alert('Kontot existerar redan. Vänligen logga in eller återställ ditt lösenord om du har glömt det.')
         // ..
       });
-
     }
   }
 
@@ -91,29 +87,26 @@ const SignInForm = () => {
 
       <div className='hr'></div>
 
-      <form className="post-job-form" onSubmit={handleSubmit(onSubmit)}>
-        {signIn ? <h1>Logga in</h1> : <h1>Skapa konto</h1>}
-        <div>
-          <div>
-            {!signIn && <InputField property={'userName'} label='För- och efternamn' type="text" required={true} placeholder='Skriv ditt för- och efternamn' errors={errors} register={register}/>}
-
-            <InputField property={'email'} label='e-post' type="text" required={true} placeholder='Skriv in e-post' errors={errors} register={register}/>
-
-            <InputField property={'password'} label='lösenord' type="password" required={true} placeholder='Skriv in lösenord' errors={errors} register={register}/>
-          </div>
-
-          <div onClick={() => setSignIn((pre) => !pre)} className='create-account-container'>
-            { signIn ? <p>Skapa konto?</p> : <p>Logga in</p>}
-          </div>
-        </div>
-
-        <div style={{alignSelf: 'center'}}>
-          <button className='submit-btn'>
-            { signIn ? 'Logga in' : 'Skapa'}
-          </button>
-          </div>
-      </form>
-    
+        <FormProvider {...methods}>
+          <form className="post-job-form" onSubmit={methods.handleSubmit(onSubmit)}>
+            {signIn ? <h1>Logga in</h1> : <h1>Skapa konto</h1>}
+            <div>
+              <div>
+                {!signIn && <InputField property={'userName'} label='För- och efternamn' type="text" required={true} placeholder='Skriv ditt för- och efternamn' errors={methods.formState.errors}/>}
+                <InputField property={'email'} label='e-post' type="text" required={true} placeholder='Skriv in e-post' errors={methods.formState.errors}/>
+                <InputField property={'password'} label='lösenord' type="password" required={true} placeholder='Skriv in lösenord' errors={methods.formState.errors}/>
+              </div>
+              <div onClick={() => setSignIn((pre) => !pre)} className='create-account-container'>
+                { signIn ? <p>Skapa konto?</p> : <p>Logga in</p>}
+              </div>
+            </div>
+            <div style={{alignSelf: 'center'}}>
+              <button className='submit-btn'>
+                { signIn ? 'Logga in' : 'Skapa'}
+              </button>
+              </div>
+          </form>
+        </FormProvider>
     </>
   )
 }

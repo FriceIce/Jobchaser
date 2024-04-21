@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 // Firebase sign in
 import 'firebase/firestore';
 import 'firebase/auth'
@@ -9,11 +7,14 @@ import {
   signInWithPopup, 
   signInWithRedirect, 
   signInWithEmailAndPassword,
-  createUserWithEmailAndPassword, 
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
   onAuthStateChanged,
   updateProfile,
   signOut,
-  getAuth} from "firebase/auth";
+  getAuth,
+  onIdTokenChanged
+} from "firebase/auth";
 import { initializeApp } from 'firebase/app';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
@@ -22,6 +23,9 @@ import { getAnalytics } from "firebase/analytics";
 
 // firebase database
 import { getDatabase, ref, set, get, child, update, onValue } from 'firebase/database'; 
+
+// TS
+import { Card } from '../src/features/search/cardType';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDZTdRn4Auo-weSPUceWIFinY0rQsVNn3U",
@@ -36,15 +40,15 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const database = getDatabase()
-
+const database = getDatabase();
+getAnalytics(app);
 export default function firebaseSignIn(){
   // User - is null when signed out and an object when singed in
   const auth = getAuth(); 
+  auth.currentUser?.reload()
   const provider = new GoogleAuthProvider();
-
   const [user] = useAuthState(auth)
+
   return {
     auth, 
     user, 
@@ -54,6 +58,8 @@ export default function firebaseSignIn(){
     signInWithPopup,  
     signInWithEmailAndPassword, 
     createUserWithEmailAndPassword,
+    sendEmailVerification,
+    onIdTokenChanged,
     onAuthStateChanged,
     signOut
   }
@@ -72,9 +78,9 @@ export function registerUser(userId: string, email: string, fullname:string | nu
 }
 
 // Get data only once. This wont update with the application
-export function getDataFromDB(type, id){
+export function getDataFromDB(type: string, id: string){
   const dataRef = ref(database); 
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     get(child(dataRef, type + '/' + id))
     .then((snapshot) => {
       if (snapshot.exists()) {
@@ -92,18 +98,18 @@ export function getDataFromDB(type, id){
   })
 }
 
-export function savedJobsObserver(id){
-  return new Promise((resolve, reject) => {
+export function savedJobsObserver(id: string){
+  return new Promise((resolve) => {
     onValue(ref(database, 'SavedJobs/' + id), (snapshot) => {
       // console.log(snapshot.val());
-      resolve(snapshot.val());
+      resolve(snapshot.val())
     })
   })
 }
 
 // Reads specific property for set user and will update with the application. 
-function readSpecificProp(id, parentProp, chilProp){
-  const colorsRef = ref(database, parentProp+id+chilProp); 
+export function readSpecificProp(id: string, parentProp: string, childProp: string){
+  const colorsRef = ref(database, parentProp+id+childProp); 
   onValue(colorsRef, (snapShot) => {
     const data = snapShot.val(); 
     console.log(snapShot.exists())
@@ -112,7 +118,7 @@ function readSpecificProp(id, parentProp, chilProp){
 }
 
 // Använd variabel till propEn. 
-function updateUserData(parentProp, id){
+export function updateUserData(parentProp: string, id: string){
   update(ref(database, parentProp +'/'+ id), {
     email: 'Kevin.Muller@gmail.se',
     fullname: 'Kevin Muller',
@@ -120,7 +126,7 @@ function updateUserData(parentProp, id){
   })
 }
 
-export function updateSavedJobs(content, id){
+export function updateSavedJobs(content: Card[], id: string){
   update(ref(database, 'SavedJobs' +'/'+ id), {
     jobs: content,
   })

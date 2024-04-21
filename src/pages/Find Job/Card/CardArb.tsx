@@ -4,13 +4,11 @@ import card from './modules/card'
 
 const CardArb = ({jobs}: {jobs: Card[]}) => {  
   return (
-
     <div className="card-container">
       <ul className='card-layout'>
         {jobs.map(cardObj => card(cardObj))}
       </ul>
     </div>
- 
   )
 }
 

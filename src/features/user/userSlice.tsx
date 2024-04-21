@@ -4,7 +4,7 @@ import { Card } from "../search/cardType";
 export type User = {
   userId: string; 
   email: string;
-  fullname?: string;
+  fullname: string;
   password?: string;
   profileImg?: string; 
 }
@@ -33,7 +33,7 @@ const userSlice = createSlice({
   name: 'user', 
   initialState,
   reducers: {
-    userState: (state, action: PayloadAction<User>) => {
+    userState: (state, action: PayloadAction<User | false | null>) => {
       state.isOnline = action.payload;
       state.isFetchingUserData = false;
     }, 

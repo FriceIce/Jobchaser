@@ -1,10 +1,11 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Card } from "./cardType";
+import { ErrorPayload } from "vite/types/hmrPayload.js";
 
 type State = {
   inputValue: string; 
   submitValue: string;
-  error: string | unknown;
+  error: string;
   jobs: Card[];
   isLoading: boolean;
   isActive: boolean; 
@@ -20,10 +21,11 @@ const initialState: State = {
 } 
 
 export const fetchingJobData = createAsyncThunk(
-  'search/fetchingJobData', async (submitValue: string) => {
-  const response = await fetch('https://jobsearch.api.jobtechdev.se/search?q=' + submitValue); 
-  const resJson = await response.json(); 
-  const data: Promise<Card[]> = resJson.hits; 
+  'search/fetchingJobData', 
+  async (submitValue: string) => {
+    const response = await fetch('https://jobsearch.api.jobtechdev.se/search?q=' + submitValue); 
+    const resJson = await response.json(); 
+    const data: Promise<Card[]> = resJson.hits; 
   return data;
 })
 
@@ -40,7 +42,7 @@ export const searchSlice = createSlice({
       state.inputValue = action.payload;
     },
 
-    error: (state, action: PayloadAction<string| unknown>) => {
+    error: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
     },
 
@@ -55,7 +57,7 @@ export const searchSlice = createSlice({
     builder.addCase(fetchingJobData.pending, (state) => {
       state.isLoading = true; 
       state.isActive = false;
-    }).addCase(fetchingJobData.fulfilled, (state, action) => {
+    }).addCase(fetchingJobData.fulfilled, (state, action: PayloadAction<Card[], string>) => {
       /* do something */
       const data = action.payload;
       // console.log(data)
@@ -71,9 +73,10 @@ export const searchSlice = createSlice({
       state.isActive = true; 
       state.isLoading = false; 
     })
-    .addCase(fetchingJobData.rejected, (state, action) => {  
+    .addCase(fetchingJobData.rejected, (state, action: PayloadAction<unknown>) => {  
       /* do something */
-      state.error = action.payload;
+      const errorAction = action.payload as ErrorPayload;  
+      state.error = errorAction.err.message;
       state.isLoading = false; 
     })
   }

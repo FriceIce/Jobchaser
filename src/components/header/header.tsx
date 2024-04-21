@@ -1,4 +1,3 @@
-// @ts-nocheck
 import './css/header.css';
 import './css/menu.css'
 
@@ -120,7 +119,7 @@ function Header(){
               if(target.tagName === 'INPUT') return 
               if(menuClass) return dispatch(TOGGLE_MENU());
             }} 
-            className={`link-options ${menuClass}`} style={{transition: styleTransition, background: isMobileScreen && background }}>
+            className={`link-options ${menuClass}`} style={{transition: styleTransition, background: isMobileScreen ? background : undefined }}>
 
             <ToggleDarkMode 
               color={color} 
