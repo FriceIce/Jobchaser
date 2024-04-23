@@ -25,8 +25,8 @@ export const fetchingJobData = createAsyncThunk(
   async (submitValue: string) => {
     const response = await fetch('https://jobsearch.api.jobtechdev.se/search?q=' + submitValue); 
     const resJson = await response.json(); 
-    const data: Promise<Card[]> = resJson.hits; 
-  return data;
+    const data: Card[] = resJson.hits; 
+    return data;
 })
 
 export const searchSlice = createSlice({

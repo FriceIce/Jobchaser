@@ -1,7 +1,7 @@
 # Jobchaser
 Jobchaser is a school project designed to ease the job searching process by continuously providing the jobs you’re looking for. Whether you're searching for your first job or hundredth, this app is here to assist you. If you stumble on an interesting job ad and want to save it, there's a save button on the top right corner that allows you to do so. The job ad will be saved to your account. If you find an interesting job and click on the job title the app will direct you to platsbanken (arbetsförmedlingen) where you can start the applying process.
 
-# Fetures
+# Features
 - <b>Up to date job listings</b>: As a user you have access to jobs posted on arbetsförmedlingen. To filter through jobs you need to specify your search by writing a specific job title, keyword or city.  
 
 - <b>Bookmark job ads</b>: Save job ads. This feature makes it easy to revisit and apply to them later.
@@ -41,5 +41,3 @@ This project has been put on hold. I have chosen to still share the project beca
 
 # Usage
 As soon as Jobchaser is up and running you can start your job searching process. If you want to access the save functionality, you’ll need to create an account and sign in. Good luck! 
-
-# Resonemang (school assignment)

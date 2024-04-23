@@ -53,6 +53,7 @@ function Search(){
             <img src={searchIcon} alt="magnifying glass" />
           </button>
           <input
+            disabled={isLoading}
             className='search-input' 
             value={inputValue}
             onChange={(e) => dispatch(input(e.target.value))} type="text" 

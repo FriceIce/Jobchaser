@@ -1,6 +1,7 @@
 import { Card } from "../../../../features/search/cardType";
 import SavedJobAd from "../SaveJobAd/SaveJobAd";
 import reserveImg from '../assets/Jobchaser-log.svg'
+
 export default function card(cardObj: Card){
   const {
     id,

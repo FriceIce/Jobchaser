@@ -88,6 +88,12 @@
   }
 }
 
+@media(width < 729px){
+  .middle-container h2{
+    font-size: 1.6rem;
+  }
+}
+
 @media(width < 601px){
    .header-container{
     padding-inline: 10px;
@@ -118,15 +124,16 @@
   }
 
   .company-logo-container{
-    width: 45px;
-    height: 45px;
+    width: 65px;
+    height: 65px;
   }
-
+  
   .job-form-container{
     width: 100vw;
   } 
-
+  
 }
+
 
 @media(width < 520px){
   .hero-container{

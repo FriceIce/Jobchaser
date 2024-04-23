@@ -26,7 +26,6 @@ const backgroundSlice = createSlice({
       } 
       if(state.isDarkTheme === true){
         state.isDarkTheme = false;
-        console.log(state.isDarkTheme)
         return
       }  
     },

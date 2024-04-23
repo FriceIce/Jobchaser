@@ -4,11 +4,11 @@ import ReviewCard from './Review Card/ReviewCard'
 import { useEffect } from 'react';
 
 // Icons
-import amazonDarkThemeIcon from './assets/icon/amazon-white-color.svg'
-import amazonLightThemeIcon from './assets/icon/amazon-dark-color.svg'
-import googleIcon from './assets/icon/google.svg'
-import netflixIcon from './assets/icon/netflix-icon.svg'
-import androidIcon from './assets/icon/android-color.svg'
+import klarnaIcon from './assets/icon/klarna-logo.png'
+// import amazonLightThemeIcon from './assets/icon/amazon-dark-color.svg'
+import SEBIcon from './assets/icon/seb-logo.png'
+import ChasIcon from './assets/icon/chas-logo.png'
+import scaniaLogo from './assets/icon/scania-logo.png'
 
 // img
 import heroImg from './assets/home-page-hero-pic.avif'
@@ -39,16 +39,22 @@ function Home(){
     const companyLogos = Array.from(document.getElementsByClassName('company-logo-container')); 
     companyLogos.forEach((logo) => observer.observe(logo))
   }, [])
+
+  const boxShadow = (darkTheme: boolean) => {
+    return darkTheme ? '1px 3px 5px rgba(255, 255, 255, 0.25)': '1px 3px 5px rgba(0, 0, 0, 0.25)';
+  }
   return (
     <>
       <div className="home-layout">
         <div className="hero-container">
           <picture>
+            
             <source type='image/webp' />
               <img 
                 className='home-hero-img'
                 loading='lazy'
-                src={heroImg} alt="hero image of a women laughing" />
+                src={heroImg} alt="hero image of a women laughing" 
+              />
           </picture>
           <div className='opening-text-container'>
             <article className="opening-text">
@@ -72,12 +78,12 @@ function Home(){
           </div>
         </div>
         <div className="middle-container">
-          <h2 style={{color: color}}>Partnerskap med företag världen över</h2>
+          <h2 style={{color: color}}>Upptäck jobbmöjligheter från företag</h2>
           <div className="companies-logo-layout">
-            <div className="company-logo-container"><img loading='lazy' src={ !isDarkTheme ? amazonLightThemeIcon : amazonDarkThemeIcon} alt="Amazon logo" /></div>
-            <div className="company-logo-container"><img loading='lazy' src={googleIcon} alt="Google logo" /></div>
-            <div className="company-logo-container"><img loading='lazy' src={netflixIcon} alt="Netflix logo" /></div>
-            <div className="company-logo-container"><img loading='lazy' src={androidIcon} alt="Android logo" /></div>
+            <div className="company-logo-container" style={{boxShadow: boxShadow(isDarkTheme)}}><img loading='lazy' src={klarnaIcon} alt="Amazon logo" /></div>
+            <div className="company-logo-container" style={{boxShadow: boxShadow(isDarkTheme)}}><img loading='lazy' src={SEBIcon} alt="Google logo" /></div>
+            <div className="company-logo-container" style={{boxShadow: boxShadow(isDarkTheme)}}><img loading='lazy' src={ChasIcon} alt="Netflix logo" /></div>
+            <div className="company-logo-container" style={{boxShadow: boxShadow(isDarkTheme)}}><img loading='lazy' src={scaniaLogo} alt="Android logo" /></div>
           </div>
         </div>
         <ReviewCard />

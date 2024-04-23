@@ -37,7 +37,7 @@
   background: whitesmoke;
   border-radius: 40px;
   transition: background-image 500ms;
-  box-shadow: inset 4px 4px 5px rgba(0, 0, 0, 0.507);
+  box-shadow: inset 1px 1px 5px rgba(0, 0, 0, 0.507);
 }
 
 .slider::before{
@@ -50,7 +50,16 @@
   border-radius: 50%;
   height: 16px;
   width: 16px;
-  transition: all 150ms ease-in;
+  transition: all 200ms ease-in;
+}
+
+.slider img {
+  position: relative;
+  width: 17px;
+  translate: 41px 1px;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 200ms ease-in;
 }
 
 .switch input:checked + .slider{

@@ -1,6 +1,7 @@
 import style from '../css/toggle-button.module.css'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setIsDarkTheme } from '../../../features/background/backgroundSlice';
+import { RootState } from '../../../redux/store';
 
 type Prop = {
   sidemenu: null | string ,
@@ -9,6 +10,7 @@ type Prop = {
 }
 
 function ToggleDarkMode({sidemenu, color, textColorHeader}: Prop){
+  const isDarkTheme = useSelector((state: RootState) => state.background.isDarkTheme); 
   const dispatch = useDispatch(); 
   
   // toggle Dark theme
@@ -21,10 +23,11 @@ function ToggleDarkMode({sidemenu, color, textColorHeader}: Prop){
   return (
     <>
       <div className={style.toggleContainer}>
-        <p style={{color: sidemenu ? color : textColorHeader}}>Dark Mode</p>
+        <p style={{color: sidemenu ? color : textColorHeader}}></p>
         <label className={style.switch}>
           <input onClick={toggleBgTheme} type="checkbox" id='checkbox' />
-          <span className={style.slider} />
+          
+          <span className={style.slider}><img src="https://www.svgrepo.com/show/521865/sun.svg" style={{opacity: !isDarkTheme ? '1' : undefined}} alt="sun icon for light mode" /></span>
         </label>
       </div>
     </>

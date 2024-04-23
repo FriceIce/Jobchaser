@@ -41,7 +41,7 @@ const SignInForm = () => {
       .then((userCredential) => {
         // Signed up 
         const user = userCredential.user;
-        // console.log('Email is verified: ', user.emailVerified);
+        console.log('Email is verified: ', user.emailVerified);
       })
       .catch((error) => {
         const errorMessage: string = error.message;
