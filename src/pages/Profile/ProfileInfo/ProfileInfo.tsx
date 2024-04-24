@@ -34,7 +34,7 @@ function ProfileInfo(){
 
   const validateEmail = (user: User | null): void => {
     if(user && !user.emailVerified){
-      sendEmailVerification(user, {url: 'http://localhost:5173/Jobchaser/User-profile'})
+      sendEmailVerification(user, {url: 'https://FriceIce.github.io/Jobchaser/User-profile'})
       .then(() => console.log('Email verification sent!'));
       setModal(true);
     }

@@ -82,7 +82,7 @@ function App() {
 
   return (
     <>
-      <BrowserRouter basename='/Jobchaser'> 
+      <BrowserRouter> 
         <Header />
         <main className='job-form-container'>
           <Routes>
