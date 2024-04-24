@@ -2,7 +2,7 @@
   "name": "jobchaser-react",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://FriceIce.github.io/Jobchaser",
+  "homepage": "https://jobchasers.netlify.app",
   "type": "module",
   "scripts": {
     "dev": "vite",
