@@ -20,14 +20,9 @@ const initialState: State = {
   isActive: false,
 } 
 
-function holdUp(milliSeconds: number): Promise<void>{
-  return new Promise((resolve) => setTimeout(resolve, milliSeconds)); 
-}
-
 export const fetchingJobData = createAsyncThunk(
   'search/fetchingJobData', 
   async (submitValue: string) => {
-    await holdUp(500);
     const response = await fetch('https://jobsearch.api.jobtechdev.se/search?q=' + submitValue); 
     const resJson = await response.json(); 
     const data: Card[] = resJson.hits; 

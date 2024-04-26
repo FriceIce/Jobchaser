@@ -1,12 +1,14 @@
+import { PreloadContext } from '../../App';
 import './css/form.css'
 import './css/signIn.css'
-import signInImg from './office-sign-in.avif'
 import SignInForm from './SignInForm'
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 
-const SignInCont = () => {  
+const SignInCont = () => { 
+  const [,,signIn, writer] = useContext(PreloadContext)
+ 
   const dispatch = useDispatch(); 
   useEffect((): void => {
     dispatch({type: 'background/setTextColorHeader', payload: 'white'}); 
@@ -19,9 +21,9 @@ const SignInCont = () => {
           <source type='image/webp' />
             <img 
               className='signIn-hero-img'
-              src={signInImg} alt="image of people in the office" />
+              src={signIn.src} alt="image of people in the office" />
         </picture>
-        <div className='side-img-container'></div>
+        <div className='side-img-container'><img src={writer.src}/></div>
         <div className="sign-in-cont">
           <SignInForm />
         </div>

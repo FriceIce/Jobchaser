@@ -5,10 +5,25 @@
   font-family:'Sen', 'Roboto', 'arial', sans-serif;
 }
 
+html{
+  overflow-x: hidden;
+}
+
+html::-webkit-scrollbar{
+  width: 15px;
+}
+
+html::-webkit-scrollbar-track{
+  background: rgba(245, 245, 245, 0);
+}
+
+html::-webkit-scrollbar-thumb{
+  background: rgba(37, 37, 38, 0.801);
+}
+
 body{
   background-image: none;
   position: relative;
-  overflow-x: hidden;
   height: auto;
   min-height: 100vh;
   width: 100vw;

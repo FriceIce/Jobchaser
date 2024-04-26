@@ -1,6 +1,6 @@
-import { Card } from "../../../../features/search/cardType";
-import SavedJobAd from "../SaveJobAd/SaveJobAd";
-import reserveImg from '../assets/Jobchaser-log.svg'
+import { Card } from "../features/search/cardType";
+import SavedJobAd from "../pages/Find Job/Card/SaveJobAd/SaveJobAd";
+import reserveImg from '../../src/pages/Find Job/Card/assets/Jobchaser-log.svg'
 
 export default function card(cardObj: Card){
   const {
@@ -25,7 +25,7 @@ export default function card(cardObj: Card){
       </div>
       <article className="information-container">
         <div className="card-title-container">
-          <a style={{color: 'black'}} href={webpage_url} target="_blank">
+          <a style={{color: 'black'}} href={webpage_url}>
             <h2>{headline}</h2>
           </a>
         </div>
@@ -44,7 +44,7 @@ export default function card(cardObj: Card){
         </div>
       </article>
       <div className="footer">
-        <a href={webpage_url} target="_blank">
+        <a href={webpage_url}>
           <p style={{color:'#3E619F'}}>Besök webbplatsen</p>
         </a>
 

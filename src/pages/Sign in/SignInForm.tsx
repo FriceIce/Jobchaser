@@ -1,5 +1,5 @@
 import { SubmitHandler, useForm, FormProvider } from 'react-hook-form'; 
-import InputField from './InputTypes/InputField';
+import InputField from './InputField/InputField';
 import { useState } from 'react';
 import firebaseSignIn, { registerUser } from '../../../database/firebase'; 
 import { CreateUser } from '../../features/user/userSlice';

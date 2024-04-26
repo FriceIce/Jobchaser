@@ -1,7 +1,7 @@
 import './Home.css'
 import { useNavigate } from 'react-router-dom'
 import ReviewCard from './Review Card/ReviewCard'
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 
 // Icons
 import klarnaIcon from './assets/icon/klarna-logo.png'
@@ -10,16 +10,15 @@ import SEBIcon from './assets/icon/seb-logo.png'
 import ChasIcon from './assets/icon/chas-logo.png'
 import scaniaLogo from './assets/icon/scania-logo.png'
 
-// img
-import heroImg from './assets/home-page-hero-pic.avif'
-
 // redux
 import { useDispatch, useSelector } from 'react-redux';
 import { setTextColorHeader } from '../../features/background/backgroundSlice';
 import { RootState } from '../../redux/store';
+import { PreloadContext } from '../../App';
 
 
 function Home(){
+  const [home] = useContext(PreloadContext); 
   const {color, isDarkTheme} = useSelector((state: RootState) => state.background); 
   const {isOnline} = useSelector((state: RootState) => state.user); 
   const dispatch = useDispatch(); 
@@ -53,7 +52,7 @@ function Home(){
               <img 
                 className='home-hero-img'
                 loading='lazy'
-                src={heroImg} alt="hero image of a women laughing" 
+                src={home.src} alt="hero image of a women laughing" 
               />
           </picture>
           <div className='opening-text-container'>

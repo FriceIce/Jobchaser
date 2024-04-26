@@ -33,7 +33,8 @@
   transition: 
     rotate var(--animation-timing), 
     translate var(--animation-timing), 
-    opacity 150ms;
+    opacity 150ms,
+    background-color 250ms
 }
 
 .menu input{
@@ -52,8 +53,12 @@
   width: var(--x-width);
   translate: 0 calc(var(--bar-height)) / 1.5;
 }
+
 .menu input:checked{
   opacity: 0;
 }
 
-
+/* Removes the scrollbar when the side menu is open. */
+html:has(.menu > input:checked){
+  overflow-y: hidden;
+}

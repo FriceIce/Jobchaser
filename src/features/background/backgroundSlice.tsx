@@ -18,6 +18,7 @@ const backgroundSlice = createSlice({
   name: 'background',
   initialState, 
   reducers: {
+
     setIsDarkTheme: (state) => {
 
       if(state.isDarkTheme === false){

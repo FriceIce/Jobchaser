@@ -19,7 +19,7 @@ import { RootState } from '../../../redux/store'
 const ReviewCard = () => {
   const {isDarkTheme, color} = useSelector((state: RootState) => state.background);
 
-  // Tillfällig lösning
+  // List of profile pics
   const profile = [femalePPic, malePPic, femalePPic2, malePPIC2];
   const stars = [fiveStars, almostFiveStars, fourStars, fourStars];
 

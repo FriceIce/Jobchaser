@@ -1,4 +1,4 @@
-import card from "../../Find Job/Card/modules/card";
+import card from "../../../modules/card";
 import style from './Favorite.module.css'; 
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";

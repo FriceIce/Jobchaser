@@ -1,5 +1,4 @@
 import { FieldErrorsImpl, useFormContext} from "react-hook-form";
-// import { CreateUser } from "../../../features/user/userSlice";
 
 type formInfo = {
   type: string;

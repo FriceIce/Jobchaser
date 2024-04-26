@@ -68,7 +68,6 @@
 
   .show-menu{
     translate: 0% 0;
-    /* overflow: auto; */
   }
 
   .menu{
@@ -81,10 +80,6 @@
 @media(width < 761px){
   .side-img-container{
     display: none;
-  }
-
-  .reviews-card-layout{
-    place-items: center;
   }
 }
 
@@ -134,14 +129,13 @@
   
 }
 
-
 @media(width < 520px){
   .hero-container{
     padding-inline: 0px;
   }
 
   .opening-text h1{
-    font-size: 2rem;
+    font-size: 2.5rem;
   }
 
   .opening-text p{
@@ -150,5 +144,11 @@
 
   .available-jobs-btn{
     font-size: 0.95rem;
+  }
+}
+
+@media(height < 710px){
+  .link-options{
+    gap: 3rem;
   }
 }

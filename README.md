@@ -41,3 +41,6 @@ This project has been put on hold. I have chosen to still share the project beca
 
 # Usage
 As soon as Jobchaser is up and running you can start your job searching process. If you want to access the save functionality, you’ll need to create an account and sign in. Good luck! 
+
+# Resonemang (school assignment)
+Uppgiften ligger i PDF mappen. 

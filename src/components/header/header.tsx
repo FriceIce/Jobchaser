@@ -18,7 +18,7 @@ import ToggleDarkMode from './headerOption/toggleDarkmode'
 
 // redux
 import { useDispatch, useSelector } from 'react-redux';
-import { IS_MOBILE, STYLE_TRANSITION, MARGIN_BOTTOM, TOGGLE_MENU, IS_DESKTOP } from '../../features/sidemenu/sidemenuSlicer';
+import { IS_MOBILE, STYLE_TRANSITION, TOGGLE_MENU, IS_DESKTOP } from '../../features/sidemenu/sidemenuSlicer';
 import { useEffect } from 'react';
 import { RootState } from '../../redux/store';
 
@@ -27,7 +27,6 @@ function Header(){
   const isOnline = useSelector ((state: RootState) => state.user.isOnline); 
   const {textColorHeader, color, isDarkTheme, background} = useSelector((state: RootState) => state.background); 
   const {
-    bodyStyle,
     isMobileScreen, 
     menuClass, 
     checked, 
@@ -40,7 +39,6 @@ function Header(){
 
   // varibles for addEventListener for screen size changes. 
   const mediaWith = window.matchMedia('(width < 1249px)'); 
-  const mediaHeight = window.matchMedia('(height < 801px)'); 
   const bodyElement = document.body; 
   
   // Without this line the background color is acting weird. 
@@ -57,10 +55,6 @@ function Header(){
       return 
     } 
   }, [isDarkTheme])
-
-  useEffect(() => {
-    bodyElement.style.overflow = bodyStyle.overflow; 
-  },[bodyStyle.overflow])
   
   // addEventlisteners for screen size changes. 
   useEffect(() => {
@@ -69,7 +63,6 @@ function Header(){
     mediaWith.addEventListener('change', (e: MediaQueryListEvent) => {
       if(!e.matches) {
         // console.log('desktop')
-        bodyElement.style.overflowY = bodyStyle.overflow;
         dispatch(IS_DESKTOP());
         return
       }
@@ -77,13 +70,7 @@ function Header(){
       dispatch(IS_MOBILE(true));
       dispatch(STYLE_TRANSITION('none'));
     })
-    
-    mediaHeight.addEventListener('change', (e: MediaQueryListEvent) => {
-      if(e.matches) dispatch(MARGIN_BOTTOM('-120px'));
-      if(!e.matches) dispatch(MARGIN_BOTTOM('0px'));
-      return 
-    })
-    
+
     return
   }, [])
 
@@ -172,7 +159,6 @@ function Header(){
               isDarkTheme={isDarkTheme} 
               />}
           </nav>
-     
         </div>
       </header>
     </>

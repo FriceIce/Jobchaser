@@ -2,8 +2,11 @@
 import { useNavigate } from "react-router-dom"
 import heroImg from '../Card/assets/start-page-background.jpg'
 import { useSelector } from "react-redux";
+import { useContext } from "react";
+import { PreloadContext } from "../../../App";
 
 const OpeningContent = () => {
+  const [, job] = useContext(PreloadContext); 
   const {isOnline} = useSelector(state => state.user);
   const navigate = useNavigate(); 
 
@@ -14,7 +17,7 @@ const OpeningContent = () => {
             <img 
               className='jobb-hero-img'
               loading='lazy'
-              src={heroImg} alt="hero image of a women laughing" />
+              src={job.src} alt="hero image of a women laughing" />
       </picture>
       <div>
         <article className='search-opening-text'>

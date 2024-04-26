@@ -1,23 +1,19 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 type State = {
-  bodyStyle: {overflow: string};
   isMobileScreen: boolean;
   menuClass: null | string;
   checked: boolean;
   timeoutId: ReturnType<typeof setTimeout>;
   styleTransition: string;
-  marginBottom: string;
 }
 
 const initialState: State = {
-  bodyStyle: {overflow: 'auto'},
   isMobileScreen: false, 
   menuClass: null,
   checked: false,
   timeoutId: setTimeout(() => {}, 0), 
   styleTransition: 'none',
-  marginBottom: 'none'
 }
 
 export const sidemenuSlice = createSlice({
@@ -35,14 +31,12 @@ export const sidemenuSlice = createSlice({
         } else {
           state.timeoutId = setTimeout(() => 'none', 350)
         }
-        state.bodyStyle.overflow = 'auto'; 
         state.checked = false;
         state.menuClass = null;
         return 
       } 
       
       if(menuClass === null){
-        state.bodyStyle.overflow = 'hidden';
         state.styleTransition = 'translate 350ms'; 
         state.checked = true; 
         state.menuClass = 'show-menu';
@@ -64,10 +58,6 @@ export const sidemenuSlice = createSlice({
     STYLE_TRANSITION: (state, action: PayloadAction<string>) => {
       state.styleTransition = action.payload; 
     },
-
-    MARGIN_BOTTOM: (state, action: PayloadAction<string>) => {
-      state.marginBottom = action.payload; 
-    },
   }
 }); 
 
@@ -75,8 +65,7 @@ export const {
   IS_DESKTOP,
   TOGGLE_MENU,
   IS_MOBILE,  
-  STYLE_TRANSITION, 
-  MARGIN_BOTTOM 
+  STYLE_TRANSITION,
 } = sidemenuSlice.actions; 
 
 export default sidemenuSlice.reducer; 

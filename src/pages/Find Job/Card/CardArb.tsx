@@ -1,6 +1,6 @@
 import { Card } from '../../../features/search/cardType'
 import './cardArb.css'
-import card from './modules/card'
+import card from '../../../modules/card'
 
 const CardArb = ({jobs}: {jobs: Card[]}) => {  
   return (

@@ -11,8 +11,8 @@ import './App.css';
 import './media-query.css'
 
 //React 
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { createContext, useEffect, useState } from 'react';
 
 // firebase
 import firebaseSignIn, { getDataFromDB, registerUser } from '../database/firebase';
@@ -26,7 +26,18 @@ import { RootState } from './redux/store';
 // TS
 import { Card } from './features/search/cardType';
 
+// import images
+import home from '../Images/Preload_Images/home-page-hero-pic.avif'
+import job from '../Images/Preload_Images/start-page-background.jpg'
+import signIn from '../Images/Preload_Images/office-sign-in.avif'
+import writer from '../Images/Preload_Images/skrivmaskin.avif'
+import cacheImages from './modules/imagePreloader';
+
+// context
+export const PreloadContext = createContext<HTMLImageElement[]>([]);
+
 function App() {
+  const [preloadImg, setPreloadImg] = useState<HTMLImageElement[]>([]);
   const {isOnline} = useSelector((state: RootState) => state.user); 
   const dispatch = useDispatch(); 
 
@@ -53,12 +64,10 @@ function App() {
         return
       } 
 
-      
       dispatch(jobListing([]));
       dispatch(userState(false)); 
     })
     
-     
     return () => subscriber();
   }, [auth])
   
@@ -76,23 +85,33 @@ function App() {
 
   const componentForUserState = (isOnline: null | false | User) => {
     if(isOnline === null) return <LoadingScreen type='loaderProgress' />
-    if(isOnline === false) return <Navigate to="/Jobchaser/Sign-in" />
+    if(isOnline === false) return <SignInCont />
     if(isOnline) return <Profile />
   }
 
+  const preloadImages = [home, job, signIn, writer];
+  useEffect(() => {
+    cacheImages(preloadImages, setPreloadImg);
+  }, []);
+
+  
+
+
   return (
     <>
-      <BrowserRouter> 
-        <Header />
-        <main className='job-form-container'>
-          <Routes>
-            <Route path='/Jobchaser/' element={isOnline === null ? <LoadingScreen type='loaderProgress' /> : <Home />}/>
-            <Route path='/Jobchaser/Find-job' element={isOnline === null ? <LoadingScreen type='loaderProgress' /> : <Search />} />
-            <Route path='/Jobchaser/Sign-in' element={ !isOnline ? <SignInCont /> : <Navigate to="/Jobchaser/User-profile" />}/>
-            <Route path='/Jobchaser/User-profile' element={componentForUserState(isOnline)}/>
-          </Routes>
-        </main>
-      </BrowserRouter>
+      <PreloadContext.Provider value={preloadImg}>
+        <BrowserRouter>
+          <Header />
+          <main className='job-form-container'>
+            <Routes>
+              <Route path='/Jobchaser/' element={isOnline === null ? <LoadingScreen type='loaderProgress' /> : <Home />}/>
+              <Route path='/Jobchaser/Find-job' element={isOnline === null ? <LoadingScreen type='loaderProgress' /> : <Search />} />
+              <Route path='/Jobchaser/Sign-in' element={componentForUserState(isOnline)}/>
+              <Route path='/Jobchaser/User-profile' element={componentForUserState(isOnline)}/>
+            </Routes>
+          </main>
+        </BrowserRouter>
+      </PreloadContext.Provider>
     </>
   )
 }
