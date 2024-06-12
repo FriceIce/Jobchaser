@@ -31,7 +31,7 @@ import home from '../Images/Preload_Images/home-page-hero-pic.avif'
 import job from '../Images/Preload_Images/start-page-background.jpg'
 import signIn from '../Images/Preload_Images/office-sign-in.avif'
 import writer from '../Images/Preload_Images/skrivmaskin.avif'
-import cacheImages from './modules/imagePreloader';
+import cacheImages, { isTheImageUploadedYet } from './modules/imagePreloader';
 
 // context
 export const PreloadContext = createContext<HTMLImageElement[]>([]);
@@ -83,8 +83,8 @@ function App() {
     return
   },[isOnline])
 
-  const componentForUserState = (isOnline: null | false | User) => {
-    if(isOnline === null) return <LoadingScreen type='loaderProgress' />
+  const componentForUserState = (isOnline: null | false | User, preloadImg: HTMLImageElement[]) => {
+    if(isOnline === null || preloadImg.length < 0 ) return <LoadingScreen type='loaderProgress' />
     if(isOnline === false) return <SignInCont />
     if(isOnline) return <Profile />
   }
@@ -94,9 +94,6 @@ function App() {
     cacheImages(preloadImages, setPreloadImg);
   }, []);
 
-  
-
-
   return (
     <>
       <PreloadContext.Provider value={preloadImg}>
@@ -104,10 +101,10 @@ function App() {
           <Header />
           <main className='job-form-container'>
             <Routes>
-              <Route path='/Jobchaser/' element={isOnline === null ? <LoadingScreen type='loaderProgress' /> : <Home />}/>
-              <Route path='/Jobchaser/Find-job' element={isOnline === null ? <LoadingScreen type='loaderProgress' /> : <Search />} />
-              <Route path='/Jobchaser/Sign-in' element={componentForUserState(isOnline)}/>
-              <Route path='/Jobchaser/User-profile' element={componentForUserState(isOnline)}/>
+              <Route path='/Jobchaser/' element={isOnline === null || isTheImageUploadedYet(preloadImg, preloadImages, setPreloadImg) ? <LoadingScreen type='loaderProgress' /> : <Home />}/>
+              <Route path='/Jobchaser/Find-job' element={isOnline === null || isTheImageUploadedYet(preloadImg, preloadImages, setPreloadImg)  ? <LoadingScreen type='loaderProgress' /> : <Search />} />
+              <Route path='/Jobchaser/Sign-in' element={componentForUserState(isOnline, preloadImg)}/>
+              <Route path='/Jobchaser/User-profile' element={componentForUserState(isOnline, preloadImg)}/>
             </Routes>
           </main>
         </BrowserRouter>

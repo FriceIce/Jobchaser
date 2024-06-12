@@ -1,11 +1,11 @@
 import './Home.css'
 import { useNavigate } from 'react-router-dom'
 import ReviewCard from './Review Card/ReviewCard'
+import ImageHandler from '../../modules/ImageHandler';
 import { useContext, useEffect } from 'react';
 
 // Icons
 import klarnaIcon from './assets/icon/klarna-logo.png'
-// import amazonLightThemeIcon from './assets/icon/amazon-dark-color.svg'
 import SEBIcon from './assets/icon/seb-logo.png'
 import ChasIcon from './assets/icon/chas-logo.png'
 import scaniaLogo from './assets/icon/scania-logo.png'
@@ -46,15 +46,12 @@ function Home(){
     <>
       <div className="home-layout">
         <div className="hero-container">
-          <picture>
-            
-            <source type='image/webp' />
-              <img 
-                className='home-hero-img'
-                loading='lazy'
-                src={home.src} alt="hero image of a women laughing" 
-              />
-          </picture>
+          <ImageHandler 
+            src={home.src} 
+            className={'home-hero-img'} 
+            role={'presentaion'} 
+            alt='Picture of a woman smiling' 
+          />
           <div className='opening-text-container'>
             <article className="opening-text">
             <h1>Vi hjälper dig med ditt <span style={{color: '#f09711'}}>jobbsökande!</span></h1>

@@ -1,4 +1,5 @@
 import { PreloadContext } from '../../App';
+import ImageHandler from '../../modules/ImageHandler';
 import './css/form.css'
 import './css/signIn.css'
 import SignInForm from './SignInForm'
@@ -17,12 +18,12 @@ const SignInCont = () => {
   return (
     <>  
       <div className="sign-in-layout">
-        <picture>
-          <source type='image/webp' />
-            <img 
-              className='signIn-hero-img'
-              src={signIn.src} alt="image of people in the office" />
-        </picture>
+      <ImageHandler
+        src={signIn.src} 
+        className={'signIn-hero-img'} 
+        role={'presentation'} 
+        alt='A couple of people having a meeting' 
+      />
         <div className='side-img-container'><img src={writer.src}/></div>
         <div className="sign-in-cont">
           <SignInForm />

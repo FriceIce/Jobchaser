@@ -141,7 +141,10 @@ function Header(){
             </Link>}
 
             {isOnline ? 
-            <div onClick={() => auth.signOut()} className="sign-out-cont">
+            <div onClick={() => {
+              auth.signOut(); 
+              dispatch({type: 'user/userState', action: false}); 
+            }} className="sign-out-cont">
               <button className='sign-out-btn' style={{color: isMobileScreen ? color : textColorHeader}}>
                 Logga ut
               </button>

@@ -61,7 +61,7 @@ function Search(){
             aria-label='Search bar for job ads'
           />
         </div>
-        <div className="tag-container">
+        {/* <div className="tag-container">
           <div 
             onClick={tagContent} 
             className="tag">Stockholm</div>
@@ -71,7 +71,7 @@ function Search(){
           <div 
             onClick={tagContent} 
             className="tag">Göteborg</div>
-        </div>
+        </div> */}
       </form>
       {isLoading && <LoadingScreen type='loadingCircle' />}
       {isActive && jobs.length !== 0 && <CardArb jobs={jobs}/>}

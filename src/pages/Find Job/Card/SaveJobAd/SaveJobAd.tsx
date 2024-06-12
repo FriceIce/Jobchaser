@@ -51,12 +51,16 @@ function SavedJobAd({style, jobObj}: {style: string; jobObj: Card}){
       }) as Card[];
 
       dispatch(jobListing(filteredList.filter(job => job !== null)));
-      if( isOnline) updateSavedJobs(filteredList, isOnline.userId)
+      if(isOnline) updateSavedJobs(filteredList, isOnline.userId)
     }
   }
 
   useEffect(() => {
     if(isOnline) updateSavedJobs(savedJobAds, isOnline.userId);
+    if(isOnline === false){
+      setSaveAdBtn(false);
+      setAllReadySaved(false);
+    } 
     return
   }, [savedJobAds])
 

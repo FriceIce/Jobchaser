@@ -1,50 +1,49 @@
-@media(width > 1700px){
-  .jobb-hero-img{
+@media (width > 1700px) {
+  .jobb-hero-img {
     height: 900px;
   }
 
-  .search-opening-text-container{
+  .search-opening-text-container {
     min-height: 750px;
     align-items: center;
   }
 
-  .job-form{
-    top: 540px;
+  .job-form {
+    top: 640px;
   }
 
-  .home-layout{
+  .home-layout {
     box-shadow: none;
   }
 }
 
-@media(width < 1249px){
-
+@media (width < 1249px) {
   /*-----side menu------  */
-  .sign-out-img-container{
+  .sign-out-img-container {
     display: inline-block;
   }
 
-  .sign-out-btn{
+  .sign-out-btn {
     padding-left: 0px;
   }
 
-  .link-options a{
+  .link-options a {
     font-size: 1.5rem;
     width: 80%;
     border-bottom: 2px solid;
     text-decoration: none;
   }
-  
-  .link-options{
+
+  .link-options {
     position: fixed;
     top: 0;
     right: 0;
-  
+
     flex-direction: column-reverse;
     justify-content: center;
     align-items: center;
     gap: 5rem;
-    
+
     min-height: 850px;
     height: 100vh;
     width: 100vw;
@@ -53,11 +52,11 @@
     z-index: 10000;
   }
 
-  .chevron{
+  .chevron {
     position: absolute;
     right: 0;
-    
-    content: '';
+
+    content: "";
     object-fit: contain;
     object-position: center;
     height: 20px;
@@ -65,90 +64,94 @@
     border-radius: 50%;
   }
 
-
-  .show-menu{
+  .show-menu {
     translate: 0% 0;
   }
 
-  .menu{
+  .menu {
     display: flex;
     z-index: 20000;
   }
   /* ------------------- */
 }
 
-@media(width < 761px){
-  .side-img-container{
+@media (width < 761px) {
+  .side-img-container {
     display: none;
   }
 }
 
-@media(width < 729px){
-  .middle-container h2{
+@media (width < 729px) {
+  .middle-container h2 {
     font-size: 1.6rem;
   }
 }
 
-@media(width < 601px){
-   .header-container{
+@media (width < 601px) {
+  .available-jobs-btn {
+    font-size: 12px;
+  }
+
+  .header-container {
     padding-inline: 10px;
   }
 
-  .title-container{
+  .title-container {
     scale: 0.8;
   }
 
-  .home-layout{
+  .home-layout {
     width: 100vw;
   }
 
-  .opening-text h1, .search-opening-text h1{
+  .opening-text h1,
+  .search-opening-text h1 {
     font-size: 2.5rem;
   }
 
-  .opening-text p, .search-opening-text p{
+  .opening-text p,
+  .search-opening-text p {
     font-size: 1rem;
   }
 
-   .home-upper-container{
+  .home-upper-container {
     padding-inline: 0px;
-  } 
+  }
 
-  .middle-container h2{
+  .middle-container h2 {
     font-size: 1.2rem;
   }
 
-  .company-logo-container{
+  .company-logo-container {
     width: 65px;
     height: 65px;
   }
-  
-  .job-form-container{
+
+  .job-form-container {
     width: 100vw;
-  } 
-  
+  }
+
+  .home-hero-image {
+    height: 450px;
+  }
 }
 
-@media(width < 520px){
-  .hero-container{
+@media (width < 520px) {
+  .hero-container {
     padding-inline: 0px;
   }
 
-  .opening-text h1{
+  .opening-text h1 {
     font-size: 2.5rem;
   }
 
-  .opening-text p{
-    font-size: 1.1rem;
-  }
-
-  .available-jobs-btn{
-    font-size: 0.95rem;
+  .opening-text p {
+    font-size: 1rem;
   }
 }
 
-@media(height < 710px){
-  .link-options{
+@media (height < 710px) {
+  .link-options {
     gap: 3rem;
   }
 }
