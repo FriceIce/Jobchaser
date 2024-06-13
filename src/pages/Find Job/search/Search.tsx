@@ -28,10 +28,10 @@ function Search(){
     dispatch(input('')); 
   }, [])
 
-  function tagContent(element: React.MouseEvent<HTMLDivElement, MouseEvent>){
-    const target = element.target as HTMLDivElement
-    if(target.textContent) dispatch(tag(target.textContent))
-  }
+  // function tagContent(element: React.MouseEvent<HTMLDivElement, MouseEvent>){
+  //   const target = element.target as HTMLDivElement
+  //   if(target.textContent) dispatch(tag(target.textContent))
+  // }
 
   return (
     <>
