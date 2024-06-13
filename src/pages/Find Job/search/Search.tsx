@@ -6,7 +6,7 @@ import CardArb from '../Card/CardArb';
 
 // redux 
 import { useDispatch, useSelector } from 'react-redux';
-import {input, submit, tag, fetchingJobData } from '../../../features/search/searchSlice';
+import {input, submit, fetchingJobData } from '../../../features/search/searchSlice';
 import { setTextColorHeader } from '../../../features/background/backgroundSlice';
 import { AppDispatch, RootState } from '../../../redux/store';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
